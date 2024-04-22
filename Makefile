@@ -17,6 +17,7 @@ SRC     =	src/main.c	\
 		src/display.c	\
 		src/err_handling.c	\
 		src/time.c	\
+		src/moves/player.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 

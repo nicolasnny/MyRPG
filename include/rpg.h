@@ -22,6 +22,9 @@
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
+    #define PLAYER 'P'
+    #define OBSTACLE '#'
+    #define EMPTY ' '
 
 //-->main
 int my_rpg(int, char **);
@@ -45,6 +48,7 @@ void display_sprites(parameters_t *param);
 //----> error handling
 int err_handling(int ac, char **av);
 
-//----> optimisation
+//----> moves
+void move_player(parameters_t *param);
 
 #endif
