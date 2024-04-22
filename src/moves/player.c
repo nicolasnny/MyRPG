@@ -50,7 +50,7 @@ static int get_player_pos(char **map, int *line, unsigned int *col)
     return ERROR;
 }
 
-static void move_player(char *current, char *target)
+static void swap_player(char *current, char *target)
 {
     char tmp = *current;
 
@@ -73,21 +73,21 @@ static void move_in_array(char **map, int move)
         return;
     }
     if (move == sfKeyUp && line > 0 && map[line - 1][col] == EMPTY) {
-        move_player(&map[line][col], &map[line - 1][col]);
+        swap_player(&map[line][col], &map[line - 1][col]);
         return;
     }
     if (move == sfKeyRight && map[line][col + 1] != '\0' &&
         map[line][col + 1] == EMPTY) {
-        move_player(&map[line][col], &map[line][col + 1]);
+        swap_player(&map[line][col], &map[line][col + 1]);
         return;
     }
     if (move == sfKeyDown && map[line + 1] != NULL &&
         map[line + 1][col] == EMPTY) {
-        move_player(&map[line][col], &map[line + 1][col]);
+        swap_player(&map[line][col], &map[line + 1][col]);
         return;
     }
     if (move == sfKeyLeft && col > 0 && map[line][col - 1] == EMPTY) {
-        move_player(&map[line][col], &map[line][col - 1]);
+        swap_player(&map[line][col], &map[line][col - 1]);
         return;
     }
     move_not_possible();
@@ -104,7 +104,7 @@ void move_player(parameters_t *param)
     if (move != NO_ARROW_KEY_PRESSED) {
         printf("trying to move");
         move_in_array(param->map_array, move);
+        for (int i = 0; param->map_array[i]; i++)
+            printf("%s\n", param->map_array[i]);
     }
-    for (int i = 0; param->map_array[i]; i++)
-        param->map_array[i];
 }
