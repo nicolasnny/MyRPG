@@ -16,6 +16,7 @@
     #define WIN_HEIGHT 1080
     #define WIN_PIX_NB 32
     #define FPS 64
+    #define END_OF_MAP_LINE '|'
 
 //-->main
 int my_rpg(int, char **);
