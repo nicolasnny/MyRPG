@@ -9,7 +9,7 @@
 #include "struct.h"
 #include <SFML/Graphics.h>
 
-int get_p_move_event(parameters_t *param)
+int get_p_move_event(void)
 {
     if (sfKeyboard_isKeyPressed(sfKeyUp)) {
         return sfKeyUp;

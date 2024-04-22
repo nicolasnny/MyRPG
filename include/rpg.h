@@ -19,6 +19,10 @@
     #define END_OF_MAP_LINE '|'
     #define NO_ARROW_KEY_PRESSED 0
 
+// map
+    #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
+    #define MAP_ARRAY_PATH "tests/maps/map1.txt"
+
 //-->main
 int my_rpg(int, char **);
 
@@ -27,6 +31,7 @@ void init_args(parameters_t *param);
 
 //---> events
 int analyse_events(parameters_t *param);
+int get_p_move_event(void);
 
 //-->time
 //int wait_time(sfClock *clock, float time_sleep);
