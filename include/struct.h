@@ -16,6 +16,7 @@ typedef struct parameters {
     sfSprite *background;
     sfClock *clock;
     sfMusic *music;
+    char **map_array;
 } parameters_t;
 
 #endif

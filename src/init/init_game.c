@@ -26,4 +26,5 @@ void init_args(parameters_t *param)
     param->window = sfRenderWindow_create(video_mode, "My RPG",
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
+    param->map_array = get_map(MAP_ARRAY_PATH);
 }

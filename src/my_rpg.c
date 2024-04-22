@@ -29,6 +29,10 @@ int my_rpg(int ac, char **av)
         return ERROR;
     }
     init_args(&param);
+    if (param.map_array == NULL) {
+        clean(&param);
+        return ERROR;
+    }
     loop(&param);
     clean(&param);
     return SUCCESS;
