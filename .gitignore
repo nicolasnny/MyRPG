@@ -1,0 +1,17 @@
+*.o~
+*.o
+*.~
+coding-style-reports.log
+unit_tests*
+src/*.gc*
+*.gcna
+*.gcdo
+#*
+*.kra
+*~
+lib/my/libmy.a
+vgcore*
+test
+.vscode*
+.vgcor*
+my_rpg
