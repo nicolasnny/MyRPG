@@ -17,6 +17,7 @@
     #define WIN_PIX_NB 32
     #define FPS 64
     #define END_OF_MAP_LINE '|'
+    #define NO_ARROW_KEY_PRESSED 0
 
 //-->main
 int my_rpg(int, char **);
