@@ -12,7 +12,6 @@
 static int loop(parameters_t *param)
 {
     while (sfRenderWindow_isOpen(param->window)) {
-        sfRenderWindow_pollEvent(param->window, &param->event);
         analyse_events(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);

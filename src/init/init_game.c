@@ -21,7 +21,8 @@ void init_args(parameters_t *param)
     } else if (param->background == NULL) {
         dprintf(2, "Error: unable to create the background sprite\n");
     } else {
-        dprintf(2, "Error: unable to load \"%s\" as background texture\n", MAP_SPRITE_PATH);
+        dprintf(2, "Error: unable to load \"%s\" as background texture\n",
+        MAP_SPRITE_PATH);
     }
     param->window = sfRenderWindow_create(video_mode, "My RPG",
         sfDefaultStyle, NULL);

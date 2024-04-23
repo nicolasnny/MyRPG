@@ -42,7 +42,6 @@ char **get_map(char const *filepath);
 
 //---> events
 int analyse_events(parameters_t *param);
-int get_p_move_event(void);
 
 //-->time
 //int wait_time(sfClock *clock, float time_sleep);

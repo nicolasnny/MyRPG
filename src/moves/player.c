@@ -10,7 +10,7 @@
 #include "rpg.h"
 #include "struct.h"
 
-int get_p_move_event(void)
+static int get_p_move_event(void)
 {
     if (sfKeyboard_isKeyPressed(sfKeyUp)) {
         return sfKeyUp;
@@ -60,18 +60,11 @@ static void swap_player(char *current, char *target)
 
 static void move_not_possible(void)
 {
-    printf("nope\n");
+    printf("** bump sound **\n");
 }
 
-static void move_in_array(char **map, int move)
+static void try_player_move(int move, char **map, int line, unsigned int col)
 {
-    int line = 0;
-    unsigned int col = 0;
-
-    get_player_pos(map, &line, &col);
-    if (line == NOT_FOUND) {
-        return;
-    }
     if (move == sfKeyUp && line > 0 && map[line - 1][col] == EMPTY) {
         swap_player(&map[line][col], &map[line - 1][col]);
         return;
@@ -93,6 +86,19 @@ static void move_in_array(char **map, int move)
     move_not_possible();
 }
 
+static void move_in_array(char **map, int move)
+{
+    int line = 0;
+    unsigned int col = 0;
+
+    get_player_pos(map, &line, &col);
+    if (line == NOT_FOUND) {
+        dprintf(2, "Error: player not found in the map\n");
+        return;
+    }
+    try_player_move(move, map, line, col);
+}
+
 void move_player(parameters_t *param)
 {
     int move = 0;
@@ -102,9 +108,6 @@ void move_player(parameters_t *param)
     }
     move = get_p_move_event();
     if (move != NO_ARROW_KEY_PRESSED) {
-        printf("trying to move");
         move_in_array(param->map_array, move);
-        for (int i = 0; param->map_array[i]; i++)
-            printf("%s\n", param->map_array[i]);
     }
 }

@@ -5,16 +5,20 @@
 ** Functions related to events
 */
 
+#include <SFML/Graphics.h>
 #include "rpg.h"
 #include "struct.h"
-#include <SFML/Graphics.h>
 
 int analyse_events(parameters_t *param)
 {
-    if (param->event.type == sfEvtClosed ||
-        sfKeyboard_isKeyPressed(sfKeyEscape)) {
-        sfRenderWindow_close(param->window);
+    while (sfRenderWindow_pollEvent(param->window, &param->event)) {
+        if (param->event.type == sfEvtClosed ||
+            sfKeyboard_isKeyPressed(sfKeyEscape)) {
+            sfRenderWindow_close(param->window);
+        }
+        if (param->event.type == sfEvtKeyPressed) {
+            move_player(param);
+        }
     }
-    move_player(param);
     return SUCCESS;
 }
