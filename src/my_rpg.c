@@ -27,7 +27,10 @@ int my_rpg(int ac, char **av)
     if (err_handling(ac, av) == ERROR) {
         return ERROR;
     }
-    init_args(&param);
+    if (init_args(&param) == ERROR) {
+        dprintf(2, "Error: initialisation failed\n");
+        return ERROR;
+    }
     if (param.map_array == NULL) {
         clean(&param);
         return ERROR;

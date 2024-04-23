@@ -43,7 +43,7 @@ int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
-int init_player(void);
+int init_player(parameters_t *param);
 
 char **get_map(char const *filepath);
 

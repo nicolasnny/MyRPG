@@ -12,7 +12,6 @@
 
 void display_sprites(parameters_t *param)
 {
-    if (param->background != NULL) {
-        sfRenderWindow_drawSprite(param->window, param->background, NULL);
-    }
+    sfRenderWindow_drawSprite(param->window, param->background, NULL);
+    sfRenderWindow_drawSprite(param->window, param->player->sprite, NULL);
 }

@@ -32,7 +32,7 @@ static int set_texture_sprite(player_t *player)
     return SUCCESS;
 }
 
-int init_player(void)
+int init_player(parameters_t *param)
 {
     player_t *player = malloc(sizeof(player_t));
 
@@ -45,5 +45,6 @@ int init_player(void)
     if (set_texture_sprite(player) == ERROR) {
         return ERROR;
     }
+    param->player = player;
     return SUCCESS;
 }
