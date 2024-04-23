@@ -46,5 +46,6 @@ int init_player(parameters_t *param)
         return ERROR;
     }
     param->player = player;
+    set_player_new_pos(param, param->map_array);
     return SUCCESS;
 }

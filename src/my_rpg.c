@@ -35,6 +35,7 @@ int my_rpg(int ac, char **av)
         clean(&param);
         return ERROR;
     }
+    //set_new_player_pos(&param, param.map_array);
     loop(&param);
     clean(&param);
     return SUCCESS;

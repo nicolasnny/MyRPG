@@ -99,6 +99,23 @@ static void move_in_array(char **map, int move)
     try_player_move(move, map, line, col);
 }
 
+void set_player_new_pos(parameters_t *param, char **map)
+{
+    int line = 0;
+    unsigned int col = 0;
+    sfVector2f pos = {0};
+    sfVector2u win_size = sfRenderWindow_getSize(param->window);
+
+    get_player_pos(map, &line, &col);
+    if (line == NOT_FOUND) {
+        dprintf(2, "Error: player not found in the map\n");
+        return;
+    }
+    pos.x = ((double)col / (double)MAP_WIDTH) * win_size.x;
+    pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
+    sfSprite_setPosition(param->player->sprite, pos);
+}
+
 void move_player(parameters_t *param)
 {
     int move = 0;
@@ -109,5 +126,6 @@ void move_player(parameters_t *param)
     move = get_p_move_event();
     if (move != NO_ARROW_KEY_PRESSED) {
         move_in_array(param->map_array, move);
+        set_player_new_pos(param, param->map_array);
     }
 }

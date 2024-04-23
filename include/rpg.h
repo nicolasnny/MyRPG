@@ -64,6 +64,7 @@ int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
+void set_player_new_pos(parameters_t *param, char **map);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);
