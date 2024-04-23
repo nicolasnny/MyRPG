@@ -8,9 +8,10 @@
 #include <SFML/Graphics.h>
 #include <SFML/Audio.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "rpg.h"
 
-void init_args(parameters_t *param)
+int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};
     sfTexture *texture = sfTexture_createFromFile(MAP_SPRITE_PATH, NULL);
@@ -28,4 +29,8 @@ void init_args(parameters_t *param)
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
     param->map_array = get_map(MAP_ARRAY_PATH);
+    if (init_player() == ERROR) {
+        return ERROR;
+    }
+    return SUCCESS;
 }

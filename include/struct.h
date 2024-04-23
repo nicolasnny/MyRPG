@@ -10,13 +10,20 @@
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
 
-typedef struct parameters {
+typedef struct player_s {
+    unsigned int lvl;
+    unsigned int xp;
+    sfSprite *sprite;
+} player_t;
+
+typedef struct parameters_s {
     sfRenderWindow* window;
     sfEvent event;
     sfSprite *background;
     sfClock *clock;
     sfMusic *music;
     char **map_array;
+    player_t *player;
 } parameters_t;
 
 #endif

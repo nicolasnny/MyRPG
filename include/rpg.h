@@ -27,6 +27,11 @@
     #define PLAYER 'P'
     #define OBSTACLE '#'
     #define EMPTY ' '
+    #define MAP_WIDTH 60
+    #define MAP_HEIGHT 33
+
+// sprites
+    #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
 
 // errors defines
     #define OPEN_ERROR -1
@@ -37,7 +42,9 @@
 int my_rpg(int, char **);
 
 //---->> initialisation
-void init_args(parameters_t *param);
+int init_args(parameters_t *param);
+int init_player(void);
+
 char **get_map(char const *filepath);
 
 //---> events
