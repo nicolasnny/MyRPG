@@ -10,11 +10,26 @@
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
 
-typedef struct player_s {
-    unsigned int lvl;
-    unsigned int xp;
+typedef enum component_s {
+    PLAYER = 1 << 0,
+    NPC = 1 << 1,
+    VISIBLE = 1 << 2,
+    __END__ = 1 << 4,
+} component_t;
+
+typedef struct entity_s {
     sfSprite *sprite;
-} player_t;
+} entity_t;
+
+typedef struct e_list_s {
+    entity_t *entity;
+    struct e_list_s *next;
+} e_list_t;
+
+typedef struct system_s {
+    e_list_t *e_list;
+    component_t component[__END__];
+} system_t;
 
 typedef struct parameters_s {
     sfRenderWindow* window;
@@ -23,7 +38,7 @@ typedef struct parameters_s {
     sfClock *clock;
     sfMusic *music;
     char **map_array;
-    player_t *player;
+    system_t *system;
 } parameters_t;
 
 #endif
