@@ -21,6 +21,7 @@ bool push_to_list(e_list_t **head, entity_t *e)
     element->next = *head;
     element->entity = e;
     *head = element;
+    printf("element pushed\n");
     return true;
 }
 

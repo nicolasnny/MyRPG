@@ -11,11 +11,13 @@
 
 bool set_entity(entity_t *entity, system_t *system, int component)
 {
-    for (unsigned int n = 1; n != __END__; n <<= 1) {
+    printf("stating set entity\n");
+    for (unsigned int n = 1; n != __END__; n += 1) {
         if ((component << n & 1) &&
-            !push_to_list(&(system->component[n]), entity)) {
+            !push_to_list(&(system->component[1 << n]), entity)) {
             return false;
         }
     }
+    printf("end\n");
     return true;
 }

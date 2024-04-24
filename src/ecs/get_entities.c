@@ -5,15 +5,49 @@
 ** Get entities from the system
 */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stddef.h>
 #include "rpg.h"
 #include "struct.h"
 
+static void add_list(e_list_t **new_list, e_list_t *src)
+{
+    e_list_t *new = NULL;
+
+    printf("in add list\n");
+    while (src != NULL) {
+        printf("here\n\n\n\n");
+        new = malloc(sizeof(entity_t));
+        if (new == NULL) {
+            perror("add list malloc failed");
+            return;
+        }
+        new->entity = src->entity;
+        new->next = *new_list;
+        *new_list = new;
+    }
+}
+
+static e_list_t *get_pot_list(system_t *sys, int component)
+{
+    e_list_t *list = NULL;
+
+    //printf("compo: %b\n", component);
+    for (unsigned int n = 1; n < __END__; n += 1) {
+        printf("compo shifted: %b\n", component >> n);
+        if (component & 1 << n) {
+            add_list(&list, sys->component[1 << n]);
+        }
+    }
+    return list;
+}
+
 static bool check_entity(entity_t *entity, system_t *sys, int component)
 {
-    for (unsigned int n = 1; n != __END__; n <<= 1) {
-        if ((component << n & 1) &&
-            !entity_in_list(sys->component[n], entity)) {
+    for (unsigned int n = 1; n != __END__; n += 1) {
+        if ((component & 1 << n) &&
+            !entity_in_list(sys->component[n << 1], entity)) {
             return false;
         }
     }
@@ -22,7 +56,7 @@ static bool check_entity(entity_t *entity, system_t *sys, int component)
 
 e_list_t *get_entities(system_t *sys, int component)
 {
-    e_list_t *s_list = sys->e_list;
+    e_list_t *s_list = get_pot_list(sys, component);
     e_list_t *rep_list = NULL;
 
     while (s_list != NULL) {
@@ -31,5 +65,9 @@ e_list_t *get_entities(system_t *sys, int component)
         }
         s_list = s_list->next;
     }
+    /*if (rep_list == NULL)
+        printf("NULL\n");
+    else
+    printf("not null\n");*/
     return rep_list;
 }
