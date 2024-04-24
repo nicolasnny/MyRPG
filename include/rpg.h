@@ -8,6 +8,7 @@
 #ifndef RPG_H
     #define RPG_H
     #include "struct.h"
+    #include <stdbool.h>
 
 //---> constant values
     #define SUCCESS 0
@@ -72,5 +73,9 @@ char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
+
+//----> ECS
+bool set_entity(entity_t *entity, system_t *system, int component);
+
 
 #endif
