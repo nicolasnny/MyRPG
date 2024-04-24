@@ -14,10 +14,11 @@ typedef enum component_s {
     PLAYER = 1 << 0,
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
-    __END__ = 1 << 4,
+    __END__ = 1 << 3,
 } component_t;
 
 typedef struct entity_s {
+    int e_id;
     sfSprite *sprite;
 } entity_t;
 
@@ -28,7 +29,7 @@ typedef struct e_list_s {
 
 typedef struct system_s {
     e_list_t *e_list;
-    component_t component[__END__];
+    e_list_t component[__END__];
 } system_t;
 
 typedef struct parameters_s {
