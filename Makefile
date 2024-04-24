@@ -22,6 +22,7 @@ SRC     =	src/main.c	\
 		src/moves/player.c	\
 		src/assist_func/my_str_to_word_class_array.c	\
 		src/assist_func/file.c	\
+		src/linked_list.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 

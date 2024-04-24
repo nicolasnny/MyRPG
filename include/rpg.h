@@ -77,5 +77,8 @@ int get_file_size(char const *filename);
 //----> ECS
 bool set_entity(entity_t *entity, system_t *system, int component);
 
+// --> linked_list
+bool push_to_list(e_list_t **head, entity_t *e);
+bool remove_from_list(e_liest_t *list, entity_t *e);
 
 #endif
