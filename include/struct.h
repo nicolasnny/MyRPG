@@ -29,7 +29,7 @@ typedef struct e_list_s {
 
 typedef struct system_s {
     e_list_t *e_list;
-    e_list_t component[__END__];
+    e_list_t *component[__END__];
 } system_t;
 
 typedef struct parameters_s {
