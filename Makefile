@@ -13,7 +13,7 @@ SRC     =	src/main.c	\
 		src/my_rpg.c	\
 		src/init/init_game.c	\
 		src/init/init_map.c	\
-		src/init/init_player.c	\
+		src/init/init_entity.c	\
 		src/events.c	\
 		src/clean.c	\
 		src/display.c	\
@@ -23,7 +23,9 @@ SRC     =	src/main.c	\
 		src/assist_func/my_str_to_word_class_array.c	\
 		src/assist_func/file.c	\
 		src/linked_list.c	\
-		src/ecs/system.c
+		src/ecs/system.c	\
+		src/ecs/get_entities.c	\
+		src/ecs/set_entities.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 

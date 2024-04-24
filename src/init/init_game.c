@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "rpg.h"
 
-static int set_background(parameters_t *param)
+/*static int set_background(parameters_t *param)
 {
     sfTexture *texture = NULL;
 
@@ -31,6 +31,19 @@ static int set_background(parameters_t *param)
     return SUCCESS;
 }
 
+static int init_player(parameters_t *param)
+{
+    entity_t *e = create_entity(param->sys, PLAYER_SPRITE_PATH, NULL);
+
+    if (e == NULL) {
+        return ERROR;
+    }
+    if (set_entity(e, param->sys, PLAYER | VISIBLE)) {
+        return ERROR;
+    }
+    return SUCCESS;
+}*/
+
 int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};
@@ -39,11 +52,16 @@ int init_args(parameters_t *param)
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
     param->map_array = get_map(MAP_ARRAY_PATH);
-    if (set_background(param) == ERROR) {
+    param->sys = create_system();
+    if (param->sys == NULL) {
         return ERROR;
     }
-    if (init_player(param) == ERROR) {
+    if (create_entity(param->sys, MAP_SPRITE_PATH, NULL, VISIBLE) == NULL) {
         return ERROR;
     }
+    if (create_entity(param->sys, PLAYER_SPRITE_PATH,
+        NULL, VISIBLE | PLAYER) == NULL) {
+        return ERROR;
+        }
     return SUCCESS;
 }

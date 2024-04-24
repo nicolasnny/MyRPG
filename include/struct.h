@@ -18,7 +18,7 @@ typedef enum component_s {
 } component_t;
 
 typedef struct entity_s {
-    int e_id;
+    int id;
     sfSprite *sprite;
 } entity_t;
 
@@ -39,7 +39,7 @@ typedef struct parameters_s {
     sfClock *clock;
     sfMusic *music;
     char **map_array;
-    system_t *system;
+    system_t *sys;
 } parameters_t;
 
 #endif

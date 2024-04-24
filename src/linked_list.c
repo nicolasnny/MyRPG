@@ -5,8 +5,10 @@
 ** Functions related to linked_list
 */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "rpg.h"
-#incude "struct.h"
+#include "struct.h"
 
 bool push_to_list(e_list_t **head, entity_t *e)
 {
@@ -39,9 +41,9 @@ bool remove_from_list(e_list_t **list, entity_t *e)
     e_list_t *start = *list;
     e_list_t *prev = NULL;
 
-    if (queue == NULL)
+    if (*list == NULL)
         return false;
-    while (*list != NULL && (*list)->entity->id != entity->id) {
+    while (*list != NULL && (*list)->entity->id != e->id) {
         prev = *list;
         *list = (*list)->next;
     }
@@ -50,5 +52,28 @@ bool remove_from_list(e_list_t **list, entity_t *e)
         return false;
     }
     remove_list_node(list, prev, start);
+    return true;
+}
+
+bool entity_in_list(e_list_t *list, entity_t *e)
+{
+    while (list != NULL && list->entity->id != e->id) {
+        list = list->next;
+    }
+    if (list != NULL) {
+        return false;
+    }
+    return true;
+}
+
+bool clean_list(e_list_t *list)
+{
+    e_list_t *next = NULL;
+
+    while (list != NULL) {
+        next = list->next;
+        free(list);
+        list = next;
+    }
     return true;
 }

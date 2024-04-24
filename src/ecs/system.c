@@ -14,5 +14,8 @@ system_t *create_system(void)
     system_t *new_system = malloc(sizeof(system_t));
 
     new_system->e_list = NULL;
+    for (unsigned int n = 1; n < __END__; n <<= 2) {
+        new_system->component[n] = NULL;
+    }
     return new_system;
 }

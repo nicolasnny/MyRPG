@@ -105,6 +105,7 @@ void set_player_new_pos(parameters_t *param, char **map)
     unsigned int col = 0;
     sfVector2f pos = {0};
     sfVector2u win_size = sfRenderWindow_getSize(param->window);
+    e_list_t *player_list = get_entities(param->sys, PLAYER);
 
     get_player_pos(map, &line, &col);
     if (line == NOT_FOUND) {
@@ -113,7 +114,9 @@ void set_player_new_pos(parameters_t *param, char **map)
     }
     pos.x = ((double)col / (double)MAP_WIDTH) * win_size.x;
     pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
-    sfSprite_setPosition(param->player->sprite, pos);
+    if (player_list != NULL) {
+        sfSprite_setPosition(player_list->entity->sprite, pos);
+    }
 }
 
 void move_player(parameters_t *param)

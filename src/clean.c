@@ -24,3 +24,14 @@ void clean(parameters_t *param)
         free_str_array(param->map_array);
     }
 }
+
+void free_entity(entity_t *e)
+{
+    if (e == NULL) {
+        return;
+    }
+    if (e->sprite != NULL) {
+        sfSprite_destroy(e->sprite);
+    }
+    free(e);
+}

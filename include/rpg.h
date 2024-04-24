@@ -44,7 +44,6 @@ int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
-int init_player(parameters_t *param);
 
 char **get_map(char const *filepath);
 
@@ -56,6 +55,7 @@ int analyse_events(parameters_t *param);
 
 //----> clean
 void clean(parameters_t *param);
+void free_entity(entity_t *entity);
 
 //----> display
 void display_sprites(parameters_t *param);
@@ -74,12 +74,20 @@ int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
 
-//----> ECS
+// ECS
+// --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
+entity_t *create_entity(system_t *sys, char const *texture_path,
+    sfIntRect *rect, int component);
+e_list_t *get_entities(system_t *sys, int component);
+
+// --> system
 system_t *create_system(void);
 
 // --> linked_list
 bool push_to_list(e_list_t **head, entity_t *e);
-bool remove_from_list(e_liest_t *list, entity_t *e);
+bool remove_from_list(e_list_t **list, entity_t *e);
+bool entity_in_list(e_list_t *list, entity_t *e);
+bool clean_list(e_list_t *list);
 
 #endif
