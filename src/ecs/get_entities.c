@@ -15,9 +15,7 @@ static void add_list(e_list_t **new_list, e_list_t *src)
 {
     e_list_t *new = NULL;
 
-    printf("in add list\n");
     while (src != NULL) {
-        printf("here\n\n\n\n");
         new = malloc(sizeof(entity_t));
         if (new == NULL) {
             perror("add list malloc failed");
@@ -26,6 +24,7 @@ static void add_list(e_list_t **new_list, e_list_t *src)
         new->entity = src->entity;
         new->next = *new_list;
         *new_list = new;
+        src = src->next;
     }
 }
 
@@ -33,9 +32,7 @@ static e_list_t *get_pot_list(system_t *sys, int component)
 {
     e_list_t *list = NULL;
 
-    //printf("compo: %b\n", component);
     for (unsigned int n = 1; n < __END__; n += 1) {
-        printf("compo shifted: %b\n", component >> n);
         if (component & 1 << n) {
             add_list(&list, sys->component[1 << n]);
         }
@@ -65,9 +62,5 @@ e_list_t *get_entities(system_t *sys, int component)
         }
         s_list = s_list->next;
     }
-    /*if (rep_list == NULL)
-        printf("NULL\n");
-    else
-    printf("not null\n");*/
     return rep_list;
 }

@@ -21,7 +21,6 @@ bool push_to_list(e_list_t **head, entity_t *e)
     element->next = *head;
     element->entity = e;
     *head = element;
-    printf("element pushed\n");
     return true;
 }
 
@@ -61,7 +60,7 @@ bool entity_in_list(e_list_t *list, entity_t *e)
     while (list != NULL && list->entity->id != e->id) {
         list = list->next;
     }
-    if (list != NULL) {
+    if (list == NULL) {
         return false;
     }
     return true;
@@ -77,4 +76,14 @@ bool clean_list(e_list_t *list)
         list = next;
     }
     return true;
+}
+
+void display_entity_id(e_list_t *list)
+{
+    printf("NULL");
+    while (list != NULL && list->entity != NULL) {
+        printf(" -> %d", list->entity->id);
+        list = list->next;
+    }
+    printf("\n");
 }
