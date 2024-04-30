@@ -30,7 +30,7 @@ static int get_p_move_event(void)
 static void line_assist(char **map, int l, int *line, unsigned int *col)
 {
     for (unsigned int i = 0; map[l][i]; i++) {
-        if (map[l][i] == PLAYER) {
+        if (map[l][i] == PLAYER_CHAR) {
             *line = l;
             *col = i;
             return;
@@ -105,9 +105,7 @@ void set_player_new_pos(parameters_t *param, char **map)
     unsigned int col = 0;
     sfVector2f pos = {0};
     sfVector2u win_size = sfRenderWindow_getSize(param->window);
-    printf("before trying to get player\n");
     e_list_t *player_list = get_entities(param->sys, PLAYER);
-    printf("before geting player pos\n");
 
     get_player_pos(map, &line, &col);
     if (line == NOT_FOUND) {

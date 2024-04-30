@@ -25,7 +25,7 @@
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
-    #define PLAYER 'P'
+    #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
     #define EMPTY ' '
     #define MAP_WIDTH 60

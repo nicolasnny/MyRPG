@@ -19,8 +19,8 @@ system_t *create_system(void)
         return NULL;
     }
     new_system->e_list = NULL;
-    for (unsigned int n = 0; 1 << n < __END__; n++) {
-        new_system->component[1 << n] = NULL;
+    for (unsigned int n = 0; n < __END__; n++) {
+        new_system->component[n] = NULL;
     }
     return new_system;
 }

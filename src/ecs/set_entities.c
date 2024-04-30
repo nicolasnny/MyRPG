@@ -12,7 +12,7 @@
 bool set_entity(entity_t *entity, system_t *system, int component)
 {
     for (unsigned int n = 0; 1 << n < __END__; n += 1) {
-        if ((component >> n & 1) &&
+	if ((component & 1 << n) &&
             !push_to_list(&(system->component[1 << n]), entity)) {
             return false;
         }

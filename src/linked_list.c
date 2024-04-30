@@ -57,7 +57,7 @@ bool remove_from_list(e_list_t **list, entity_t *e)
 
 bool entity_in_list(e_list_t *list, entity_t *e)
 {
-    while (list != NULL && list->entity->id != e->id) {
+    while (list != NULL && list->entity != NULL && list->entity->id != e->id) {
         list = list->next;
     }
     if (list == NULL) {
