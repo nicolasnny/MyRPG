@@ -105,7 +105,9 @@ void set_player_new_pos(parameters_t *param, char **map)
     unsigned int col = 0;
     sfVector2f pos = {0};
     sfVector2u win_size = sfRenderWindow_getSize(param->window);
+    printf("before trying to get player\n");
     e_list_t *player_list = get_entities(param->sys, PLAYER);
+    printf("before geting player pos\n");
 
     get_player_pos(map, &line, &col);
     if (line == NOT_FOUND) {
@@ -116,6 +118,7 @@ void set_player_new_pos(parameters_t *param, char **map)
     pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
     if (player_list != NULL) {
         sfSprite_setPosition(player_list->entity->sprite, pos);
+        clean_list(player_list);
     }
 }
 
