@@ -70,6 +70,10 @@ fclean:	clean
 debug:	CPPFLAGS += -g3
 debug:	re
 
+asan:	CC	=	clang -fsanitize=address
+asan:	CFLAGS += -g3
+asan:	re
+
 re:     fclean all
 
-.PHONY: all lib tests_run clean fclean re debug
+.PHONY: all lib tests_run clean fclean re debug asan

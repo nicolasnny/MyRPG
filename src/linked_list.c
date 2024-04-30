@@ -12,7 +12,7 @@
 
 bool push_to_list(e_list_t **head, entity_t *e)
 {
-    e_list_t *element = malloc(sizeof(entity_t));
+    e_list_t *element = malloc(sizeof(e_list_t));
 
     if (element == NULL) {
         perror("push to list malloc failed");
