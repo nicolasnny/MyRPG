@@ -22,7 +22,8 @@ SRC     =	src/main.c	\
 		src/moves/player.c	\
 		src/assist_func/my_str_to_word_class_array.c	\
 		src/assist_func/file.c	\
-		src/linked_list.c	\
+		src/linked_list/linked_list.c	\
+		src/linked_list/revert_list.c	\
 		src/ecs/system.c	\
 		src/ecs/get_entities.c	\
 		src/ecs/set_entities.c	\

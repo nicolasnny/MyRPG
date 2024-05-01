@@ -30,5 +30,6 @@ int init_args(parameters_t *param)
         NULL, VISIBLE | PLAYER) == NULL) {
         return ERROR;
         }
+    set_player_new_pos(param, param->map_array);
     return SUCCESS;
 }

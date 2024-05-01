@@ -89,5 +89,7 @@ bool push_to_list(e_list_t **head, entity_t *e);
 bool remove_from_list(e_list_t **list, entity_t *e);
 bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
+void display_entity_id(e_list_t *list);
+void reverse_list(e_list_t **head);
 
 #endif

@@ -44,7 +44,7 @@ static bool check_entity(entity_t *entity, system_t *sys, int component)
 {
     for (unsigned int n = 0; 1 << n < __END__; n += 1) {
         if ((component & 1 << n) &&
-            !entity_in_list(sys->component[n << 1], entity)) {
+            !entity_in_list(sys->component[1 << n], entity)) {
             return false;
         }
     }

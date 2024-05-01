@@ -13,8 +13,10 @@
 void display_sprites(parameters_t *param)
 {
     e_list_t *list = get_entities(param->sys, VISIBLE);
-    e_list_t *head = list;
+    e_list_t *head = NULL;
 
+    reverse_list(&list);
+    head = list;
     while (list != NULL) {
         sfRenderWindow_drawSprite(param->window, list->entity->sprite, NULL);
         list = list->next;
