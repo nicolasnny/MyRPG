@@ -30,10 +30,10 @@ static int get_p_move_event(void)
     return NO_ARROW_KEY_PRESSED;
 }
 
-static void line_assist(char **map, int l, int *line, unsigned int *col)
+static void line_assist(sokospot_t ***map, int l, int *line, unsigned int *col)
 {
     for (unsigned int i = 0; map[l][i]; i++) {
-        if (map[l][i] == PLAYER_CHAR) {
+        if (map[l][i]->type == PLAYER_CHAR) {
             *line = l;
             *col = i;
             return;
@@ -41,21 +41,22 @@ static void line_assist(char **map, int l, int *line, unsigned int *col)
     }
 }
 
-static int get_player_pos(char **map, int *line, unsigned int *col)
+static sokospot_t *get_player_pos_and_entity(sokospot_t ***map, int *line,
+    unsigned int *col)
 {
     *line = -1;
-    for (int l = 0; map[l]; l++) {
+    for (int l = 0; map[l] != NULL; l++) {
         line_assist(map, l, line, col);
         if (*line != NOT_FOUND) {
-            return SUCCESS;
+            return map[*line][*col];
         }
     }
-    return ERROR;
+    return NULL;
 }
 
-static void swap_player(char *current, char *target)
+static void swap_player(sokospot_t **current, sokospot_t **target)
 {
-    char tmp = *current;
+    sokospot_t *tmp = *current;
 
     *current = *target;
     *target = tmp;
@@ -66,35 +67,48 @@ static void move_not_possible(void)
     printf("** bump sound **\n");
 }
 
-static void try_player_move(int move, char **map, int line, unsigned int col)
+static bool spot_available(sokospot_t *spot)
 {
-    if (move == sfKeyUp && line > 0 && map[line - 1][col] == EMPTY) {
+    char type = '\0';
+
+    if (spot == NULL) {
+	return false;
+    }
+    type = spot->type;
+    if (type == EMPTY || type == NPC_LIMIT) {
+	return true;
+    }
+    return false;
+}
+
+static void try_player_move(int move, sokospot_t ***map, int line,
+    unsigned int col)
+{
+    if (move == sfKeyUp && line > 0 && spot_available(map[line - 1][col])) {
         swap_player(&map[line][col], &map[line - 1][col]);
         return;
     }
-    if (move == sfKeyRight && map[line][col + 1] != '\0' &&
-        map[line][col + 1] == EMPTY) {
+    if (move == sfKeyRight && spot_available(map[line][col + 1])) {
         swap_player(&map[line][col], &map[line][col + 1]);
         return;
     }
-    if (move == sfKeyDown && map[line + 1] != NULL &&
-        map[line + 1][col] == EMPTY) {
+    if (move == sfKeyDown && spot_available(map[line + 1][col])) {
         swap_player(&map[line][col], &map[line + 1][col]);
         return;
     }
-    if (move == sfKeyLeft && col > 0 && map[line][col - 1] == EMPTY) {
+    if (move == sfKeyLeft && col > 0 && spot_available(map[line][col - 1])) {
         swap_player(&map[line][col], &map[line][col - 1]);
         return;
     }
     move_not_possible();
 }
 
-static void move_in_array(char **map, int move)
+static void move_in_array(sokospot_t ***map, int move)
 {
     int line = 0;
     unsigned int col = 0;
 
-    get_player_pos(map, &line, &col);
+    get_player_pos_and_entity(map, &line, &col);
     if (line == NOT_FOUND) {
         dprintf(2, "Error: player not found in the map\n");
         return;
@@ -102,24 +116,24 @@ static void move_in_array(char **map, int move)
     try_player_move(move, map, line, col);
 }
 
-void set_player_new_pos(parameters_t *param, char **map)
+void set_player_new_pos(parameters_t *param, sokospot_t ***map)
 {
     int line = 0;
     unsigned int col = 0;
     sfVector2f pos = {0};
     sfVector2u win_size = sfRenderWindow_getSize(param->window);
-    e_list_t *player_list = get_entities(param->sys, PLAYER);
+    //e_list_t *player_list = get_entities(param->sys, PLAYER);
+    entity_t *player = get_player_pos_and_entity(map, &line, &col)->entity;
 
-    get_player_pos(map, &line, &col);
     if (line == NOT_FOUND) {
         dprintf(2, "Error: player not found in the map\n");
         return;
     }
     pos.x = ((double)col / (double)MAP_WIDTH) * win_size.x;
     pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
-    if (player_list != NULL) {
-        sfSprite_setPosition(player_list->entity->sprite, pos);
-        clean_list(player_list);
+    if (player != NULL) {
+        sfSprite_setPosition(player->sprite, pos);
+        //clean_list(player_list);
     }
 }
 

@@ -18,7 +18,6 @@ int init_args(parameters_t *param)
     param->window = sfRenderWindow_create(video_mode, "My RPG",
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
-    param->map_array = get_map(MAP_ARRAY_PATH);
     param->sys = create_system();
     if (param->sys == NULL) {
         return ERROR;
@@ -26,10 +25,10 @@ int init_args(parameters_t *param)
     if (create_entity(param->sys, MAP_SPRITE_PATH, NULL, VISIBLE) == NULL) {
         return ERROR;
     }
-    if (create_entity(param->sys, PLAYER_SPRITE_PATH,
-        NULL, VISIBLE | PLAYER) == NULL) {
-        return ERROR;
-        }
+    param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
+    if (param->map_array == NULL) {
+	return ERROR;
+    }
     set_player_new_pos(param, param->map_array);
     return SUCCESS;
 }

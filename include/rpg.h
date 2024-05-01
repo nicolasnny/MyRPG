@@ -28,11 +28,15 @@
     #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
     #define EMPTY ' '
+    #define ENEMY 'E'
+    #define NPC_LIMIT 'L'
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
 
 // sprites
     #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
+    #define MOB_SPRITE_PATH "src/sprites/plane.png"
+    #define NPC_SPRITE_PATH "src/sprites/plane.png"
 
 // errors defines
     #define OPEN_ERROR -1
@@ -45,7 +49,7 @@ int my_rpg(int, char **);
 //---->> initialisation
 int init_args(parameters_t *param);
 
-char **get_map(char const *filepath);
+sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
 int analyse_events(parameters_t *param);
@@ -65,7 +69,7 @@ int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
-void set_player_new_pos(parameters_t *param, char **map);
+void set_player_new_pos(parameters_t *param, sokospot_t ***map);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);
@@ -73,6 +77,8 @@ char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
+unsigned int my_strstrlen(char **array);
+void free_str_array(char **map);
 
 // ECS
 // --> entity

@@ -14,13 +14,19 @@ typedef enum component_s {
     PLAYER = 1 << 0,
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
-    __END__ = 1 << 3,
+    MOB = 1 << 3,
+    __END__ = 1 << 4,
 } component_t;
 
 typedef struct entity_s {
     int id;
     sfSprite *sprite;
 } entity_t;
+
+typedef struct sokospot_s {
+    entity_t *entity;
+    char type;
+} sokospot_t;
 
 typedef struct e_list_s {
     entity_t *entity;
@@ -38,7 +44,7 @@ typedef struct parameters_s {
     sfSprite *background;
     sfClock *clock;
     sfMusic *music;
-    char **map_array;
+    sokospot_t ***map_array;
     system_t *sys;
 } parameters_t;
 
