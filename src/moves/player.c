@@ -12,16 +12,19 @@
 
 static int get_p_move_event(void)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyUp)) {
+    if (sfKeyboard_isKeyPressed(sfKeyUp) || sfKeyboard_isKeyPressed(sfKeyZ)) {
         return sfKeyUp;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyRight)) {
+    if (sfKeyboard_isKeyPressed(sfKeyRight) ||
+        sfKeyboard_isKeyPressed(sfKeyD)) {
         return sfKeyRight;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyLeft)) {
+    if (sfKeyboard_isKeyPressed(sfKeyLeft) ||
+        sfKeyboard_isKeyPressed(sfKeyQ)) {
         return sfKeyLeft;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyDown)) {
+    if (sfKeyboard_isKeyPressed(sfKeyDown) ||
+        sfKeyboard_isKeyPressed(sfKeyS)) {
         return sfKeyDown;
     }
     return NO_ARROW_KEY_PRESSED;
