@@ -27,7 +27,7 @@ int init_args(parameters_t *param)
     }
     param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
     if (param->map_array == NULL) {
-	return ERROR;
+        return ERROR;
     }
     set_player_new_pos(param, param->map_array);
     return SUCCESS;

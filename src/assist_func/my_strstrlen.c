@@ -12,10 +12,10 @@ unsigned int my_strstrlen(char **array)
     unsigned int size = 0;
 
     if (array == NULL) {
-	return 0;
+        return 0;
     }
     while (array[size] != NULL) {
-	size++;
+        size++;
     }
     return size;
 }

@@ -72,11 +72,11 @@ static bool spot_available(sokospot_t *spot)
     char type = '\0';
 
     if (spot == NULL) {
-	return false;
+        return false;
     }
     type = spot->type;
     if (type == EMPTY || type == NPC_LIMIT) {
-	return true;
+        return true;
     }
     return false;
 }
@@ -122,7 +122,6 @@ void set_player_new_pos(parameters_t *param, sokospot_t ***map)
     unsigned int col = 0;
     sfVector2f pos = {0};
     sfVector2u win_size = sfRenderWindow_getSize(param->window);
-    //e_list_t *player_list = get_entities(param->sys, PLAYER);
     entity_t *player = get_player_pos_and_entity(map, &line, &col)->entity;
 
     if (line == NOT_FOUND) {
@@ -133,7 +132,6 @@ void set_player_new_pos(parameters_t *param, sokospot_t ***map)
     pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
     if (player != NULL) {
         sfSprite_setPosition(player->sprite, pos);
-        //clean_list(player_list);
     }
 }
 

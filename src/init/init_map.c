@@ -15,8 +15,8 @@ static sokospot_t *init_spot(entity_t *e, char type)
     sokospot_t *spot = malloc(sizeof(sokospot_t));
 
     if (spot == NULL) {
-	perror("init spot malloc failed");
-	return NULL;
+        perror("init spot malloc failed");
+        return NULL;
     }
     spot->entity = e;
     spot->type = type;
@@ -26,14 +26,14 @@ static sokospot_t *init_spot(entity_t *e, char type)
 static sokospot_t *create_sokospot(char type, system_t *sys)
 {
     if (type == OBSTACLE || type == NPC_LIMIT || type == EMPTY) {
-	return init_spot(NULL, type);
+        return init_spot(NULL, type);
     }
     if (type == PLAYER_CHAR) {
-	return init_spot(create_entity(sys, PLAYER_SPRITE_PATH,
-	NULL, VISIBLE | PLAYER), type);
+        return init_spot(create_entity(sys, PLAYER_SPRITE_PATH,
+        NULL, VISIBLE | PLAYER), type);
     }
     if (type == ENEMY) {
-	return init_spot(create_entity
+        return init_spot(create_entity
     (sys, MOB_SPRITE_PATH, NULL, VISIBLE | MOB), type);
     }
     return init_spot(create_entity
@@ -42,21 +42,22 @@ static sokospot_t *create_sokospot(char type, system_t *sys)
 
 static sokospot_t ***char_to_soko(char **char_map, system_t *sys)
 {
-    sokospot_t ***map = calloc(my_strstrlen(char_map) + 1, sizeof(sokospot_t **));
+    sokospot_t ***map =
+        calloc(my_strstrlen(char_map) + 1, sizeof(sokospot_t **));
 
     if (map == NULL) {
-	perror("char to soko calloc failed");
-	return NULL;
+        perror("char to soko calloc failed");
+        return NULL;
     }
     for (unsigned int line = 0; char_map[line]; line++) {
-	map[line] = calloc(strlen(char_map[line]) + 1, sizeof(sokospot_t *));
-	if (map[line] == NULL) {
-	    perror("char to soko line calloc failed");
-	    return NULL;
-	}
-    	for (unsigned int col = 0; char_map[line][col]; col++) {
-	    map[line][col] = create_sokospot(char_map[line][col], sys);
-	}
+        map[line] = calloc(strlen(char_map[line]) + 1, sizeof(sokospot_t *));
+        if (map[line] == NULL) {
+            perror("char to soko line calloc failed");
+            return NULL;
+        }
+        for (unsigned int col = 0; char_map[line][col]; col++) {
+            map[line][col] = create_sokospot(char_map[line][col], sys);
+        }
     }
     return map;
 }
