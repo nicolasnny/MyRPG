@@ -53,6 +53,7 @@ sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
 int analyse_events(parameters_t *param);
+void make_life(parameters_t *param);
 
 //-->time
 //int wait_time(sfClock *clock, float time_sleep);
@@ -69,7 +70,9 @@ int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
+void move_mobs(sokospot_t ***map);
 void set_player_new_pos(parameters_t *param, sokospot_t ***map);
+void swap_struct(sokospot_t **current, sokospot_t **target);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);
@@ -97,5 +100,8 @@ bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
+
+// --> random
+int random_nb(int a, int b);
 
 #endif

@@ -54,7 +54,7 @@ static sokospot_t *get_player_pos_and_entity(sokospot_t ***map, int *line,
     return NULL;
 }
 
-static void swap_player(sokospot_t **current, sokospot_t **target)
+void swap_struct(sokospot_t **current, sokospot_t **target)
 {
     sokospot_t *tmp = *current;
 
@@ -85,19 +85,19 @@ static void try_player_move(int move, sokospot_t ***map, int line,
     unsigned int col)
 {
     if (move == sfKeyUp && line > 0 && spot_available(map[line - 1][col])) {
-        swap_player(&map[line][col], &map[line - 1][col]);
+        swap_struct(&map[line][col], &map[line - 1][col]);
         return;
     }
     if (move == sfKeyRight && spot_available(map[line][col + 1])) {
-        swap_player(&map[line][col], &map[line][col + 1]);
+        swap_struct(&map[line][col], &map[line][col + 1]);
         return;
     }
     if (move == sfKeyDown && spot_available(map[line + 1][col])) {
-        swap_player(&map[line][col], &map[line + 1][col]);
+        swap_struct(&map[line][col], &map[line + 1][col]);
         return;
     }
     if (move == sfKeyLeft && col > 0 && spot_available(map[line][col - 1])) {
-        swap_player(&map[line][col], &map[line][col - 1]);
+        swap_struct(&map[line][col], &map[line][col - 1]);
         return;
     }
     move_not_possible();

@@ -13,6 +13,7 @@ static int loop(parameters_t *param)
 {
     while (sfRenderWindow_isOpen(param->window)) {
         analyse_events(param);
+        make_life(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
         display_sprites(param);
