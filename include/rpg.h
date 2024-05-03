@@ -23,7 +23,7 @@
     #define NOT_FOUND -1
 
 // map
-    #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
+    #define MAP_SPRITE_PATH "assets/maps/map1.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
     #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
@@ -32,7 +32,9 @@
     #define MAP_HEIGHT 33
 
 // sprites
-    #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
+    #define PLAYER_SPRITE_PATH "assets/player/plane.png"
+    #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
+    #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
 
 // errors defines
     #define OPEN_ERROR -1
@@ -48,7 +50,8 @@ int init_args(parameters_t *param);
 char **get_map(char const *filepath);
 
 //---> events
-int analyse_events(parameters_t *param);
+int window_events(parameters_t *param);
+int mouse_events(parameters_t *param, int component);
 
 //-->time
 //int wait_time(sfClock *clock, float time_sleep);
@@ -58,7 +61,7 @@ void clean(parameters_t *param);
 void free_entity(entity_t *entity);
 
 //----> display
-void display_sprites(parameters_t *param);
+void display_sprites(parameters_t *param, int component);
 
 //----> error handling
 int err_handling(int ac, char **av);
@@ -91,5 +94,16 @@ bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
+
+// --> menu
+bool start_menu(parameters_t *param);
+
+// --> UI
+int hovered(parameters_t *param, system_t *system, entity_t *entity);
+void add_click_hover(entity_t *entity, int (*clicked)(parameters_t *,
+    system_t *, entity_t *entity), int (*hovered)(parameters_t *, system_t *,
+        entity_t *entity));
+void reset_sprite(entity_t *entity);
+
 
 #endif

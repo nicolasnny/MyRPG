@@ -10,9 +10,9 @@
 #include <SFML/Config.h>
 #include "rpg.h"
 
-void display_sprites(parameters_t *param)
+void display_sprites(parameters_t *param, int component)
 {
-    e_list_t *list = get_entities(param->sys, VISIBLE);
+    e_list_t *list = get_entities(param->sys, component);
     e_list_t *head = NULL;
 
     reverse_list(&list);

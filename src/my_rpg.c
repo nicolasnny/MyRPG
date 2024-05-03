@@ -12,10 +12,10 @@
 static int loop(parameters_t *param)
 {
     while (sfRenderWindow_isOpen(param->window)) {
-        analyse_events(param);
+        window_events(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
-        display_sprites(param);
+        display_sprites(param, VISIBLE);
     }
     return SUCCESS;
 }
@@ -35,7 +35,9 @@ int my_rpg(int ac, char **av)
         clean(&param);
         return ERROR;
     }
-    loop(&param);
+    if (!start_menu(&param)) {
+        loop(&param);
+    }
     clean(&param);
     return SUCCESS;
 }

@@ -27,6 +27,7 @@ static entity_t *set_sprite(entity_t *e, char const *texture_path,
         free(e);
         sfSprite_destroy(sprite);
     }
+    // sfSprite_setScale(sprite, (sfVector2f){0.75, 0.75});
     sfSprite_setTexture(sprite, texture, sfFalse);
     e->sprite = sprite;
     return e;
@@ -41,6 +42,21 @@ static bool set_texture(entity_t *e, char const *texture_path, sfIntRect *rect)
         }
     }
     return true;
+}
+
+void add_click_hover(entity_t *entity, int (*clicked)(parameters_t *,
+    system_t *, entity_t *entity), int (*hovered)(parameters_t *, system_t *,
+        entity_t *entity))
+{
+    if (!entity) {
+        return;
+    }
+    if (hovered) {
+        entity->hovered = hovered;
+    }
+    if (clicked) {
+        entity->clicked = clicked;
+    }
 }
 
 entity_t *create_entity(system_t *sys, char const *texture_path,
@@ -63,5 +79,7 @@ entity_t *create_entity(system_t *sys, char const *texture_path,
     e->id = id;
     id++;
     set_entity(e, sys, compo);
+    e->clicked = NULL;
+    e->hovered = NULL;
     return e;
 }
