@@ -19,11 +19,13 @@ static entity_t *set_sprite(entity_t *e, char const *texture_path,
     sfSprite *sprite = sfSprite_create();
 
     if (sprite == NULL) {
+	dprintf(2, "Error: sfSprite_create failed\n");
         free(e);
         return NULL;
     }
     texture = sfTexture_createFromFile(texture_path, rect);
     if (texture == NULL) {
+	dprintf(2, "Error: unable to load %s as a texture\n", texture_path);
         free(e);
         sfSprite_destroy(sprite);
     }

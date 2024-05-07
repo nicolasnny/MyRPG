@@ -14,12 +14,16 @@ static sokospot_t *init_spot(entity_t *e, char type)
 {
     sokospot_t *spot = malloc(sizeof(sokospot_t));
 
+    if (type == ENEMY)
+	printf("found one enemy\n");
     if (spot == NULL) {
         perror("init spot malloc failed");
         return NULL;
     }
     spot->entity = e;
     spot->type = type;
+    if (type == ENEMY && spot->entity != NULL)
+	printf("we have no pb\n");
     return spot;
 }
 
@@ -33,8 +37,12 @@ static sokospot_t *create_sokospot(char type, system_t *sys)
         NULL, VISIBLE | PLAYER), type);
     }
     if (type == ENEMY) {
-        return init_spot(create_entity
-    (sys, MOB_SPRITE_PATH, NULL, VISIBLE | MOB), type);
+	entity_t *tmp = create_entity(sys, MOB_SPRITE_PATH, NULL, VISIBLE | MOB);
+	if (tmp == NULL)
+	    printf("i knew it\n");
+	else
+	    printf("well well\n");
+        return init_spot(tmp, type);
     }
     return init_spot(create_entity
     (sys, NPC_SPRITE_PATH, NULL, VISIBLE | NPC), type);
@@ -56,7 +64,11 @@ static sokospot_t ***char_to_soko(char **char_map, system_t *sys)
             return NULL;
         }
         for (unsigned int col = 0; char_map[line][col]; col++) {
-            map[line][col] = create_sokospot(char_map[line][col], sys);
+	    printf("line: %d -> col: %d\n", line, col);
+	    map[line][col] = create_sokospot(char_map[line][col], sys);
+	    if (!map[line][col]) {
+		dprintf(2, "mais t con ? L: %d, C: %d\n", line, col);
+	    }
         }
     }
     return map;

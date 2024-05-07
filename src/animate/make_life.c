@@ -9,5 +9,5 @@
 
 void make_life(parameters_t *param)
 {
-    move_mobs(param->map_array);
+    move_mobs(param->map_array, param->window);
 }

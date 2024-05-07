@@ -70,7 +70,7 @@ int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
-void move_mobs(sokospot_t ***map);
+void move_mobs(sokospot_t ***map, sfRenderWindow *win);
 void set_player_new_pos(parameters_t *param, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 
