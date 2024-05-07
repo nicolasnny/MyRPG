@@ -17,7 +17,6 @@ void display_sprites(parameters_t *param)
 
     reverse_list(&list);
     head = list;
-    display_entity_id(list);
     while (list != NULL) {
         sfRenderWindow_drawSprite(param->window, list->entity->sprite, NULL);
         list = list->next;

@@ -60,19 +60,19 @@ bool set_sprite_pos_based_on_soko(sfRenderWindow *win, sfSprite *sprite,
 }
 
 static void analyse_and_move(sokospot_t ***map, unsigned int line,
-    unsigned int col, sfRenderWindow *win)
+    unsigned int col)
 {
     if (map[line][col] && map[line][col]->type == ENEMY) {
-	printf("moving smth\n");
-	try_mobs_move(random_nb(0, 4), map, line, col);
-	printf("before mobs move\n");
-	if (map[line][col]->entity == NULL)
-	    printf("becasue it is null| line: %d -> col: %d\n", line, col);
-	else
-	    printf("brahh\n");
+    	try_mobs_move(random_nb(0, 4), map, line, col);
+    }
+}
+
+static void enemy_sprite_move(sfRenderWindow *win, sokospot_t ***map, unsigned int line,
+    unsigned int col)
+{
+    if (map[line][col]->type == ENEMY) {
 	set_sprite_pos_based_on_soko
 	    (win, map[line][col]->entity->sprite, line, col);
-	printf("after sprite set\n");
     }
 }
 
@@ -80,7 +80,12 @@ void move_mobs(sokospot_t ***map, sfRenderWindow *win)
 {
     for (unsigned int line = 0; map[line]; line++) {
         for (unsigned int col = 0; map[line][col]; col++) {
-            analyse_and_move(map, line, col, win);
+            analyse_and_move(map, line, col);
+        }
+    }
+    for (unsigned int line = 0; map[line]; line++) {
+        for (unsigned int col = 0; map[line][col]; col++) {
+	    enemy_sprite_move(win, map, line, col);
         }
     }
 }
