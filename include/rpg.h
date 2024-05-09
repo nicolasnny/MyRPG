@@ -21,6 +21,7 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
+    #define TIME_BEFORE_MOBS_MOVE 3
 
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
