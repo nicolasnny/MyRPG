@@ -5,13 +5,12 @@ env:
 
 on:
     push:
-        branches: [ "main" ]
+        branches-ignore: ["ga-ignore-*"]
     pull_request:
-        branches: [ "main" ]
+        branches-ignore: ["ga-ignore-*"]
 
 jobs:
     check_program_compilation:
-        needs: check_coding_style
         runs-on: ubuntu-latest
         container:
             image: epitechcontent/epitest-docker
