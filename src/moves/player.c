@@ -116,20 +116,19 @@ static void move_in_array(sokospot_t ***map, int move)
     try_player_move(move, map, line, col);
 }
 
-void set_player_new_pos(parameters_t *param, sokospot_t ***map)
+void set_player_new_pos(sokospot_t ***map)
 {
     int line = 0;
     unsigned int col = 0;
     sfVector2f pos = {0};
-    sfVector2u win_size = sfRenderWindow_getSize(param->window);
     entity_t *player = get_player_pos_and_entity(map, &line, &col)->entity;
 
     if (line == NOT_FOUND) {
         dprintf(2, "Error: player not found in the map\n");
         return;
     }
-    pos.x = ((double)col / (double)MAP_WIDTH) * win_size.x;
-    pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
+    pos.x = ((double)col / (double)MAP_WIDTH) * WIN_WIDTH;
+    pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
     if (player != NULL) {
         sfSprite_setPosition(player->sprite, pos);
     }
@@ -145,6 +144,6 @@ void move_player(parameters_t *param)
     move = get_p_move_event();
     if (move != NO_ARROW_KEY_PRESSED) {
         move_in_array(param->map_array, move);
-        set_player_new_pos(param, param->map_array);
+        set_player_new_pos(param->map_array);
     }
 }

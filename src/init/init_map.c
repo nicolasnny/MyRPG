@@ -33,8 +33,8 @@ static sokospot_t *create_sokospot(char type, system_t *sys)
         NULL, VISIBLE | PLAYER), type);
     }
     if (type == ENEMY) {
-        return init_spot
-	    (create_entity(sys, MOB_SPRITE_PATH, NULL, VISIBLE | MOB), type);
+        return init_spot(create_entity
+        (sys, MOB_SPRITE_PATH, NULL, VISIBLE | MOB), type);
     }
     return init_spot(create_entity
     (sys, NPC_SPRITE_PATH, NULL, VISIBLE | NPC), type);
@@ -57,7 +57,7 @@ static sokospot_t ***char_to_soko(char **char_map, system_t *sys)
         }
         for (unsigned int col = 0; char_map[line][col]; col++) {
             map[line][col] = create_sokospot(char_map[line][col], sys);
-	}
+        }
     }
     return map;
 }

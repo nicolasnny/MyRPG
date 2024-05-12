@@ -29,6 +29,6 @@ int init_args(parameters_t *param)
     if (param->map_array == NULL) {
         return ERROR;
     }
-    set_player_new_pos(param, param->map_array);
+    set_player_new_pos(param->map_array);
     return SUCCESS;
 }

@@ -26,6 +26,7 @@ static bool spot_available(sokospot_t *spot)
 static void try_mobs_move(int move, sokospot_t ***map, unsigned int line,
     unsigned int col)
 {
+    printf("moving\n");
     if (move == 0 && line > 0 && spot_available(map[line - 1][col])) {
         swap_struct(&map[line][col], &map[line - 1][col]);
         return;
@@ -44,17 +45,16 @@ static void try_mobs_move(int move, sokospot_t ***map, unsigned int line,
     }
 }
 
-bool set_sprite_pos_based_on_soko(sfRenderWindow *win, sfSprite *sprite,
+bool set_sprite_pos_based_on_soko(sfSprite *sprite,
     int line, int col)
 {
     sfVector2f pos = {0};
-    sfVector2u win_size = sfRenderWindow_getSize(win);
 
-    pos.x = ((double)col / (double)MAP_WIDTH) * win_size.x;
-    pos.y = ((double)line / (double)MAP_HEIGHT) * win_size.y;
+    pos.x = ((double)col / (double)MAP_WIDTH) * WIN_WIDTH;
+    pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
     if (sprite != NULL) {
         sfSprite_setPosition(sprite, pos);
-	return true;
+        return true;
     }
     return false;
 }
@@ -63,20 +63,20 @@ static void analyse_and_move(sokospot_t ***map, unsigned int line,
     unsigned int col)
 {
     if (map[line][col] && map[line][col]->type == ENEMY) {
-    	try_mobs_move(random_nb(0, 4), map, line, col);
+        try_mobs_move(random_nb(0, 4), map, line, col);
     }
 }
 
-static void enemy_sprite_move(sfRenderWindow *win, sokospot_t ***map, unsigned int line,
-    unsigned int col)
+static void enemy_sprite_move(sokospot_t ***map,
+    unsigned int line, unsigned int col)
 {
     if (map[line][col]->type == ENEMY) {
-	set_sprite_pos_based_on_soko
-	    (win, map[line][col]->entity->sprite, line, col);
+        set_sprite_pos_based_on_soko(map[line][col]->entity->sprite,
+        line, col);
     }
 }
 
-void move_mobs(sokospot_t ***map, sfRenderWindow *win)
+void move_mobs(sokospot_t ***map)
 {
     for (unsigned int line = 0; map[line]; line++) {
         for (unsigned int col = 0; map[line][col]; col++) {
@@ -85,7 +85,7 @@ void move_mobs(sokospot_t ***map, sfRenderWindow *win)
     }
     for (unsigned int line = 0; map[line]; line++) {
         for (unsigned int col = 0; map[line][col]; col++) {
-	    enemy_sprite_move(win, map, line, col);
+            enemy_sprite_move(map, line, col);
         }
     }
 }
