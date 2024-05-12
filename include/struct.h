@@ -16,7 +16,8 @@ typedef enum component_s {
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
     MOB = 1 << 3,
-    __END__ = 1 << 4,
+    INVENTORY = 1 << 4,
+    __END__ = 1 << 5,
 } component_t;
 
 typedef struct entity_s {

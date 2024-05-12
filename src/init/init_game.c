@@ -11,6 +11,14 @@
 #include <stdlib.h>
 #include "rpg.h"
 
+static int finish_initialisation(parameters_t *param)
+{
+    if (init_inventory(param) == ERROR) {
+        return ERROR;
+    }
+    return SUCCESS;
+}
+
 int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};
@@ -30,5 +38,5 @@ int init_args(parameters_t *param)
         return ERROR;
     }
     set_player_new_pos(param->map_array);
-    return SUCCESS;
+    return finish_initialisation(param);
 }

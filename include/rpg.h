@@ -34,6 +34,11 @@
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
 
+// inventory
+    #define INVENTORY_SPRITE "src/sprites/inventory.png"
+    #define INVENTORY_HEIGHT 103
+    #define INVENTORY_WIDTH 24
+
 // sprites
     #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
     #define MOB_SPRITE_PATH "src/sprites/plane.png"
@@ -49,6 +54,7 @@ int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
+int init_inventory(parameters_t *param);
 
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
