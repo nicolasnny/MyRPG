@@ -22,6 +22,7 @@
     #define OUT -1
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOBS_MOVE 3
+    #define FONT_PATH "src/sprites/game_font.ttf"
 
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
@@ -37,7 +38,10 @@
 // inventory
     #define INVENTORY_SPRITE "src/sprites/inventory.png"
     #define INVENTORY_HEIGHT 103
-    #define INVENTORY_WIDTH 24
+    #define INVENTORY_WIDTH 103
+    #define DESCRIPTION_BOX_START 32
+    #define DESCRIPTION_BOX_END 99
+    #define DESCRIPTION_FONT_SIZE 32
 
 // sprites
     #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
@@ -113,5 +117,8 @@ int check_player_collisions(system_t *sys);
 
 // --> random
 int random_nb(int a, int b);
+
+// --> inventory
+sfText *create_inventory_description_text(sfSprite *inventory_sprite, char const *msg);
 
 #endif
