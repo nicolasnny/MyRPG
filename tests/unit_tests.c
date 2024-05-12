@@ -28,7 +28,7 @@ Test(unit_test, err_handling, .init=redirect_all_stdout)
     av2[0] = strdup("./my_rpg");
     av2[1] = NULL;
     cr_assert_eq(err_handling(4, av), ERROR);
-    cr_assert_eq(err_handling(1, av2), SUCCESS);   
+    cr_assert_eq(err_handling(1, av2), SUCCESS);
 }
 
 /* initialisation*/
@@ -78,6 +78,18 @@ Test(unit_test, strstr_functions, .init=redirect_all_stdout)
     cr_assert(array);
     cr_assert_eq(my_strstrlen(array), 4);
     free_str_array(array);
+}
+
+/* collisions */
+
+Test(unit_test, hit_box_collisions, .init=redirect_all_stdout)
+{
+    parameters_t params = {0};
+
+    cr_assert_eq(init_args(&params), SUCCESS);
+    cr_assert(params.sys);
+    cr_assert(get_map(MAP_ARRAY_PATH, params.sys));
+    cr_assert_eq(check_player_collisions(params.sys), SUCCESS);
 }
 
 /* end of programm*/

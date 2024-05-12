@@ -102,6 +102,9 @@ bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
 
+// --> collisions
+int check_player_collisions(system_t *sys);
+
 // --> random
 int random_nb(int a, int b);
 

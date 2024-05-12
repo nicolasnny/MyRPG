@@ -29,4 +29,5 @@ void make_life(parameters_t *param)
     if (time_move_mobs(TIME_BEFORE_MOBS_MOVE)) {
         move_mobs(param->map_array);
     }
+    check_player_collisions(param->sys);
 }
