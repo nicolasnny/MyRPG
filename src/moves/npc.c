@@ -26,7 +26,6 @@ static bool spot_available(sokospot_t *spot)
 static void try_mobs_move(int move, sokospot_t ***map, unsigned int line,
     unsigned int col)
 {
-    printf("moving\n");
     if (move == 0 && line > 0 && spot_available(map[line - 1][col])) {
         swap_struct(&map[line][col], &map[line - 1][col]);
         return;
@@ -76,6 +75,15 @@ static void enemy_sprite_move(sokospot_t ***map,
     }
 }
 
+static void reset_move_var(sokospot_t ***map)
+{
+    for (unsigned int i = 0; map[i]; i++) {
+        for (unsigned int j = 0; map[i][j]; j++) {
+            map[i][j]->moved_in_frame = false;
+        }
+    }
+}
+
 void move_mobs(sokospot_t ***map)
 {
     for (unsigned int line = 0; map[line]; line++) {
@@ -88,4 +96,5 @@ void move_mobs(sokospot_t ***map)
             enemy_sprite_move(map, line, col);
         }
     }
+    reset_move_var(map);
 }

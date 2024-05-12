@@ -9,6 +9,7 @@
     #define STRUCT_H
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
+    #include <stdbool.h>
 
 typedef enum component_s {
     PLAYER = 1 << 0,
@@ -26,6 +27,7 @@ typedef struct entity_s {
 typedef struct sokospot_s {
     entity_t *entity;
     char type;
+    bool moved_in_frame;
 } sokospot_t;
 
 typedef struct e_list_s {
