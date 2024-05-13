@@ -9,6 +9,7 @@
     #define STRUCT_H
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
+    #include <stdbool.h>
 
 typedef struct parameters_s parameters_t;
 typedef struct system_s system_t;
@@ -23,7 +24,10 @@ typedef enum component_s {
     PLAYER = 1 << 0,
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
-    __END__ = 1 << 3,
+    MENU = 1 << 3,
+    MOB = 1 << 4,
+    CLICKABLE = 1 << 5,
+    __END__ = 1 << 6,
 } component_t;
 
 typedef struct entity_s {
