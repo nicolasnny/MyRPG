@@ -21,6 +21,7 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
+    #define TIME_BEFORE_MOBS_MOVE 3
 
 // map
     #define MAP_SPRITE_PATH "assets/maps/map1.png"
@@ -28,11 +29,15 @@
     #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
     #define EMPTY ' '
+    #define ENEMY 'E'
+    #define NPC_LIMIT 'L'
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
 
 // sprites
     #define PLAYER_SPRITE_PATH "assets/player/plane.png"
+    #define MOB_SPRITE_PATH "src/sprites/plane.png"
+    #define NPC_SPRITE_PATH "src/sprites/plane.png"
     #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
     #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
 
@@ -47,10 +52,11 @@ int my_rpg(int, char **);
 //---->> initialisation
 int init_args(parameters_t *param);
 
-char **get_map(char const *filepath);
+sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
 int window_events(parameters_t *param);
+void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
 
 //-->time
@@ -68,7 +74,9 @@ int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
-void set_player_new_pos(parameters_t *param, char **map);
+void move_mobs(sokospot_t ***map);
+void set_player_new_pos(sokospot_t ***map);
+void swap_struct(sokospot_t **current, sokospot_t **target);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);
@@ -76,6 +84,8 @@ char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
+unsigned int my_strstrlen(char **array);
+void free_str_array(char **map);
 
 // ECS
 // --> entity
@@ -94,6 +104,12 @@ bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
+
+// --> collisions
+int check_player_collisions(system_t *sys);
+
+// --> random
+int random_nb(int a, int b);
 
 // --> menu
 bool start_menu(parameters_t *param);

@@ -20,9 +20,8 @@ void free_str_array(char **array)
 
 void clean(parameters_t *param)
 {
-    if (param->map_array != NULL) {
-        free_str_array(param->map_array);
-    }
+    (void)param;
+    return;
 }
 
 void free_entity(entity_t *e)

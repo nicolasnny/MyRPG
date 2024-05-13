@@ -23,9 +23,7 @@ typedef enum component_s {
     PLAYER = 1 << 0,
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
-    CLICKABLE = 1 << 3,
-    MENU = 1 << 4,
-    __END__ = 1 << 5,
+    __END__ = 1 << 3,
 } component_t;
 
 typedef struct entity_s {
@@ -36,6 +34,12 @@ typedef struct entity_s {
     int (*hovered)(parameters_t *param, system_t *system,
         struct entity_s *entity);
 } entity_t;
+
+typedef struct sokospot_s {
+    entity_t *entity;
+    char type;
+    bool moved_in_frame;
+} sokospot_t;
 
 typedef struct e_list_s {
     entity_t *entity;
@@ -53,7 +57,7 @@ typedef struct parameters_s {
     sfSprite *background;
     sfClock *clock;
     sfMusic *music;
-    char **map_array;
+    sokospot_t ***map_array;
     system_t *sys;
 } parameters_t;
 

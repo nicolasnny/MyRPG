@@ -20,13 +20,43 @@ SRC     =	src/main.c	\
 			src/err_handling.c	\
 			src/time.c	\
 			src/moves/player.c	\
+		src/moves/npc.c	\
 			src/assist_func/my_str_to_word_class_array.c	\
 			src/assist_func/file.c	\
+		src/assist_func/random.c	\
+		src/assist_func/my_strstrlen.c	\
 			src/linked_list/linked_list.c	\
 			src/linked_list/revert_list.c	\
 			src/ecs/system.c	\
 			src/ecs/get_entities.c	\
 			src/ecs/set_entities.c	\
+		src/animate/make_life.c	\
+		src/collisions/check_collisions.c	\
+
+UT_SRC	=	tests/unit_tests.c	\
+			tests/test.c	\
+			src/my_rpg.c	\
+			src/init/init_game.c	\
+			src/init/init_map.c	\
+			src/init/init_entity.c	\
+			src/events.c	\
+			src/clean.c	\
+			src/display.c	\
+			src/err_handling.c	\
+			src/time.c	\
+			src/moves/player.c	\
+			src/moves/npc.c	\
+			src/assist_func/my_str_to_word_class_array.c	\
+			src/assist_func/file.c	\
+			src/assist_func/random.c	\
+			src/assist_func/my_strstrlen.c	\
+			src/linked_list/linked_list.c	\
+			src/linked_list/revert_list.c	\
+			src/ecs/system.c	\
+			src/ecs/get_entities.c	\
+			src/ecs/set_entities.c	\
+			src/animate/make_life.c	\
+			src/collisions/check_collisions.c	\
 			src/ecs/destroy_entity.c	\
 			src/user_interface/start_menu/main_page.c	\
 			src/user_interface/hovering.c				\
@@ -49,20 +79,15 @@ CFLAGS	=	-Wall -Wextra
 
 LIBNAME	=	libmy.a
 
-TEST_SRC	=	tests/unit_tests.c
-
 TNAME	=	unit_tests
 
 all:	$(NAME)
 
-lib:
-	$(MAKE) -C lib/my
-
 $(NAME):	$(OBJ)
 	$(CC) $(LDFLAGS) -o $(NAME) $(MAIN) $(OBJ) $(LDLIBS)
 
-tests_run: lib
-	$(CC) $(LDFLAGS) -o $(TNAME) $(TEST_SRC) $(OBJ) $(CRFLAGS) $(LDLIBS)
+tests_run:
+	$(CC) -I include/ -o $(TNAME) $(UT_SRC) $(CRFLAGS) $(LDLIBS)
 	./$(TNAME)
 
 clean:

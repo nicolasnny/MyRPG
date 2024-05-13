@@ -13,7 +13,7 @@ int err_handling(int ac, char **av)
 {
     (void)av;
     if (ac != 1) {
-        dprintf(2, "Error: Not enought arguments\n");
+        dprintf(2, "Error: Wrong number of arguments\n");
         return ERROR;
     }
     return SUCCESS;
