@@ -10,10 +10,25 @@
 #include "rpg.h"
 #include "struct.h"
 
+bool entity_in_list(e_list_t *list, entity_t *e)
+{
+    while (list != NULL && list->entity != NULL && list->entity->id != e->id) {
+        list = list->next;
+    }
+    if (list == NULL) {
+        return false;
+    }
+    return true;
+}
+
 bool push_to_list(e_list_t **head, entity_t *e)
 {
-    e_list_t *element = malloc(sizeof(e_list_t));
+    e_list_t *element = NULL;
 
+    if (entity_in_list(*head, e)) {
+        return true;
+    }
+    element = malloc(sizeof(e_list_t));
     if (element == NULL) {
         perror("push to list malloc failed");
         return false;
@@ -52,17 +67,6 @@ bool remove_from_list(e_list_t **list, entity_t *e)
         return false;
     }
     remove_list_node(list, prev, start);
-    return true;
-}
-
-bool entity_in_list(e_list_t *list, entity_t *e)
-{
-    while (list != NULL && list->entity != NULL && list->entity->id != e->id) {
-        list = list->next;
-    }
-    if (list == NULL) {
-        return false;
-    }
     return true;
 }
 

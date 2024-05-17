@@ -25,14 +25,14 @@ static void set_inventory_pos(sfSprite *s)
 
 int init_inventory(parameters_t *param)
 {
-    sfIntRect texture_rect = {0, 0, INVENTORY_WIDTH, INVENTORY_HEIGHT};
     entity_t *inventory = create_entity(param->sys,
-        INVENTORY_SPRITE, &texture_rect, INVENTORY | VISIBLE);
+        INVENTORY_SPRITE, NULL, BAR | VISIBLE);
 
     if (inventory == NULL) {
         dprintf(2, "Error: unable to create the inventory");
         return ERROR;
     }
     set_inventory_pos(inventory->sprite);
+    set_inventory_items_pos(param->sys);
     return SUCCESS;
 }

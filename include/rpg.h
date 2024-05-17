@@ -37,8 +37,9 @@
 
 // inventory
     #define INVENTORY_SPRITE "src/sprites/InventorySlots.png"
-    #define INVENTORY_HEIGHT 103
-    #define INVENTORY_WIDTH 103
+    #define SLOT_TOP 5
+    #define SLOT1_WIDTH 33
+    #define SLOT_WIDTH 17
     #define DESCRIPTION_BOX_START 32
     #define DESCRIPTION_BOX_END 99
     #define DESCRIPTION_FONT_SIZE 14
@@ -125,5 +126,6 @@ int random_nb(int a, int b);
 
 // --> inventory
 bool add_element_to_inventory(system_t *sys, entity_t *e);
+void set_inventory_items_pos(system_t *sys);
 
 #endif
