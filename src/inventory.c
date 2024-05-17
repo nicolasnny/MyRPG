@@ -20,10 +20,35 @@ static unsigned int get_list_len(e_list_t *list)
     return size;
 }
 
-bool is_empty_slot(e_list_t *list)
+static bool is_empty_slot(e_list_t *list)
 {
     if (get_list_len(list) >= INVENTORY_CAPACITY) {
         return false;
     }
     return true;
+}
+
+static bool remove_last_element(e_list_t **list)
+{
+    if (list == NULL) {
+        return false;
+    }
+    while (*list && (*list)->next) {
+        *list = (*list)->next;
+    }
+    if (*list == NULL) {
+        return false;
+    }
+    return remove_entity_from_list(list, (*list)->entity);
+}
+
+bool add_element_to_inventory(system_t *sys, entity_t *e)
+{
+    e_list_t *inventory = get_entities(sys, INVENTORY);
+
+    if (is_empty_slot(inventory)) {
+        set_entity(e, sys, INVENTORY);
+        return true;
+    }
+    return remove_last_element(&sys->component[INVENTORY]);
 }

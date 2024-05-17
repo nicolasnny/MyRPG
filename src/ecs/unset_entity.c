@@ -27,7 +27,7 @@ static bool change_head(e_list_t **list)
     return true;
 }
 
-static bool remove_entity_from_list(e_list_t **list, entity_t *e)
+bool remove_entity_from_list(e_list_t **list, entity_t *e)
 {
     e_list_t *start = *list;
     e_list_t *prev = NULL;

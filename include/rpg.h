@@ -115,6 +115,7 @@ bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
+bool remove_entity_from_list(e_list_t **list, entity_t *e);
 
 // --> collisions
 int check_player_collisions(system_t *sys);
@@ -123,6 +124,6 @@ int check_player_collisions(system_t *sys);
 int random_nb(int a, int b);
 
 // --> inventory
-sfText *create_inventory_description_text(sfSprite *inventory_sprite, char const *msg);
+bool add_element_to_inventory(system_t *sys, entity_t *e);
 
 #endif
