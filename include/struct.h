@@ -15,9 +15,9 @@ typedef struct parameters_s parameters_t;
 typedef struct system_s system_t;
 
 typedef enum game_state_s {
-    PLAY = 1,
-    QUIT = 0,
-    SELECT = -1,
+    PLAY,
+    QUIT,
+    PAUSE
 } game_state_t;
 
 typedef enum component_s {
@@ -27,16 +27,18 @@ typedef enum component_s {
     MENU = 1 << 3,
     MOB = 1 << 4,
     CLICKABLE = 1 << 5,
-    __END__ = 1 << 6,
+    SETTINGS = 1 << 6,
+    __END__ = 1 << 7,
 } component_t;
 
 typedef struct entity_s {
     int id;
     sfSprite *sprite;
+    sfRectangleShape *rect;
     int (*clicked)(parameters_t *param, system_t *system,
-        struct entity_s *entity);
+        struct entity_s *entity, bool clicked);
     int (*hovered)(parameters_t *param, system_t *system,
-        struct entity_s *entity);
+        struct entity_s *entity, bool hovered);
 } entity_t;
 
 typedef struct sokospot_s {
@@ -49,6 +51,12 @@ typedef struct e_list_s {
     entity_t *entity;
     struct e_list_s *next;
 } e_list_t;
+
+typedef struct function_s {
+    char *func_name;
+    int (*function)(parameters_t *param, system_t *system,
+        struct entity_s *entity, bool hovered);
+} function_t;
 
 typedef struct system_s {
     e_list_t *e_list;
@@ -63,6 +71,7 @@ typedef struct parameters_s {
     sfMusic *music;
     sokospot_t ***map_array;
     system_t *sys;
+    int game_state;
 } parameters_t;
 
 #endif

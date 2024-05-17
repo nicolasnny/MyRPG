@@ -34,6 +34,7 @@ SRC     =	src/main.c	\
 			src/collisions/check_collisions.c	\
 			src/user_interface/start_menu/main_page.c	\
 			src/user_interface/hovering.c				\
+			src/game_state.c							\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\

@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** MY_RADAR
+** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
 ** File description:
-** Functions for the my_radar project
+** rpg.h
 */
 
 #ifndef RPG_H
@@ -36,10 +36,12 @@
 
 // sprites
     #define PLAYER_SPRITE_PATH "assets/player/plane.png"
-    #define MOB_SPRITE_PATH "src/sprites/plane.png"
-    #define NPC_SPRITE_PATH "src/sprites/plane.png"
+    #define MOB_SPRITE_PATH "assets/player/plane.png"
+    #define NPC_SPRITE_PATH "assets/player/plane.png"
     #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
     #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
+    #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
+    #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
 
 // errors defines
     #define OPEN_ERROR -1
@@ -67,7 +69,7 @@ void clean(parameters_t *param);
 void free_entity(entity_t *entity);
 
 //----> display
-void display_sprites(parameters_t *param, int component);
+void display_entities(parameters_t *param, int component);
 
 //----> error handling
 int err_handling(int ac, char **av);
@@ -93,6 +95,8 @@ bool set_entity(entity_t *entity, system_t *system, int component);
 entity_t *create_entity(system_t *sys, char const *texture_path,
     sfIntRect *rect, int component);
 e_list_t *get_entities(system_t *sys, int component);
+entity_t *set_rectangle(entity_t *e, char const *texture_path,
+    sfIntRect *rect);
 
 // --> system
 system_t *create_system(void);
@@ -111,14 +115,24 @@ int check_player_collisions(system_t *sys);
 // --> random
 int random_nb(int a, int b);
 
+// --> game state
+int set_to_play(parameters_t *param, system_t *system, entity_t *entity,
+    bool clicked);
+int set_to_quit(parameters_t *param, system_t *system, entity_t *entity,
+    bool clicked);
+int set_to_pause(parameters_t *param, system_t *system, entity_t *entity,
+    bool clicked);
+
 // --> menu
 bool start_menu(parameters_t *param);
 
 // --> UI
-int hovered(parameters_t *param, system_t *system, entity_t *entity);
+int hovered(parameters_t *param, system_t *system, entity_t *entity,
+    bool hovered);
 void add_click_hover(entity_t *entity, int (*clicked)(parameters_t *,
-    system_t *, entity_t *entity), int (*hovered)(parameters_t *, system_t *,
-        entity_t *entity));
+    system_t *, entity_t *entity, bool clicked),
+    int (*hovered)(parameters_t *, system_t *,
+        entity_t *entity, bool hovered));
 void reset_sprite(entity_t *entity);
 
 

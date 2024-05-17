@@ -30,5 +30,6 @@ int init_args(parameters_t *param)
         return ERROR;
     }
     set_player_new_pos(param->map_array);
+    param->game_state = PAUSE;
     return SUCCESS;
 }
