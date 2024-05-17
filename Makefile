@@ -33,6 +33,9 @@ SRC     =	src/main.c	\
 		src/ecs/unset_entity.c	\
 		src/animate/make_life.c	\
 		src/collisions/check_collisions.c	\
+		src/init/init_inventory.c	\
+		src/inventory/inventory.c	\
+		src/inventory/set_inventory.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\
@@ -59,6 +62,9 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/ecs/unset_entity.c	\
 			src/animate/make_life.c	\
 			src/collisions/check_collisions.c	\
+			src/init/init_inventory.c	\
+			src/inventory/inventory.c	\
+			src/inventory/set_inventory.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 

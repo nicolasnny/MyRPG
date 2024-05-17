@@ -16,12 +16,16 @@ typedef enum component_s {
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
     MOB = 1 << 3,
-    __END__ = 1 << 4,
+    INVENTORY = 1 << 4,
+    SELECTED = 1 << 5,
+    BAR = 1 << 6,
+    __END__ = 1 << 7,
 } component_t;
 
 typedef struct entity_s {
     int id;
     sfSprite *sprite;
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {
