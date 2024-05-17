@@ -90,6 +90,7 @@ bool set_entity(entity_t *entity, system_t *system, int component);
 entity_t *create_entity(system_t *sys, char const *texture_path,
     sfIntRect *rect, int component);
 e_list_t *get_entities(system_t *sys, int component);
+bool unset_entity(system_t *sys, entity_t *e, int component);
 
 // --> system
 system_t *create_system(void);
