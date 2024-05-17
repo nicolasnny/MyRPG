@@ -11,6 +11,20 @@
 #include <stdlib.h>
 #include "rpg.h"
 
+static sfView *create_view(void)
+{
+    sfView *view = sfView_create();
+    sfVector2f pos = {DEFAULT_VIEW_X, DEFAULT_VIEW_Y};
+
+    if (view == NULL) {
+        dprintf(2, "Error: view initialisation failed\n");
+        return NULL;
+    }
+    (void)pos;
+    sfView_setSize(view, (sfVector2f){250 * 2, 144 * 2});
+    return view;
+}
+
 static int finish_initialisation(parameters_t *param)
 {
     if (init_inventory(param) == ERROR) {
@@ -27,9 +41,11 @@ int init_args(parameters_t *param)
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
     param->sys = create_system();
-    if (param->sys == NULL) {
+    param->view = create_view();
+    if (param->sys == NULL || param->window == NULL || param->view == NULL) {
         return ERROR;
     }
+    sfRenderWindow_setView(param->window, param->view);
     if (create_entity(param->sys, MAP_SPRITE_PATH, NULL, VISIBLE) == NULL) {
         return ERROR;
     }
@@ -37,6 +53,6 @@ int init_args(parameters_t *param)
     if (param->map_array == NULL) {
         return ERROR;
     }
-    set_player_new_pos(param->map_array);
+    set_player_new_pos(param->view, param->map_array);
     return finish_initialisation(param);
 }

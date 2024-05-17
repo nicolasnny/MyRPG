@@ -98,7 +98,7 @@ static void try_player_move(int move, sokospot_t ***map, int line,
         swap_struct(&map[line][col], &map[line][col + 1]);
         return;
     }
-    if (move == sfKeyDown && spot_available(map[line + 1][col])) {
+    if (move == sfKeyDown && map[line + 1] && spot_available(map[line + 1][col])) {
         swap_struct(&map[line][col], &map[line + 1][col]);
         return;
     }
@@ -122,7 +122,7 @@ static void move_in_array(sokospot_t ***map, int move)
     try_player_move(move, map, line, col);
 }
 
-void set_player_new_pos(sokospot_t ***map)
+void set_player_new_pos(sfView *view, sokospot_t ***map)
 {
     int line = 0;
     unsigned int col = 0;
@@ -137,6 +137,7 @@ void set_player_new_pos(sokospot_t ***map)
     pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
     if (player != NULL) {
         sfSprite_setPosition(player->sprite, pos);
+        sfView_setCenter(view, pos);
     }
 }
 
@@ -150,6 +151,7 @@ void move_player(parameters_t *param)
     move = get_p_move_event();
     if (move != NO_ARROW_KEY_PRESSED) {
         move_in_array(param->map_array, move);
-        set_player_new_pos(param->map_array);
+        set_player_new_pos(param->view, param->map_array);
+        sfRenderWindow_setView(param->window, param->view);
     }
 }

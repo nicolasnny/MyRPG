@@ -25,7 +25,7 @@
     #define FONT_PATH "src/sprites/game_font.ttf"
 
 // map
-    #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
+    #define MAP_SPRITE_PATH "src/sprites/maps/map2.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
     #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
@@ -34,6 +34,10 @@
     #define NPC_LIMIT 'L'
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
+
+// view
+    #define DEFAULT_VIEW_X 0
+    #define DEFAULT_VIEW_Y 0
 
 // inventory
     #define INVENTORY_SPRITE "src/sprites/InventorySlots.png"
@@ -86,7 +90,7 @@ int err_handling(int ac, char **av);
 // --> moves
 void move_player(parameters_t *param);
 void move_mobs(sokospot_t ***map);
-void set_player_new_pos(sokospot_t ***map);
+void set_player_new_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 
 //----> utilities
