@@ -9,60 +9,21 @@
 #include "rpg.h"
 #include "struct.h"
 
-/*static unsigned int count_lines(char const *msg)
+static unsigned int get_list_len(e_list_t *list)
 {
-    unsigned int line_nb = 0;
+    unsigned int size = 0;
 
-    if (msg == NULL) {
-        return 0;
+    while (list != NULL) {
+        list = list->next;
+        size++;
     }
-    for (unsigned int i = 0; msg[i]; i++) {
-        if (msg[i] == '\n') {
-            line_nb++;
-        }
-    }
-    return line_nb;
-}*/
-
-static sfFont *create_font(char const *font_path)
-{
-    sfFont *font = NULL;
-
-    if (font_path == NULL) {
-        return NULL;
-    }
-    font = sfFont_createFromFile(font_path);
-    return font;
+    return size;
 }
 
-static void set_msg_pos(sfSprite *inventory_sprite, sfText *txt)
+bool is_empty_slot(e_list_t *list)
 {
-    sfFloatRect s_bounds = sfSprite_getGlobalBounds(inventory_sprite);
-    sfVector2f t_pos = {0};
-
-    t_pos.x = s_bounds.left +
-        (DESCRIPTION_BOX_START / DESCRIPTION_BOX_END) * s_bounds.width / 2;
-    t_pos.y = s_bounds.top + s_bounds.height / 2;
-    sfText_setPosition(txt, t_pos);
-}
-
-sfText *create_inventory_description_text(sfSprite *inventory_sprite, char const *msg)
-{
-    sfText *txt = sfText_create();
-    sfFont *font = create_font(FONT_PATH);
-
-    if (txt == NULL) {
-        return NULL;
+    if (get_list_len(list) >= INVENTORY_CAPACITY) {
+        return false;
     }
-    if (msg == NULL) {
-        sfText_destroy(txt);
-        return create_inventory_description_text(inventory_sprite, "No item selected");
-    }
-    set_msg_pos(inventory_sprite, txt);
-    sfText_setString(txt, msg);
-    sfText_setCharacterSize(txt, DESCRIPTION_FONT_SIZE);
-    if (font != NULL) {
-        sfText_setFont(txt, font);
-    }
-    return txt;
+    return true;
 }

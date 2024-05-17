@@ -44,6 +44,7 @@
     #define DESCRIPTION_FONT_SIZE 14
     #define INVENTORY_SCALE 4
     #define INVENTORY_HEIGHT_POURCENTAGE 0.8
+    #define INVENTORY_CAPACITY 4
 
 // sprites
     #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
