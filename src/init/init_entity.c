@@ -77,6 +77,23 @@ void set_hover(entity_t *e, char *value, sfIntRect *rect)
     }
 }
 
+// static sfVector2f get_pos_from_sprite(sfSprite *s, char const *msg)
+// {
+//     sfVector2f pos = {0};
+//     unsigned int
+
+//     if (s == NULL || msg == NULL) {
+//         return pos;
+//     }
+
+// }
+
+// bool set_entity_text(entity_t *e, char const *msg)
+// {
+//     sfVector2f *pos = get_pos_from_sprite(e->sprite, msg);
+
+// }
+
 entity_t *create_entity(system_t *sys, int compo)
 {
     entity_t *e = malloc(sizeof(entity_t));
@@ -98,3 +115,4 @@ entity_t *create_entity(system_t *sys, int compo)
     e->hovered = NULL;
     return e;
 }
+

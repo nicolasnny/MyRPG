@@ -22,9 +22,10 @@
     #define OUT -1
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOBS_MOVE 3
+    #define FONT_PATH "src/sprites/game_font.ttf"
 
 // map
-    #define MAP_SPRITE_PATH "assets/maps/map1.png"
+    #define MAP_SPRITE_PATH "assets/maps/map2.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
     #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
@@ -33,6 +34,22 @@
     #define NPC_LIMIT 'L'
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
+
+// view
+    #define DEFAULT_VIEW_X 0
+    #define DEFAULT_VIEW_Y 0
+
+// inventory
+    #define INVENTORY_SPRITE "src/sprites/InventorySlots.png"
+    #define SLOT_TOP 5
+    #define SLOT1_WIDTH 33
+    #define SLOT_WIDTH 17
+    #define DESCRIPTION_BOX_START 32
+    #define DESCRIPTION_BOX_END 99
+    #define DESCRIPTION_FONT_SIZE 14
+    #define INVENTORY_SCALE 4
+    #define INVENTORY_HEIGHT_POURCENTAGE 0.8
+    #define INVENTORY_CAPACITY 4
 
 // sprites
     #define PLAYER_SPRITE_PATH "assets/player/plane.png"
@@ -57,6 +74,7 @@ int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
+int init_inventory(parameters_t *param);
 
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
@@ -81,7 +99,7 @@ int err_handling(int ac, char **av);
 // --> moves
 void move_player(parameters_t *param);
 void move_mobs(sokospot_t ***map);
-void set_player_new_pos(sokospot_t ***map);
+void set_player_new_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 
 //----> utilities
@@ -104,6 +122,7 @@ void set_hover(entity_t *e, char *value, sfIntRect *rect);
 void set_click(entity_t *e, char *value, sfIntRect *rect);
 void set_texture(entity_t *entity, char *value,
     sfIntRect *rect);
+bool unset_entity(system_t *sys, entity_t *e, int component);
 
 // --> system
 system_t *create_system(void);
@@ -115,6 +134,7 @@ bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
+bool remove_entity_from_list(e_list_t **list, entity_t *e);
 
 // --> collisions
 int check_player_collisions(system_t *sys);
@@ -147,5 +167,9 @@ void create_sprite(entity_t *e, char *value, sfIntRect *rect);
 void set_sprite_texture(entity_t *e, char const *texture_path,
     sfIntRect *rect);
 
+
+// --> inventory
+bool add_element_to_inventory(system_t *sys, entity_t *e);
+void set_inventory_items_pos(system_t *sys);
 
 #endif

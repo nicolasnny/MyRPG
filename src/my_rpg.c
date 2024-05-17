@@ -42,6 +42,7 @@ int my_rpg(int ac, char **av)
         return ERROR;
     }
     if (param.map_array == NULL) {
+        dprintf(2, "Error: param array initialisation failed\n");
         clean(&param);
         return ERROR;
     }

@@ -25,10 +25,10 @@ typedef enum component_s {
     PLAYER = 1 << 0,
     NPC = 1 << 1,
     VISIBLE = 1 << 2,
-    MENU = 1 << 3,
-    MOB = 1 << 4,
-    CLICKABLE = 1 << 5,
-    SETTINGS = 1 << 6,
+    MOB = 1 << 3,
+    INVENTORY = 1 << 4,
+    SELECTED = 1 << 5,
+    BAR = 1 << 6,
     __END__ = 1 << 7,
 } component_t;
 
@@ -38,6 +38,7 @@ typedef struct entity_s {
     sfRectangleShape *rect;
     int (*clicked)(parameters_t *param, entity_t *entity, bool clicked);
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {
@@ -58,6 +59,7 @@ typedef struct system_s {
 
 typedef struct parameters_s {
     sfRenderWindow* window;
+    sfView *view;
     sfEvent event;
     sfSprite *background;
     sfClock *clock;
