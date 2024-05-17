@@ -8,8 +8,7 @@
 #include "rpg.h"
 #include "struct.h"
 
-int set_to_play(parameters_t *param, system_t *system, entity_t *entity,
-    bool clicked)
+int set_to_play(parameters_t *param, entity_t *entity, bool clicked)
 {
     if (clicked) {
         param->game_state = PLAY;
@@ -17,8 +16,7 @@ int set_to_play(parameters_t *param, system_t *system, entity_t *entity,
     return SUCCESS;
 }
 
-int set_to_pause(parameters_t *param, system_t *system, entity_t *entity,
-    bool clicked)
+int set_to_pause(parameters_t *param, entity_t *entity, bool clicked)
 {
     if (clicked) {
         param->game_state = PAUSE;
@@ -26,8 +24,7 @@ int set_to_pause(parameters_t *param, system_t *system, entity_t *entity,
     return SUCCESS;
 }
 
-int set_to_quit(parameters_t *param, system_t *system, entity_t *entity,
-    bool clicked)
+int set_to_quit(parameters_t *param, entity_t *entity, bool clicked)
 {
     if (clicked) {
         param->game_state = QUIT;

@@ -48,6 +48,10 @@
     #define ERROR 84
     #define SYS_ERROR -1
 
+// CONFIG
+    #define CONFIG_DIR "config/"
+    #define CONFIG_ELEMENT_NAME "[ENTITY]"
+
 //-->main
 int my_rpg(int, char **);
 
@@ -81,21 +85,24 @@ void set_player_new_pos(sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 
 //----> utilities
-char **my_pimp_str_to_wa(char *str, char *delim);
+// char **my_pimp_str_to_wa(char *str, char *delim);
 char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
-unsigned int my_strstrlen(char **array);
+// unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 
 // ECS
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
-entity_t *create_entity(system_t *sys, char const *texture_path,
-    sfIntRect *rect, int component);
+entity_t *create_entity(system_t *sys, int component);
 e_list_t *get_entities(system_t *sys, int component);
-entity_t *set_rectangle(entity_t *e, char const *texture_path,
+void set_scale(entity_t *e, char *value, sfIntRect *rect);
+void set_pos(entity_t *e, char *value, sfIntRect *rect);
+void set_hover(entity_t *e, char *value, sfIntRect *rect);
+void set_click(entity_t *e, char *value, sfIntRect *rect);
+void set_texture(entity_t *entity, char *value,
     sfIntRect *rect);
 
 // --> system
@@ -116,24 +123,29 @@ int check_player_collisions(system_t *sys);
 int random_nb(int a, int b);
 
 // --> game state
-int set_to_play(parameters_t *param, system_t *system, entity_t *entity,
-    bool clicked);
-int set_to_quit(parameters_t *param, system_t *system, entity_t *entity,
-    bool clicked);
-int set_to_pause(parameters_t *param, system_t *system, entity_t *entity,
-    bool clicked);
+int set_to_play(parameters_t *param, entity_t *entity, bool clicked);
+int set_to_quit(parameters_t *param, entity_t *entity, bool clicked);
+int set_to_pause(parameters_t *param, entity_t *entity, bool clicked);
 
 // --> menu
 bool start_menu(parameters_t *param);
 
 // --> UI
-int hovered(parameters_t *param, system_t *system, entity_t *entity,
-    bool hovered);
-void add_click_hover(entity_t *entity, int (*clicked)(parameters_t *,
-    system_t *, entity_t *entity, bool clicked),
-    int (*hovered)(parameters_t *, system_t *,
-        entity_t *entity, bool hovered));
-void reset_sprite(entity_t *entity);
+int hovered(parameters_t *param, entity_t *entity, bool hovered);
+
+// --> config parser
+char **get_config(void);
+void create_from_conf(parameters_t *param);
+
+// --> rectangleShape
+void create_rectangle(entity_t *e, char *value, sfIntRect *rect);
+void set_rectangle_texture(entity_t *e, char const *texture_path,
+    sfIntRect *rect);
+
+// --> Sprite
+void create_sprite(entity_t *e, char *value, sfIntRect *rect);
+void set_sprite_texture(entity_t *e, char const *texture_path,
+    sfIntRect *rect);
 
 
 #endif

@@ -35,6 +35,11 @@ SRC     =	src/main.c	\
 			src/user_interface/start_menu/main_page.c	\
 			src/user_interface/hovering.c				\
 			src/game_state.c							\
+			src/rectangle.c								\
+			src/sprite.c								\
+			src/config_parser/get_conf_infos.c			\
+			src/config_parser/param_funcs.c				\
+			src/config_parser/parse_dir.c
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\
@@ -72,9 +77,11 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	my_rpg
 
-LDFLAGS =
+LDFLAGS =	-L./lib/
 
-LDLIBS	=	$(CSFML)
+LDLIBS	=	-lmy $(CSFML)
+
+LIBNAME	=	libmy.a
 
 CPPFLAGS	=	-I./include/
 
@@ -84,19 +91,24 @@ LIBNAME	=	libmy.a
 
 TNAME	=	unit_tests
 
-all:	$(NAME)
+all:	libb $(NAME)
+
+libb:
+	$(MAKE) all -C lib/
 
 $(NAME):	$(OBJ)
-	$(CC) $(LDFLAGS) -o $(NAME) $(MAIN) $(OBJ) $(LDLIBS)
+	$(CC) $(LDFLAGS) -o $(NAME) $(MAIN) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 tests_run:
 	$(CC) -I include/ -o $(TNAME) $(UT_SRC) $(CRFLAGS) $(LDLIBS)
 	./$(TNAME)
 
 clean:
+	$(MAKE) clean -C lib/
 	$(RM) -f $(OBJ) *~  *.gcda *.gcno src/*.gc*
 
 fclean:	clean
+	$(MAKE) fclean -C lib/
 	$(RM) -f $(NAME) $(TNAME)
 
 debug:	CPPFLAGS += -g3

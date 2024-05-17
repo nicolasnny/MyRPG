@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "rpg.h"
+#include "my.h"
 
 static sokospot_t *init_spot(entity_t *e, char type)
 {
@@ -29,15 +30,12 @@ static sokospot_t *create_sokospot(char type, system_t *sys)
         return init_spot(NULL, type);
     }
     if (type == PLAYER_CHAR) {
-        return init_spot(create_entity(sys, PLAYER_SPRITE_PATH,
-        NULL, VISIBLE | PLAYER), type);
+        return init_spot(create_entity(sys, VISIBLE | PLAYER), type);
     }
     if (type == ENEMY) {
-        return init_spot(create_entity
-        (sys, MOB_SPRITE_PATH, NULL, VISIBLE | MOB), type);
+        return init_spot(create_entity(sys, VISIBLE | MOB), type);
     }
-    return init_spot(create_entity
-    (sys, NPC_SPRITE_PATH, NULL, VISIBLE | NPC), type);
+    return init_spot(create_entity(sys, VISIBLE | NPC), type);
 }
 
 static sokospot_t ***char_to_soko(char **char_map, system_t *sys)

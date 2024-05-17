@@ -13,7 +13,6 @@ static int loop(parameters_t *param)
 {
     while (sfRenderWindow_isOpen(param->window)) {
         window_events(param);
-        // mouse_events(param);
         make_life(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
@@ -24,6 +23,7 @@ static int loop(parameters_t *param)
 
 static void game_launcher(parameters_t *param)
 {
+    create_from_conf(param);
     start_menu(param);
     if (param->game_state == PLAY) {
         loop(param);

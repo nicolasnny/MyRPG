@@ -19,10 +19,12 @@ void display_entities(parameters_t *param, int component)
     head = list;
     while (list != NULL) {
         if (list->entity->sprite) {
-            sfRenderWindow_drawSprite(param->window, list->entity->sprite, NULL);
+            sfRenderWindow_drawSprite(param->window,
+            list->entity->sprite, NULL);
         }
         if (list->entity->rect) {
-            sfRenderWindow_drawRectangleShape(param->window, list->entity->rect, NULL);
+            sfRenderWindow_drawRectangleShape(param->window,
+            list->entity->rect, NULL);
         }
         list = list->next;
     }

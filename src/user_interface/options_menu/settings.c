@@ -4,6 +4,3 @@
 ** File description:
 ** settings.c
 */
-
-#include "rpg.h"
-#include "struct.h"

@@ -34,7 +34,7 @@ static void click_entity(e_list_t *compo_list, parameters_t *param)
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
         if (is_in(&mouse_pos, &e_pos) && temp->entity->clicked)
-            temp->entity->clicked(param, param->sys, temp->entity, true);
+            temp->entity->clicked(param, temp->entity, true);
         temp = temp->next;
     }
 }
@@ -51,9 +51,9 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param)
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
         if (is_in(&mouse_pos, &e_pos) && temp->entity->hovered)
-            temp->entity->hovered(param, param->sys, temp->entity, true);
+            temp->entity->hovered(param, temp->entity, true);
         else
-            temp->entity->hovered(param, param->sys, temp->entity, false);
+            temp->entity->hovered(param, temp->entity, false);
         temp = temp->next;
     }
 }
