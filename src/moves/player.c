@@ -137,6 +137,8 @@ void set_player_new_pos(sfView *view, sokospot_t ***map)
     pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
     if (player != NULL) {
         sfSprite_setPosition(player->sprite, pos);
+        pos.x += sfSprite_getGlobalBounds(player->sprite).width / 2;
+        pos.y += sfSprite_getGlobalBounds(player->sprite).height / 2;
         sfView_setCenter(view, pos);
     }
 }
@@ -153,5 +155,6 @@ void move_player(parameters_t *param)
         move_in_array(param->map_array, move);
         set_player_new_pos(param->view, param->map_array);
         sfRenderWindow_setView(param->window, param->view);
+        set_inventory_pos(param->sys);
     }
 }
