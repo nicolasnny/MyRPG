@@ -22,6 +22,7 @@
     #define OUT -1
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOBS_MOVE 3
+    #define FONT_PATH "src/sprites/game_font.ttf"
 
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map1.png"
@@ -33,6 +34,18 @@
     #define NPC_LIMIT 'L'
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
+
+// inventory
+    #define INVENTORY_SPRITE "src/sprites/InventorySlots.png"
+    #define SLOT_TOP 5
+    #define SLOT1_WIDTH 33
+    #define SLOT_WIDTH 17
+    #define DESCRIPTION_BOX_START 32
+    #define DESCRIPTION_BOX_END 99
+    #define DESCRIPTION_FONT_SIZE 14
+    #define INVENTORY_SCALE 4
+    #define INVENTORY_HEIGHT_POURCENTAGE 0.8
+    #define INVENTORY_CAPACITY 4
 
 // sprites
     #define PLAYER_SPRITE_PATH "src/sprites/plane.png"
@@ -49,6 +62,7 @@ int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
+int init_inventory(parameters_t *param);
 
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
@@ -102,11 +116,16 @@ bool entity_in_list(e_list_t *list, entity_t *e);
 bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
+bool remove_entity_from_list(e_list_t **list, entity_t *e);
 
 // --> collisions
 int check_player_collisions(system_t *sys);
 
 // --> random
 int random_nb(int a, int b);
+
+// --> inventory
+bool add_element_to_inventory(system_t *sys, entity_t *e);
+void set_inventory_items_pos(system_t *sys);
 
 #endif

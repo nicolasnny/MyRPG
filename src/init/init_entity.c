@@ -45,6 +45,23 @@ static bool set_texture(entity_t *e, char const *texture_path, sfIntRect *rect)
     return true;
 }
 
+// static sfVector2f get_pos_from_sprite(sfSprite *s, char const *msg)
+// {
+//     sfVector2f pos = {0};
+//     unsigned int
+
+//     if (s == NULL || msg == NULL) {
+//         return pos;
+//     }
+
+// }
+
+// bool set_entity_text(entity_t *e, char const *msg)
+// {
+//     sfVector2f *pos = get_pos_from_sprite(e->sprite, msg);
+
+// }
+
 entity_t *create_entity(system_t *sys, char const *texture_path,
     sfIntRect *rect, int compo)
 {
@@ -67,3 +84,4 @@ entity_t *create_entity(system_t *sys, char const *texture_path,
     set_entity(e, sys, compo);
     return e;
 }
+
