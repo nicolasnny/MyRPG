@@ -17,9 +17,9 @@ static void set_inventory_pos(sfSprite *s)
     if (s == NULL) {
         return;
     }
-    sfSprite_setScale(s, (sfVector2f){3, 3});
+    sfSprite_setScale(s, (sfVector2f){INVENTORY_SCALE, INVENTORY_SCALE});
     pos.x = WIN_WIDTH / 2 - sfSprite_getGlobalBounds(s).width / 2;
-    pos.y = WIN_HEIGHT / 2 - sfSprite_getGlobalBounds(s).height / 2;
+    pos.y = WIN_HEIGHT * INVENTORY_HEIGHT_POURCENTAGE - sfSprite_getGlobalBounds(s).height / 2;
     sfSprite_setPosition(s, pos);
 }
 
@@ -27,7 +27,7 @@ int init_inventory(parameters_t *param)
 {
     sfIntRect texture_rect = {0, 0, INVENTORY_WIDTH, INVENTORY_HEIGHT};
     entity_t *inventory = create_entity(param->sys,
-        INVENTORY_SPRITE, &texture_rect, INVENTORY | VISIBLE); //tmp visiblr
+        INVENTORY_SPRITE, &texture_rect, INVENTORY | VISIBLE);
 
     if (inventory == NULL) {
         dprintf(2, "Error: unable to create the inventory");

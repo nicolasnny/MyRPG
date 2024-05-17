@@ -36,12 +36,14 @@
     #define MAP_HEIGHT 33
 
 // inventory
-    #define INVENTORY_SPRITE "src/sprites/inventory.png"
+    #define INVENTORY_SPRITE "src/sprites/InventorySlots.png"
     #define INVENTORY_HEIGHT 103
     #define INVENTORY_WIDTH 103
     #define DESCRIPTION_BOX_START 32
     #define DESCRIPTION_BOX_END 99
-    #define DESCRIPTION_FONT_SIZE 32
+    #define DESCRIPTION_FONT_SIZE 14
+    #define INVENTORY_SCALE 4
+    #define INVENTORY_HEIGHT_POURCENTAGE 0.8
 
 // sprites
     #define PLAYER_SPRITE_PATH "src/sprites/plane.png"

@@ -27,6 +27,7 @@ static void display_inventory(parameters_t *param)
     }
     printf("before displaying\n");
     sfRenderWindow_drawText(param->window, txt, NULL);
+    printf("position: {%f, %f}\n", sfText_getPosition(txt).x, sfText_getPosition(txt).y);
     sfText_destroy(txt);
     clean_list(inventory_menu);
 }
@@ -42,6 +43,6 @@ void display_sprites(parameters_t *param)
         sfRenderWindow_drawSprite(param->window, list->entity->sprite, NULL);
         list = list->next;
     }
-    display_inventory(param);
+    //display_inventory(param);
     clean_list(head);
 }

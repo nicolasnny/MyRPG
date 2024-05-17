@@ -43,7 +43,7 @@ static void set_msg_pos(sfSprite *inventory_sprite, sfText *txt)
     t_pos.x = s_bounds.left +
         (DESCRIPTION_BOX_START / DESCRIPTION_BOX_END) * s_bounds.width / 2;
     t_pos.y = s_bounds.top + s_bounds.height / 2;
-    sfText_setOrigin(txt, t_pos);
+    sfText_setPosition(txt, t_pos);
 }
 
 sfText *create_inventory_description_text(sfSprite *inventory_sprite, char const *msg)
