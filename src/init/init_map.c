@@ -20,6 +20,7 @@ static sokospot_t *init_spot(entity_t *e, char type)
     }
     spot->entity = e;
     spot->type = type;
+    spot->moved_in_frame = false;
     return spot;
 }
 
