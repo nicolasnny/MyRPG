@@ -30,6 +30,7 @@ SRC     =	src/main.c	\
 		src/ecs/system.c	\
 		src/ecs/get_entities.c	\
 		src/ecs/set_entities.c	\
+		src/ecs/unset_entity.c	\
 		src/animate/make_life.c	\
 		src/collisions/check_collisions.c	\
 		src/init/init_inventory.c	\
@@ -57,6 +58,7 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/ecs/system.c	\
 			src/ecs/get_entities.c	\
 			src/ecs/set_entities.c	\
+			src/ecs/unset_entity.c	\
 			src/animate/make_life.c	\
 			src/collisions/check_collisions.c	\
 			src/init/init_inventory.c	\
