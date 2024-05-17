@@ -21,6 +21,7 @@ static sfView *create_view(void)
         return NULL;
     }
     (void)pos;
+    sfView_setSize(view, (sfVector2f){250 * 2, 144 * 2});
     return view;
 }
 
