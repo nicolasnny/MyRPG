@@ -21,9 +21,10 @@ void set_scale(parameters_t *param, entity_t *entity, char *value)
 
     if (!scale_value)
         return;
-    if (entity->sprite)
+    if (entity->sprite) {
         sfSprite_setScale(entity->sprite,
             (sfVector2f){scale_value[0], scale_value[1]});
+    }
     if (entity->rect)
         sfRectangleShape_setScale(entity->rect,
             (sfVector2f){scale_value[0], scale_value[1]});

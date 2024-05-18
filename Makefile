@@ -34,6 +34,7 @@ SRC     =	src/main.c	\
 			src/animate/make_life.c	\
 			src/collisions/check_collisions.c	\
 			src/user_interface/start_menu/main_page.c	\
+			src/user_interface/start_menu/settings.c	\
 			src/user_interface/hovering.c				\
 			src/game_state.c							\
 			src/rectangle.c								\

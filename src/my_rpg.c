@@ -24,7 +24,7 @@ static int loop(parameters_t *param)
 static void game_launcher(parameters_t *param)
 {
     create_from_conf(param);
-    start_menu(param);
+    start_menu(param, NULL, true);
     if (param->game_state == PLAY) {
         loop(param);
     }

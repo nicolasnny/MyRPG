@@ -147,7 +147,8 @@ int set_to_quit(parameters_t *param, entity_t *entity, bool clicked);
 int set_to_pause(parameters_t *param, entity_t *entity, bool clicked);
 
 // --> menu
-bool start_menu(parameters_t *param);
+int start_menu(parameters_t *param, entity_t *entity, bool state);
+int options_menu(parameters_t *param, entity_t *entity, bool state);
 
 // --> UI
 int hovered(parameters_t *param, entity_t *entity, bool hovered);
@@ -170,10 +171,14 @@ void create_sprite(parameters_t *param, entity_t *entity, char *value);
 void set_sprite_texture(entity_t *e, char const *texture_path,
     sfIntRect *rect);
 
-
 // --> inventory
 bool add_element_to_inventory(system_t *sys, entity_t *e);
 void set_inventory_items_pos(system_t *sys);
+
+// --> window size
+int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
+int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
+
 
 
 #endif

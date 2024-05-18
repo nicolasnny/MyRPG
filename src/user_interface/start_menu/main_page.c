@@ -10,8 +10,10 @@
 #include "rpg.h"
 #include "struct.h"
 
-bool start_menu(parameters_t *param)
+int start_menu(parameters_t *param, entity_t *entity, bool state)
 {
+    (void)entity;
+    (void)state;
     while (param->game_state == PAUSE) {
         display_entities(param, MENU);
         sfRenderWindow_display(param->window);

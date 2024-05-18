@@ -26,11 +26,15 @@ typedef struct conf_compo_s {
 } conf_compo_t;
 
 static const conf_function_t func_list[] = {
-    {"set_to_quit", &set_to_quit},
     {"set_to_play", &set_to_play},
+    {"set_to_quit", &set_to_quit},
     {"set_to_pause", &set_to_pause},
+    {"window_size:1920x1080", &set_1920x1080},
+    {"window_size:2560x1600", &set_2560x1600},
     {"hovered", &hovered},
     {"init_inventory", &init_inventory},
+    {"options_menu", &options_menu},
+    {"start_menu", &start_menu},
     {NULL, NULL},
 };
 

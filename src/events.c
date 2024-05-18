@@ -10,10 +10,18 @@
 #include "rpg.h"
 #include "struct.h"
 
-bool is_in(sfVector2i *mouse, sfFloatRect *rect)
+bool is_in(sfVector2f *mouse, sfFloatRect *rect, sfVector2u *window_pos)
 {
-    if (mouse->x <= rect->left + rect->width && mouse->x >= rect->left &&
-        mouse->y <= rect->top + rect->height && mouse->y >= rect->top){
+    sfFloatRect scaled_rect;
+
+    scaled_rect.left = (rect->left / (double)WIN_WIDTH) * window_pos->x;
+    scaled_rect.top = (rect->top / (double)WIN_HEIGHT) * window_pos->y;
+    scaled_rect.width = (rect->width / (double)WIN_WIDTH) * window_pos->x;
+    scaled_rect.height = (rect->height / (double)WIN_HEIGHT) * window_pos->y;
+    if (mouse->x <= scaled_rect.left + scaled_rect.width &&
+        mouse->x >= scaled_rect.left &&
+        mouse->y <= scaled_rect.top + scaled_rect.height &&
+        mouse->y >= scaled_rect.top){
         return true;
     }
     return false;
@@ -23,9 +31,12 @@ static void click_entity(e_list_t *compo_list, parameters_t *param)
 {
     e_list_t *temp = compo_list;
     sfVector2i mouse_pos = sfMouse_getPosition((sfWindow *)param->window);
-    sfFloatRect sprite_pos;
+    sfVector2u window_pos = sfRenderWindow_getSize(param->window);
+    sfVector2f new_pos;
     sfFloatRect e_pos;
 
+    new_pos.x = (mouse_pos.x / (double)WIN_WIDTH) * (double)window_pos.x;
+    new_pos.y = (mouse_pos.y / (double)WIN_HEIGHT) * (double)window_pos.y;
     if (!sfMouse_isButtonPressed(sfMouseLeft))
         return;
     while (temp) {
@@ -33,7 +44,7 @@ static void click_entity(e_list_t *compo_list, parameters_t *param)
             e_pos = sfSprite_getGlobalBounds(temp->entity->sprite);
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
-        if (is_in(&mouse_pos, &e_pos) && temp->entity->clicked)
+        if (is_in(&new_pos, &e_pos, &window_pos) && temp->entity->clicked)
             temp->entity->clicked(param, temp->entity, true);
         temp = temp->next;
     }
@@ -43,16 +54,20 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param)
 {
     e_list_t *temp = compo_list;
     sfVector2i mouse_pos = sfMouse_getPosition((sfWindow *)param->window);
+    sfVector2u window_pos = sfRenderWindow_getSize(param->window);
+    sfVector2f new_pos;
     sfFloatRect e_pos;
 
+    new_pos.x = (mouse_pos.x / (double)WIN_WIDTH) * (double)window_pos.x;
+    new_pos.y = (mouse_pos.y / (double)WIN_HEIGHT) * (double)window_pos.y;
     while (temp) {
         if (temp->entity->sprite)
             e_pos = sfSprite_getGlobalBounds(temp->entity->sprite);
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
-        if (is_in(&mouse_pos, &e_pos) && temp->entity->hovered)
+        if (is_in(&new_pos, &e_pos, &window_pos) && temp->entity->hovered)
             temp->entity->hovered(param, temp->entity, true);
-        else
+        if (!is_in(&new_pos, &e_pos, &window_pos) && temp->entity->hovered)
             temp->entity->hovered(param, temp->entity, false);
         temp = temp->next;
     }
