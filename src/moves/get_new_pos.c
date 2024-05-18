@@ -44,7 +44,7 @@ static void line_assist(sokospot_t ***map, int l, int *line, unsigned int *col)
     }
 }
 
-void get_player_pos(sokospot_t ***map, int *line, unsigned int *col)
+static void get_player_pos(sokospot_t ***map, int *line, unsigned int *col)
 {
     *line = -1;
     for (int l = 0; map[l] != NULL; l++) {
@@ -101,4 +101,17 @@ void set_player_new_pos(parameters_t *param, sfVector2f move)
     sfSprite_move(player, move);
     sfView_setCenter(param->view, get_center(player));
     clean_list(p_list);
+}
+
+bool get_sprite_coords_on_sokomap(sfRenderWindow *win, sfSprite *s,
+    int *line, int *col)
+{
+    sfVector2u w_size = sfRenderWindow_getSize(win);
+    sfVector2f pos = get_center(s);
+
+    if (win == NULL || s == NULL || line == NULL || col == NULL)
+        return false;
+    *col = (int)(MAP_WIDTH * pos.x / w_size.x);
+    *line = (int)(MAP_HEIGHT * pos.y / w_size.y);
+    return true;
 }

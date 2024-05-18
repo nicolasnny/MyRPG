@@ -101,7 +101,8 @@ void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
 sokospot_t *get_player_spot(sokospot_t ***);
 sfVector2f get_p_move_event(sfSprite *player);
-void get_player_pos(sokospot_t ***map, int *line, unsigned int *col);
+bool get_sprite_coords_on_sokomap(sfRenderWindow *win, sfSprite *s,
+    int *line, int *col);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);
