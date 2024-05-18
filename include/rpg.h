@@ -23,6 +23,7 @@
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOBS_MOVE 3
     #define FONT_PATH "src/sprites/game_font.ttf"
+    #define PLAYER_ATTACK_RANGE 25
 
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map2.png"
@@ -59,6 +60,7 @@
 // errors defines
     #define OPEN_ERROR -1
     #define ERROR 84
+    #define NEG_ERROR -1
     #define SYS_ERROR -1
 
 //-->main
