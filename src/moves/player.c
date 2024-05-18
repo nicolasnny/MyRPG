@@ -43,6 +43,13 @@ static bool spot_available(sokospot_t *spot)
     return false;
 }
 
+void set_prev_pos(parameters_t *param, sfSprite *player,
+    sokospot_t *player_spot)
+{
+    sfSprite_setPosition(player, player_spot->last_pos);
+    sfView_setCenter(param->view, get_center(player));
+}
+
 static void move_in_array(parameters_t *param, sokospot_t ***map,
     sfSprite *player)
 {
@@ -65,7 +72,7 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
     }
     if (map[y][x]->type == OBSTACLE)
         move_not_possible();
-    sfSprite_setPosition(player, player_spot->last_pos);
+    set_prev_pos(param, player, player_spot);
 }
 
 sfSprite *get_player(system_t *sys)
@@ -82,23 +89,17 @@ sfSprite *get_player(system_t *sys)
 
 void move_player(parameters_t *param)
 {
-    static sfClock *clock = NULL;
     sfVector2f move = {0};
     sfSprite *player = get_player(param->sys);
 
     if (param->map_array == NULL || player == NULL)
         return;
-    if (clock == NULL)
-        clock = sfClock_create();
     move = get_p_move_event(player);
     if (move.x != 0.0 || move.y != 0.0) {
         get_player_spot(param->map_array)->last_pos =
             sfSprite_getPosition(player);
         set_player_new_pos(param, move);
-        if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock)) > 50) {
-            move_in_array(param, param->map_array, player);
-            sfClock_restart(clock);
-        }
+        move_in_array(param, param->map_array, player);
         sfRenderWindow_setView(param->window, param->view);
         set_inventory_pos(param->sys);
     }
