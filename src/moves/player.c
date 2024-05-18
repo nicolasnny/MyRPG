@@ -98,7 +98,8 @@ static void try_player_move(int move, sokospot_t ***map, int line,
         swap_struct(&map[line][col], &map[line][col + 1]);
         return;
     }
-    if (move == sfKeyDown && map[line + 1] && spot_available(map[line + 1][col])) {
+    if (move == sfKeyDown && map[line + 1] &&
+        spot_available(map[line + 1][col])) {
         swap_struct(&map[line][col], &map[line + 1][col]);
         return;
     }

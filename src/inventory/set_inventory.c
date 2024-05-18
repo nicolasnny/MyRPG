@@ -8,11 +8,13 @@
 #include <SFML/Graphics.h>
 #include "rpg.h"
 
-static void set_sprite_slot(unsigned int index, sfSprite *s, sfFloatRect *bar_rect)
+static void set_sprite_slot(unsigned int index, sfSprite *s,
+    sfFloatRect *bar_rect)
 {
     sfVector2f pos = {bar_rect->left, bar_rect->top};
 
-    pos.x += SLOT1_WIDTH * INVENTORY_SCALE + SLOT_WIDTH * INVENTORY_SCALE * index;
+    pos.x += SLOT1_WIDTH * INVENTORY_SCALE
+        + SLOT_WIDTH * INVENTORY_SCALE * index;
     pos.y += SLOT_TOP * SLOT_TOP;
     sfSprite_setPosition(s, pos);
 }
