@@ -36,8 +36,8 @@
     #define MAP_HEIGHT 33
 
 // view
-    #define DEFAULT_VIEW_X 0
-    #define DEFAULT_VIEW_Y 0
+    #define DEFAULT_VIEW_SIZE_X 500
+    #define DEFAULT_VIEW_SIZE_Y 288
 
 // inventory
     #define INVENTORY_SPRITE "src/sprites/InventorySlots.png"
@@ -47,7 +47,7 @@
     #define DESCRIPTION_BOX_START 32
     #define DESCRIPTION_BOX_END 99
     #define DESCRIPTION_FONT_SIZE 14
-    #define INVENTORY_SCALE 4
+    #define INVENTORY_SCALE 1.5
     #define INVENTORY_HEIGHT_POURCENTAGE 0.8
     #define INVENTORY_CAPACITY 4
 
@@ -174,6 +174,7 @@ void set_sprite_texture(entity_t *e, char const *texture_path,
 // --> inventory
 bool add_element_to_inventory(system_t *sys, entity_t *e);
 void set_inventory_items_pos(system_t *sys);
+void set_inventory_pos(system_t *sys);
 
 // --> window size
 int set_2560x1600(parameters_t *param, entity_t *entity, bool state);

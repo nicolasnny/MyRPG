@@ -29,9 +29,8 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     sfVector2f pos = {0};
 
     pos = (sfVector2f){b_bounds.left, b_bounds.top};
-    if (sprite_contains(a, &pos)) {
+    if (sprite_contains(a, &pos))
         return true;
-    }
     pos = (sfVector2f){b_bounds.left + b_bounds.width, b_bounds.top};
     if (sprite_contains(a, &pos)) {
         return true;

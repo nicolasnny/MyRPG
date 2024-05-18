@@ -14,14 +14,13 @@
 static sfView *create_view(void)
 {
     sfView *view = sfView_create();
-    sfVector2f pos = {DEFAULT_VIEW_X, DEFAULT_VIEW_Y};
 
     if (view == NULL) {
         dprintf(2, "Error: view initialisation failed\n");
         return NULL;
     }
-    (void)pos;
-    sfView_setSize(view, (sfVector2f){250 * 2, 144 * 2});
+    sfView_setSize(view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
+        DEFAULT_VIEW_SIZE_Y});
     return view;
 }
 
@@ -37,9 +36,9 @@ int init_args(parameters_t *param)
         return ERROR;
     }
     param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
-    if (param->map_array == NULL) {
+    if (param->map_array == NULL)
         return ERROR;
-    }
     param->game_state = PAUSE;
+    sfRenderWindow_setView(param->window, param->view);
     return SUCCESS;
 }
