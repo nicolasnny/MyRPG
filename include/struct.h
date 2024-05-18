@@ -25,7 +25,7 @@ typedef enum component_s {
 typedef struct entity_s {
     int id;
     sfSprite *sprite;
-    sfText *text;
+    char *name;
 } entity_t;
 
 typedef struct sokospot_s {

@@ -38,7 +38,7 @@ static double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb)
     return result;
 }
 
-static bool ennemy_in_range(entity_t *player, entity_t *ennemy)
+bool ennemy_in_range(entity_t *player, entity_t *ennemy)
 {
     sfVector2f player_center = {0};
     sfVector2f ennemy_center = {0};

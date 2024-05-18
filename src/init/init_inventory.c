@@ -19,11 +19,7 @@ void set_inventory_pos(system_t *sys)
 
     if (i_bar == NULL || player == NULL)
         return;
-    player_center_pos = sfSprite_getPosition(player->entity->sprite);
-    player_center_pos.x += sfSprite_getGlobalBounds
-        (player->entity->sprite).width / 2;
-    player_center_pos.y += sfSprite_getGlobalBounds
-        (player->entity->sprite).height / 2;
+    player_center_pos = get_center(player->entity->sprite);
     sfSprite_setScale(i_bar->entity->sprite, (sfVector2f)
         {INVENTORY_SCALE, INVENTORY_SCALE});
     pos.x = player_center_pos.x - sfSprite_getGlobalBounds
@@ -32,6 +28,8 @@ void set_inventory_pos(system_t *sys)
         INVENTORY_HEIGHT_POURCENTAGE
         / 2 - sfSprite_getGlobalBounds(i_bar->entity->sprite).height / 2;
     sfSprite_setPosition(i_bar->entity->sprite, pos);
+    clean_list(i_bar);
+    clean_list(player);
 }
 
 int init_inventory(parameters_t *param)

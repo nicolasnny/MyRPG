@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stddef.h>
 #include <SFML/Graphics.h>
 #include "rpg.h"
@@ -63,6 +64,7 @@ entity_t *create_entity(system_t *sys, char const *texture_path,
         return NULL;
     }
     e->id = id;
+    e->name = strdup(DEFAULT_NAME);
     id++;
     set_entity(e, sys, compo);
     return e;

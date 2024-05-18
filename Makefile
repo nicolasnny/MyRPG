@@ -36,6 +36,8 @@ SRC     =	src/main.c	\
 		src/init/init_inventory.c	\
 		src/inventory/inventory.c	\
 		src/inventory/set_inventory.c	\
+		src/fight/range.c	\
+		src/fight/kill.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\
@@ -65,6 +67,8 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/init/init_inventory.c	\
 			src/inventory/inventory.c	\
 			src/inventory/set_inventory.c	\
+			src/fight/range.c	\
+			src/fight/kill.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 
@@ -74,7 +78,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	my_rpg
 
-LDFLAGS =
+LDFLAGS =	-lm
 
 LDLIBS	=	$(CSFML)
 

@@ -24,6 +24,7 @@
     #define TIME_BEFORE_MOBS_MOVE 3
     #define FONT_PATH "src/sprites/game_font.ttf"
     #define PLAYER_ATTACK_RANGE 25
+    #define DEFAULT_NAME "Mob"
 
 // map
     #define MAP_SPRITE_PATH "src/sprites/maps/map2.png"
@@ -103,6 +104,7 @@ int open_append(char const *filename);
 int get_file_size(char const *filename);
 unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
+sfVector2f get_center(sfSprite *s);
 
 // ECS
 // --> entity
@@ -134,5 +136,9 @@ int random_nb(int a, int b);
 bool add_element_to_inventory(system_t *sys, entity_t *e);
 void set_inventory_items_pos(system_t *sys);
 void set_inventory_pos(system_t *sys);
+
+// --> fight
+bool ennemy_in_range(entity_t *player, entity_t *ennemy);
+bool kill_entity(system_t *sys, entity_t *entity);
 
 #endif
