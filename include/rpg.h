@@ -74,7 +74,7 @@ int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
-int init_inventory(parameters_t *param);
+int init_inventory(parameters_t *param, entity_t *entity, bool state);
 
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
@@ -116,12 +116,11 @@ void free_str_array(char **map);
 bool set_entity(entity_t *entity, system_t *system, int component);
 entity_t *create_entity(system_t *sys, int component);
 e_list_t *get_entities(system_t *sys, int component);
-void set_scale(entity_t *e, char *value, sfIntRect *rect);
-void set_pos(entity_t *e, char *value, sfIntRect *rect);
-void set_hover(entity_t *e, char *value, sfIntRect *rect);
-void set_click(entity_t *e, char *value, sfIntRect *rect);
-void set_texture(entity_t *entity, char *value,
-    sfIntRect *rect);
+void set_scale(parameters_t *param, entity_t *entity, char *value);
+void set_pos(parameters_t *param, entity_t *entity, char *value);
+void set_hover(parameters_t *param, entity_t *entity, char *value);
+void set_click(parameters_t *param, entity_t *entity, char *value);
+void set_texture(parameters_t *param, entity_t *entity, char *value);
 bool unset_entity(system_t *sys, entity_t *e, int component);
 
 // --> system
@@ -156,14 +155,18 @@ int hovered(parameters_t *param, entity_t *entity, bool hovered);
 // --> config parser
 char **get_config(void);
 void create_from_conf(parameters_t *param);
+int *get_int_array(char *arg);
+double *get_double_array(char *arg);
+void run_on_start(parameters_t *param, entity_t *entity, char *value);
+
 
 // --> rectangleShape
-void create_rectangle(entity_t *e, char *value, sfIntRect *rect);
+void create_rectangle(parameters_t *param, entity_t *entity, char *value);
 void set_rectangle_texture(entity_t *e, char const *texture_path,
     sfIntRect *rect);
 
 // --> Sprite
-void create_sprite(entity_t *e, char *value, sfIntRect *rect);
+void create_sprite(parameters_t *param, entity_t *entity, char *value);
 void set_sprite_texture(entity_t *e, char const *texture_path,
     sfIntRect *rect);
 
@@ -171,5 +174,6 @@ void set_sprite_texture(entity_t *e, char const *texture_path,
 // --> inventory
 bool add_element_to_inventory(system_t *sys, entity_t *e);
 void set_inventory_items_pos(system_t *sys);
+
 
 #endif

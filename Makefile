@@ -31,7 +31,7 @@ SRC     =	src/main.c	\
 			src/ecs/get_entities.c	\
 			src/ecs/set_entities.c	\
 			src/ecs/unset_entity.c	\
-		src/animate/make_life.c	\
+			src/animate/make_life.c	\
 			src/collisions/check_collisions.c	\
 			src/user_interface/start_menu/main_page.c	\
 			src/user_interface/hovering.c				\
@@ -40,10 +40,10 @@ SRC     =	src/main.c	\
 			src/sprite.c								\
 			src/config_parser/get_conf_infos.c			\
 			src/config_parser/param_funcs.c				\
-			src/config_parser/parse_dir.c
-		src/init/init_inventory.c	\
-		src/inventory/inventory.c	\
-		src/inventory/set_inventory.c	\
+			src/config_parser/parse_dir.c				\
+			src/init/init_inventory.c	\
+			src/inventory/inventory.c	\
+			src/inventory/set_inventory.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\

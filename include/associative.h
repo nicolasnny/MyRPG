@@ -17,7 +17,7 @@ typedef struct conf_function_s {
 
 typedef struct conf_param_s {
     char *param;
-    void (*exec)(entity_t *entity, char *value, sfIntRect *rect);
+    void (*exec)(parameters_t *param, entity_t *entity, char *value);
 } conf_param_t;
 
 typedef struct conf_compo_s {
@@ -30,6 +30,7 @@ static const conf_function_t func_list[] = {
     {"set_to_play", &set_to_play},
     {"set_to_pause", &set_to_pause},
     {"hovered", &hovered},
+    {"init_inventory", &init_inventory},
     {NULL, NULL},
 };
 
@@ -52,6 +53,7 @@ static const conf_param_t param_list[] = {
     {"POS", &set_pos},
     {"CLICK", &set_click},
     {"HOVER", &set_hover},
+    {"RUN_ON_START", &run_on_start},
     {NULL, NULL},
 };
 

@@ -10,12 +10,11 @@
 #include "rpg.h"
 #include "struct.h"
 
-void create_sprite(entity_t *e, char *value,
-    sfIntRect *rect)
+void create_sprite(parameters_t *param, entity_t *entity, char *value)
 {
     if (strcmp(value, "TRUE") == 0) {
-        e->sprite = sfSprite_create();
-        if (!e->sprite)
+        entity->sprite = sfSprite_create();
+        if (!entity->sprite)
             dprintf(2, "Error: failed to create sprite\n");
     }
 }

@@ -43,7 +43,7 @@ static void read_param(char *arg, entity_t *entity, parameters_t *param)
 
     for (int i = 0; param_list[i].param; i++) {
         if (strcmp(line[0], param_list[i].param) == 0)
-            param_list[i].exec(entity, line[1], NULL);
+            param_list[i].exec(param, entity, line[1]);
     }
 }
 

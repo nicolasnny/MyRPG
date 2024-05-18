@@ -29,7 +29,10 @@ typedef enum component_s {
     INVENTORY = 1 << 4,
     SELECTED = 1 << 5,
     BAR = 1 << 6,
-    __END__ = 1 << 7,
+    MENU = 1 << 7,
+    CLICKABLE = 1 << 8,
+    SETTINGS = 1 << 9,
+    __END__ = 1 << 10,
 } component_t;
 
 typedef struct entity_s {

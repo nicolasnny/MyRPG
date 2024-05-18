@@ -15,84 +15,55 @@
 #include "my.h"
 #include "associative.h"
 
-void set_scale(entity_t *e, char *value, sfIntRect *rect)
+void set_scale(parameters_t *param, entity_t *entity, char *value)
 {
-    char *no_brackets = strdup_banned_chars(value, " {}");
-    char **scale_value = NULL;
+    double *scale_value = get_double_array(value);
 
-    if (!no_brackets)
+    if (!scale_value)
         return;
-    if (strcmp(value, "NULL") == 0) {
-        free(no_brackets);
-        return;
-    }
-    scale_value = my_str_to_word_array(no_brackets, ",");
-    if (e->sprite)
-        sfSprite_setScale(e->sprite,
-            (sfVector2f){atof(scale_value[0]), atof(scale_value[1])});
-    if (e->rect)
-        sfRectangleShape_setScale(e->rect,
-            (sfVector2f){atof(scale_value[0]), atof(scale_value[1])});
-    free(no_brackets);
+    if (entity->sprite)
+        sfSprite_setScale(entity->sprite,
+            (sfVector2f){scale_value[0], scale_value[1]});
+    if (entity->rect)
+        sfRectangleShape_setScale(entity->rect,
+            (sfVector2f){scale_value[0], scale_value[1]});
+    free(scale_value);
 }
 
-void set_pos(entity_t *e, char *value, sfIntRect *rect)
+void set_pos(parameters_t *param, entity_t *entity, char *value)
 {
-    char *no_brackets = strdup_banned_chars(value, " {}");
-    char **scale_value = NULL;
+    double *pos_value = get_double_array(value);
 
-    if (!no_brackets)
+    if (!pos_value)
         return;
-    if (strcmp(value, "NULL") == 0) {
-        free(no_brackets);
-        return;
-    }
-    scale_value = my_str_to_word_array(no_brackets, ",");
-    if (e->sprite)
-        sfSprite_setPosition(e->sprite,
-            (sfVector2f){atof(scale_value[0]), atof(scale_value[1])});
-    if (e->rect)
-        sfRectangleShape_setPosition(e->rect,
-            (sfVector2f){atof(scale_value[0]), atof(scale_value[1])});
-    free(no_brackets);
+    if (entity->sprite)
+        sfSprite_setPosition(entity->sprite,
+            (sfVector2f){pos_value[0], pos_value[1]});
+    if (entity->rect)
+        sfRectangleShape_setPosition(entity->rect,
+            (sfVector2f){pos_value[0], pos_value[1]});
+    free(pos_value);
 }
 
-void set_click(entity_t *e, char *value, sfIntRect *rect)
+void set_click(parameters_t *param, entity_t *entity, char *value)
 {
     if (strcmp(value, "NULL") == 0)
         return;
     for (int i = 0; func_list[i].func_name; i++) {
         if (strcmp(func_list[i].func_name, value) == 0)
-            e->clicked = func_list[i].function;
+            entity->clicked = func_list[i].function;
     }
 }
 
-void set_hover(entity_t *e, char *value, sfIntRect *rect)
+void set_hover(parameters_t *param, entity_t *entity, char *value)
 {
     if (strcmp(value, "NULL") == 0)
         return;
     for (int i = 0; func_list[i].func_name; i++) {
         if (strcmp(func_list[i].func_name, value) == 0)
-            e->hovered = func_list[i].function;
+            entity->hovered = func_list[i].function;
     }
 }
-
-// static sfVector2f get_pos_from_sprite(sfSprite *s, char const *msg)
-// {
-//     sfVector2f pos = {0};
-//     unsigned int
-
-//     if (s == NULL || msg == NULL) {
-//         return pos;
-//     }
-
-// }
-
-// bool set_entity_text(entity_t *e, char const *msg)
-// {
-//     sfVector2f *pos = get_pos_from_sprite(e->sprite, msg);
-
-// }
 
 entity_t *create_entity(system_t *sys, int compo)
 {
@@ -115,4 +86,3 @@ entity_t *create_entity(system_t *sys, int compo)
     e->hovered = NULL;
     return e;
 }
-

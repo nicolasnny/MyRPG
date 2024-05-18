@@ -10,12 +10,11 @@
 #include "rpg.h"
 #include "struct.h"
 
-void create_rectangle(entity_t *e, char *value,
-    sfIntRect *rect)
+void create_rectangle(parameters_t *param, entity_t *entity, char *value)
 {
     if (strcmp(value, "TRUE") == 0) {
-        e->rect = sfRectangleShape_create();
-        if (!e->rect)
+        entity->rect = sfRectangleShape_create();
+        if (!entity->rect)
             dprintf(2, "Error: failed to create sprite\n");
     }
 }
