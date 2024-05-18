@@ -47,28 +47,25 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
     sfSprite *player)
 {
     sfVector2f pos = get_center(player);
-    int l = 0;
-    unsigned int col = 0;
-    sokospot_t *player_spot = get_player_pos_and_entity(map, &l, &col);
+    sokospot_t *player_spot = get_player_spot(map);
     sfVector2u w_size = sfRenderWindow_getSize(param->window);
     int x = (int)(MAP_WIDTH * pos.x / w_size.x);
     int y = (int)(MAP_HEIGHT * pos.y / w_size.y);
 
-    if (x < 0 || y < 0) {
+    if (x < 0 || y < 0 || x >= MAP_WIDTH || y >= MAP_HEIGHT) {
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
     }
-    printf("before spot availabe-> {x: %d, y: %d}\n", x, y);
-    if (spot_available(map[x][y]) || map[x][y]->type == PLAYER_CHAR) {
-        printf("before swapping struct\n");
-        swap_struct(&map[x][y], &player_spot);
+    if (map[y][x]->type == PLAYER_CHAR)
+        return;
+    if (spot_available(map[y][x]) || map[y][x]->type == PLAYER_CHAR) {
+        if (map[y][x]->type != PLAYER_CHAR)
+            swap_struct(&player_spot, &map[y][x]);
         return;
     }
-    printf("before check reason\n");
-    if (map[x][y]->type == OBSTACLE)
+    if (map[y][x]->type == OBSTACLE)
         move_not_possible();
-    printf("before setting back old pos\n");
-    set_player_first_pos(param->view, map);
+    sfSprite_setPosition(player, player_spot->last_pos);
 }
 
 sfSprite *get_player(system_t *sys)
@@ -85,27 +82,24 @@ sfSprite *get_player(system_t *sys)
 
 void move_player(parameters_t *param)
 {
-    printf("in move player\n");
     static sfClock *clock = NULL;
     sfVector2f move = {0};
     sfSprite *player = get_player(param->sys);
 
-    if (param->map_array == NULL || player == NULL) {
+    if (param->map_array == NULL || player == NULL)
         return;
-    }
     if (clock == NULL)
         clock = sfClock_create();
-    printf("in get player mov");
     move = get_p_move_event(player);
-    printf("before move check: {%f, %f}\n", move.x, move.y);
     if (move.x != 0.0 || move.y != 0.0) {
+        get_player_spot(param->map_array)->last_pos =
+            sfSprite_getPosition(player);
         set_player_new_pos(param, move);
-        if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 0) {
+        if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock)) > 50) {
             move_in_array(param, param->map_array, player);
             sfClock_restart(clock);
         }
         sfRenderWindow_setView(param->window, param->view);
         set_inventory_pos(param->sys);
     }
-    printf("func end\n");
 }

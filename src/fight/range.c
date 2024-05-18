@@ -18,7 +18,7 @@ sfVector2f get_center(sfSprite *s)
         return pos;
     pos = sfSprite_getPosition(s);
     pos.x += sfSprite_getGlobalBounds(s).width / 2;
-    pos.x += sfSprite_getGlobalBounds(s).height / 2;
+    pos.y += sfSprite_getGlobalBounds(s).height / 2;
     return pos;
 }
 

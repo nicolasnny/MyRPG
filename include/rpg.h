@@ -37,6 +37,8 @@
     #define NPC_LIMIT 'L'
     #define MAP_WIDTH 60
     #define MAP_HEIGHT 33
+    #define TMP_HEIGHT 45
+    #define TMP_WIDTH 79
 
 // view
     #define DEFAULT_VIEW_SIZE_X 500
@@ -97,8 +99,9 @@ void move_mobs(sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
-sokospot_t *get_player_pos_and_entity(sokospot_t ***, int *, unsigned int *);
+sokospot_t *get_player_spot(sokospot_t ***);
 sfVector2f get_p_move_event(sfSprite *player);
+void get_player_pos(sokospot_t ***map, int *line, unsigned int *col);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);

@@ -44,15 +44,26 @@ static void line_assist(sokospot_t ***map, int l, int *line, unsigned int *col)
     }
 }
 
-sokospot_t *get_player_pos_and_entity(sokospot_t ***map, int *line,
-    unsigned int *col)
+void get_player_pos(sokospot_t ***map, int *line, unsigned int *col)
 {
     *line = -1;
     for (int l = 0; map[l] != NULL; l++) {
         line_assist(map, l, line, col);
         if (*line != NOT_FOUND) {
-            return map[*line][*col];
+            return;
         }
+    }
+}
+
+sokospot_t *get_player_spot(sokospot_t ***map)
+{
+    unsigned int col = 0;
+
+    for (int l = 0; map[l] != NULL; l++) {
+        for (col = 0; map[l][col] && map[l][col]->type != PLAYER_CHAR; col++)
+            continue;
+        if (map[l][col])
+            return map[l][col];
     }
     return NULL;
 }
@@ -62,8 +73,9 @@ void set_player_first_pos(sfView *view, sokospot_t ***map)
     int line = 0;
     unsigned int col = 0;
     sfVector2f pos = {0};
-    entity_t *player = get_player_pos_and_entity(map, &line, &col)->entity;
+    entity_t *player = get_player_spot(map)->entity;
 
+    get_player_pos(map, &line, &col);
     if (line == NOT_FOUND) {
         dprintf(2, "Error: player not found in the map\n");
         return;
