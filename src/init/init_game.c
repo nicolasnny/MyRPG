@@ -49,9 +49,9 @@ int init_args(parameters_t *param)
         return ERROR;
     }
     param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
-    if (param->map_array == NULL) {
+    if (param->map_array == NULL)
         return ERROR;
-    }
     set_player_new_pos(param->view, param->map_array);
+    sfRenderWindow_setView(param->window, param->view);
     return finish_initialisation(param);
 }
