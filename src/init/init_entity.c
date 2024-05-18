@@ -59,12 +59,12 @@ entity_t *create_entity(system_t *sys, char const *texture_path,
     if (!set_texture(e, texture_path, rect)) {
         return NULL;
     }
+    e->id = id;
+    e->name = strdup(DEFAULT_NAME);
     if (!push_to_list(&sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }
-    e->id = id;
-    e->name = strdup(DEFAULT_NAME);
     id++;
     set_entity(e, sys, compo);
     return e;

@@ -10,50 +10,6 @@
 #include "rpg.h"
 #include "struct.h"
 
-static int get_p_move_event(void)
-{
-    if (sfKeyboard_isKeyPressed(sfKeyUp) || sfKeyboard_isKeyPressed(sfKeyZ)) {
-        return sfKeyUp;
-    }
-    if (sfKeyboard_isKeyPressed(sfKeyRight) ||
-        sfKeyboard_isKeyPressed(sfKeyD)) {
-        return sfKeyRight;
-    }
-    if (sfKeyboard_isKeyPressed(sfKeyLeft) ||
-        sfKeyboard_isKeyPressed(sfKeyQ)) {
-        return sfKeyLeft;
-    }
-    if (sfKeyboard_isKeyPressed(sfKeyDown) ||
-        sfKeyboard_isKeyPressed(sfKeyS)) {
-        return sfKeyDown;
-    }
-    return NO_ARROW_KEY_PRESSED;
-}
-
-static void line_assist(sokospot_t ***map, int l, int *line, unsigned int *col)
-{
-    for (unsigned int i = 0; map[l][i]; i++) {
-        if (map[l][i]->type == PLAYER_CHAR) {
-            *line = l;
-            *col = i;
-            return;
-        }
-    }
-}
-
-static sokospot_t *get_player_pos_and_entity(sokospot_t ***map, int *line,
-    unsigned int *col)
-{
-    *line = -1;
-    for (int l = 0; map[l] != NULL; l++) {
-        line_assist(map, l, line, col);
-        if (*line != NOT_FOUND) {
-            return map[*line][*col];
-        }
-    }
-    return NULL;
-}
-
 void swap_struct(sokospot_t **current, sokospot_t **target)
 {
     sokospot_t *tmp = *current;
@@ -87,75 +43,69 @@ static bool spot_available(sokospot_t *spot)
     return false;
 }
 
-static void try_player_move(int move, sokospot_t ***map, int line,
-    unsigned int col)
+static void move_in_array(parameters_t *param, sokospot_t ***map,
+    sfSprite *player)
 {
-    if (move == sfKeyUp && line > 0 && spot_available(map[line - 1][col])) {
-        swap_struct(&map[line][col], &map[line - 1][col]);
+    sfVector2f pos = get_center(player);
+    int l = 0;
+    unsigned int col = 0;
+    sokospot_t *player_spot = get_player_pos_and_entity(map, &l, &col);
+    sfVector2u w_size = sfRenderWindow_getSize(param->window);
+    int x = (int)(MAP_WIDTH * pos.x / w_size.x);
+    int y = (int)(MAP_HEIGHT * pos.y / w_size.y);
+
+    if (x < 0 || y < 0) {
+        dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
     }
-    if (move == sfKeyRight && spot_available(map[line][col + 1])) {
-        swap_struct(&map[line][col], &map[line][col + 1]);
+    printf("before spot availabe-> {x: %d, y: %d}\n", x, y);
+    if (spot_available(map[x][y]) || map[x][y]->type == PLAYER_CHAR) {
+        printf("before swapping struct\n");
+        swap_struct(&map[x][y], &player_spot);
         return;
     }
-    if (move == sfKeyDown && map[line + 1] &&
-        spot_available(map[line + 1][col])) {
-        swap_struct(&map[line][col], &map[line + 1][col]);
-        return;
-    }
-    if (move == sfKeyLeft && col > 0 && spot_available(map[line][col - 1])) {
-        swap_struct(&map[line][col], &map[line][col - 1]);
-        return;
-    }
-    move_not_possible();
+    printf("before check reason\n");
+    if (map[x][y]->type == OBSTACLE)
+        move_not_possible();
+    printf("before setting back old pos\n");
+    set_player_first_pos(param->view, map);
 }
 
-static void move_in_array(sokospot_t ***map, int move)
+sfSprite *get_player(system_t *sys)
 {
-    int line = 0;
-    unsigned int col = 0;
+    e_list_t *p_list = get_entities(sys, PLAYER);
+    sfSprite *s = NULL;
 
-    get_player_pos_and_entity(map, &line, &col);
-    if (line == NOT_FOUND) {
-        dprintf(2, "Error: player not found in the map\n");
-        return;
-    }
-    try_player_move(move, map, line, col);
-}
-
-void set_player_new_pos(sfView *view, sokospot_t ***map)
-{
-    int line = 0;
-    unsigned int col = 0;
-    sfVector2f pos = {0};
-    entity_t *player = get_player_pos_and_entity(map, &line, &col)->entity;
-
-    if (line == NOT_FOUND) {
-        dprintf(2, "Error: player not found in the map\n");
-        return;
-    }
-    pos.x = ((double)col / (double)MAP_WIDTH) * WIN_WIDTH;
-    pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
-    if (player != NULL) {
-        sfSprite_setPosition(player->sprite, pos);
-        pos.x += sfSprite_getGlobalBounds(player->sprite).width / 2;
-        pos.y += sfSprite_getGlobalBounds(player->sprite).height / 2;
-        sfView_setCenter(view, pos);
-    }
+    if (p_list == NULL)
+        return NULL;
+    s = p_list->entity->sprite;
+    clean_list(p_list);
+    return s;
 }
 
 void move_player(parameters_t *param)
 {
-    int move = 0;
+    printf("in move player\n");
+    static sfClock *clock = NULL;
+    sfVector2f move = {0};
+    sfSprite *player = get_player(param->sys);
 
-    if (param->map_array == NULL) {
+    if (param->map_array == NULL || player == NULL) {
         return;
     }
-    move = get_p_move_event();
-    if (move != NO_ARROW_KEY_PRESSED) {
-        move_in_array(param->map_array, move);
-        set_player_new_pos(param->view, param->map_array);
+    if (clock == NULL)
+        clock = sfClock_create();
+    printf("in get player mov");
+    move = get_p_move_event(player);
+    printf("before move check: {%f, %f}\n", move.x, move.y);
+    if (move.x != 0.0 || move.y != 0.0) {
+        set_player_new_pos(param, move);
+        if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 0) {
+            move_in_array(param, param->map_array, player);
+            sfClock_restart(clock);
+        }
         sfRenderWindow_setView(param->window, param->view);
         set_inventory_pos(param->sys);
     }
+    printf("func end\n");
 }

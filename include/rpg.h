@@ -24,6 +24,7 @@
     #define TIME_BEFORE_MOBS_MOVE 3
     #define FONT_PATH "src/sprites/game_font.ttf"
     #define PLAYER_ATTACK_RANGE 25
+    #define PLAYER_SPEED 2.2
     #define DEFAULT_NAME "Mob"
 
 // map
@@ -93,8 +94,11 @@ int err_handling(int ac, char **av);
 // --> moves
 void move_player(parameters_t *param);
 void move_mobs(sokospot_t ***map);
-void set_player_new_pos(sfView *view, sokospot_t ***map);
+void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
+void set_player_new_pos(parameters_t *param, sfVector2f move);
+sokospot_t *get_player_pos_and_entity(sokospot_t ***, int *, unsigned int *);
+sfVector2f get_p_move_event(sfSprite *player);
 
 //----> utilities
 char **my_pimp_str_to_wa(char *str, char *delim);
