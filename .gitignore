@@ -9,7 +9,7 @@ src/*.gc*
 #*
 *.kra
 *~
-lib/my/libmy.a
+lib/libmy.a
 vgcore*
 test
 .vscode*

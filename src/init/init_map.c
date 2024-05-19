@@ -51,6 +51,7 @@ static bool set_list_on_map(sokospot_t ***map, e_list_t *list, char type)
     }
     return true;
 }
+
 static sokospot_t ***fill_sokomap(sokospot_t ***map, system_t *sys)
 {
     if (!set_list_on_map(map, get_entities(sys, PLAYER), PLAYER_CHAR)) {
@@ -84,7 +85,7 @@ static sokospot_t ***char_to_soko(char **char_map)
             return NULL;
         }
         for (unsigned int col = 0; char_map[line][col]; col++) {
-            map[line][col] = create_defaut_sokospot(char_map[line][col]); //create_sokospot(char_map[line][col], sys);
+            map[line][col] = create_defaut_sokospot(char_map[line][col]);
         }
     }
     return map;
