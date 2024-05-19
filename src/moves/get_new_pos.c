@@ -111,6 +111,5 @@ bool get_sprite_coords_on_sokomap(sfSprite *s, int *line, int *col)
         return false;
     *col = (int)(MAP_WIDTH * pos.x / WIN_WIDTH);
     *line = (int)(MAP_HEIGHT * pos.y / WIN_HEIGHT);
-    printf("line = %d; col = %d\n", *line, *col);
     return true;
 }
