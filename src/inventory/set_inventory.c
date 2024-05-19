@@ -29,16 +29,28 @@ static void set_selected_sprite(sfSprite *s, sfFloatRect *bar_rect)
     sfSprite_setPosition(s, pos);
 }
 
+sfFloatRect get_rect(system_t *sys)
+{
+    e_list_t *bar_list = get_entities(sys, BAR);
+    sfFloatRect rect = {0};
+
+    rect.height = NEG_ERROR;
+    if (bar_list == NULL)
+        return rect;
+    rect = sfSprite_getGlobalBounds(bar_list->entity->sprite);
+    clean_list(bar_list);
+    return rect;
+}
+
 void set_inventory_items_pos(system_t *sys)
 {
-    entity_t *bar = get_entities(sys, BAR)->entity;
     e_list_t *list = get_entities(sys, INVENTORY | VISIBLE);
     e_list_t *head = list;
     e_list_t *select = get_entities(sys, SELECTED);
-    sfFloatRect rect = sfSprite_getGlobalBounds(bar->sprite);
+    sfFloatRect rect = get_rect(sys);
     unsigned int index = 0;
 
-    if (!list)
+    if (!list || rect.height == NEG_ERROR)
         return;
     if (select != NULL)
         set_selected_sprite(select->entity->sprite, &rect);
