@@ -144,6 +144,7 @@ int random_nb(int a, int b);
 bool add_element_to_inventory(system_t *sys, entity_t *e);
 void set_inventory_items_pos(system_t *sys);
 void set_inventory_pos(system_t *sys);
+void refresh_inventory_pos(system_t *sys);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);

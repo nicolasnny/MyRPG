@@ -15,7 +15,7 @@ static void set_sprite_slot(unsigned int index, sfSprite *s,
 
     pos.x += SLOT1_WIDTH * INVENTORY_SCALE
         + SLOT_WIDTH * INVENTORY_SCALE * index;
-    pos.y += SLOT_TOP * SLOT_TOP;
+    pos.y += SLOT_TOP * INVENTORY_SCALE;
     sfSprite_setPosition(s, pos);
 }
 
@@ -32,6 +32,7 @@ void set_inventory_items_pos(system_t *sys)
 {
     entity_t *bar = get_entities(sys, BAR)->entity;
     e_list_t *list = get_entities(sys, INVENTORY | VISIBLE);
+    e_list_t *head = list;
     e_list_t *select = get_entities(sys, SELECTED);
     sfFloatRect rect = sfSprite_getGlobalBounds(bar->sprite);
     unsigned int index = 0;
@@ -45,4 +46,12 @@ void set_inventory_items_pos(system_t *sys)
         index++;
         list = list->next;
     }
+    clean_list(head);
+    clean_list(select);
+}
+
+void refresh_inventory_pos(system_t *sys)
+{
+    set_inventory_pos(sys);
+    set_inventory_items_pos(sys);
 }

@@ -101,6 +101,6 @@ void move_player(parameters_t *param)
         set_player_new_pos(param, move);
         move_in_array(param, param->map_array, player);
         sfRenderWindow_setView(param->window, param->view);
-        set_inventory_pos(param->sys);
+        refresh_inventory_pos(param->sys);
     }
 }
