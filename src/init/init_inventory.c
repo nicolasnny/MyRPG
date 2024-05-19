@@ -32,10 +32,6 @@ void set_inventory_pos(system_t *sys)
     clean_list(player);
 }
 
-/*create_entity(param->sys,
-PLAYER_SPRITE_PATH, NULL, INVENTORY | VISIBLE | SELECTED);
-create_entity(param->sys, "src/sprites/empty.png", NULL, INVENTORY | VISIBLE);
-create_entity(param->sys, PLAYER_SPRITE_PATH , NULL, INVENTORY | VISIBLE);*/
 int init_inventory(parameters_t *param)
 {
     entity_t *inventory = create_entity(param->sys,

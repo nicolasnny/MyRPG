@@ -18,6 +18,7 @@ int analyse_events(parameters_t *param)
         }
         if (param->event.type == sfEvtKeyPressed) {
             move_player(param);
+            change_selected_item(param->sys);
         }
     }
     return SUCCESS;

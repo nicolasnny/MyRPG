@@ -10,35 +10,36 @@ CC = gcc
 MAIN	=
 
 SRC     =	src/main.c	\
-		src/my_rpg.c	\
-		src/init/init_game.c	\
-		src/init/init_map.c	\
-		src/init/init_entity.c	\
-		src/events.c	\
-		src/clean.c	\
-		src/display.c	\
-		src/err_handling.c	\
-		src/time.c	\
-		src/moves/player.c	\
-		src/moves/npc.c	\
-		src/moves/get_new_pos.c	\
-		src/assist_func/my_str_to_word_class_array.c	\
-		src/assist_func/file.c	\
-		src/assist_func/random.c	\
-		src/assist_func/my_strstrlen.c	\
-		src/linked_list/linked_list.c	\
-		src/linked_list/revert_list.c	\
-		src/ecs/system.c	\
-		src/ecs/get_entities.c	\
-		src/ecs/set_entities.c	\
-		src/ecs/unset_entity.c	\
-		src/animate/make_life.c	\
-		src/collisions/check_collisions.c	\
-		src/init/init_inventory.c	\
-		src/inventory/inventory.c	\
-		src/inventory/set_inventory.c	\
-		src/fight/range.c	\
-		src/fight/kill.c	\
+			src/my_rpg.c	\
+			src/init/init_game.c	\
+			src/init/init_map.c	\
+			src/init/init_entity.c	\
+			src/events.c	\
+			src/clean.c	\
+			src/display.c	\
+			src/err_handling.c	\
+			src/time.c	\
+			src/moves/player.c	\
+			src/moves/npc.c	\
+			src/moves/get_new_pos.c	\
+			src/assist_func/my_str_to_word_class_array.c	\
+			src/assist_func/file.c	\
+			src/assist_func/random.c	\
+			src/assist_func/my_strstrlen.c	\
+			src/linked_list/linked_list.c	\
+			src/linked_list/revert_list.c	\
+			src/ecs/system.c	\
+			src/ecs/get_entities.c	\
+			src/ecs/set_entities.c	\
+			src/ecs/unset_entity.c	\
+			src/animate/make_life.c	\
+			src/collisions/check_collisions.c	\
+			src/init/init_inventory.c	\
+			src/inventory/inventory.c	\
+			src/inventory/set_inventory.c	\
+			src/inventory/manage.c	\
+			src/fight/range.c	\
+			src/fight/kill.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\
@@ -69,6 +70,7 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/init/init_inventory.c	\
 			src/inventory/inventory.c	\
 			src/inventory/set_inventory.c	\
+			src/inventory/manage.c	\
 			src/fight/range.c	\
 			src/fight/kill.c	\
 
