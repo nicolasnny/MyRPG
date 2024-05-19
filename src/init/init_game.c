@@ -19,17 +19,7 @@ static sfView *create_view(void)
         dprintf(2, "Error: view initialisation failed\n");
         return NULL;
     }
-    sfView_setSize(view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
-        DEFAULT_VIEW_SIZE_Y});
     return view;
-}
-
-static int finish_initialisation(parameters_t *param)
-{
-    if (init_inventory(param) == ERROR) {
-        return ERROR;
-    }
-    return SUCCESS;
 }
 
 int init_args(parameters_t *param)
@@ -40,18 +30,14 @@ int init_args(parameters_t *param)
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
     param->sys = create_system();
-    param->view = create_view();
-    if (param->sys == NULL || param->window == NULL || param->view == NULL) {
+    if (param->sys == NULL || param->window == NULL) {
         return ERROR;
     }
-    sfRenderWindow_setView(param->window, param->view);
-    if (create_entity(param->sys, MAP_SPRITE_PATH, NULL, VISIBLE) == NULL) {
-        return ERROR;
-    }
+    create_from_conf(param);
     param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
     if (param->map_array == NULL)
         return ERROR;
-    set_player_new_pos(param->view, param->map_array);
-    sfRenderWindow_setView(param->window, param->view);
-    return finish_initialisation(param);
+    param->game_state = PAUSE;
+    param->view = create_view();
+    return SUCCESS;
 }

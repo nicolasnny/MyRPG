@@ -32,16 +32,11 @@ void set_inventory_pos(system_t *sys)
     clean_list(player);
 }
 
-int init_inventory(parameters_t *param)
+int init_inventory(parameters_t *param, entity_t *entity, bool state)
 {
-    entity_t *inventory = create_entity(param->sys,
-        INVENTORY_SPRITE, NULL, BAR | VISIBLE);
-
-    if (inventory == NULL) {
-        dprintf(2, "Error: unable to create the inventory");
-        return ERROR;
-    }
     set_inventory_pos(param->sys);
     set_inventory_items_pos(param->sys);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }

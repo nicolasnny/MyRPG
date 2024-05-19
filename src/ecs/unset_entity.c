@@ -9,13 +9,12 @@
 #include <stdlib.h>
 #include "rpg.h"
 
-void move_list_to_entity(e_list_t **list, e_list_t *prev, entity_t *e)
+void move_list_to_entity(e_list_t **list, e_list_t **prev, entity_t *e)
 {
     while (*list != NULL && (*list)->entity->id != e->id) {
-        prev = *list;
+        *prev = *list;
         *list = (*list)->next;
     }
-    (void)prev;
 }
 
 static bool change_head(e_list_t **list)
@@ -32,7 +31,7 @@ bool remove_entity_from_list(e_list_t **list, entity_t *e)
     e_list_t *start = *list;
     e_list_t *prev = NULL;
 
-    move_list_to_entity(list, prev, e);
+    move_list_to_entity(list, &prev, e);
     if (*list == NULL) {
         *list = start;
         return false;

@@ -9,63 +9,85 @@
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
+#include <string.h>
 #include <SFML/Graphics.h>
 #include "rpg.h"
 #include "struct.h"
+#include "my.h"
+#include "associative.h"
 
-static entity_t *set_sprite(entity_t *e, char const *texture_path,
-    sfIntRect *rect)
+void set_scale(parameters_t *param, entity_t *entity, char *value)
 {
-    sfTexture *texture = NULL;
-    sfSprite *sprite = sfSprite_create();
+    double *scale_value = get_double_array(value);
 
-    if (sprite == NULL) {
-        dprintf(2, "Error: sfSprite_create failed\n");
-        free(e);
-        return NULL;
+    if (!scale_value)
+        return;
+    if (entity->sprite) {
+        sfSprite_setScale(entity->sprite,
+            (sfVector2f){scale_value[0], scale_value[1]});
     }
-    texture = sfTexture_createFromFile(texture_path, rect);
-    if (texture == NULL) {
-        dprintf(2, "Error: unable to load %s as a texture\n", texture_path);
-        free(e);
-        sfSprite_destroy(sprite);
-    }
-    sfSprite_setTexture(sprite, texture, sfFalse);
-    e->sprite = sprite;
-    return e;
+    if (entity->rect)
+        sfRectangleShape_setScale(entity->rect,
+            (sfVector2f){scale_value[0], scale_value[1]});
+    (void)param;
+    free(scale_value);
 }
 
-static bool set_texture(entity_t *e, char const *texture_path, sfIntRect *rect)
+void set_pos(parameters_t *param, entity_t *entity, char *value)
 {
-    if (texture_path != NULL) {
-        e = set_sprite(e, texture_path, rect);
-        if (e == NULL) {
-            return false;
-        }
-    }
-    return true;
+    double *pos_value = get_double_array(value);
+
+    if (!pos_value)
+        return;
+    if (entity->sprite)
+        sfSprite_setPosition(entity->sprite,
+            (sfVector2f){pos_value[0], pos_value[1]});
+    if (entity->rect)
+        sfRectangleShape_setPosition(entity->rect,
+            (sfVector2f){pos_value[0], pos_value[1]});
+    free(pos_value);
+    (void)param;
 }
 
-entity_t *create_entity(system_t *sys, char const *texture_path,
-    sfIntRect *rect, int compo)
+void set_click(parameters_t *param, entity_t *entity, char *value)
+{
+    if (strcmp(value, "NULL") == 0)
+        return;
+    for (int i = 0; func_list[i].func_name; i++) {
+        if (strcmp(func_list[i].func_name, value) == 0)
+            entity->clicked = func_list[i].function;
+    }
+    (void)param;
+}
+
+void set_hover(parameters_t *param, entity_t *entity, char *value)
+{
+    (void)param;
+    if (strcmp(value, "NULL") == 0)
+        return;
+    for (int i = 0; func_list[i].func_name; i++) {
+        if (strcmp(func_list[i].func_name, value) == 0)
+            entity->hovered = func_list[i].function;
+    }
+}
+
+entity_t *create_entity(system_t *sys, int compo)
 {
     entity_t *e = malloc(sizeof(entity_t));
     static unsigned int id = 0;
 
-    if (e == NULL) {
-        perror("create entity malloc failed");
+    if (e == NULL)
         return NULL;
-    }
-    if (!set_texture(e, texture_path, rect)) {
-        return NULL;
-    }
-    if (!push_to_list(&sys->e_list, e)) {
+    e->id = id;
+    if (sys->e_list && !push_to_list(&sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }
-    e->id = id;
-    e->name = strdup(DEFAULT_NAME);
     id++;
     set_entity(e, sys, compo);
+    e->rect = NULL;
+    e->clicked = NULL;
+    e->hovered = NULL;
+    e->name = NULL;
     return e;
 }
