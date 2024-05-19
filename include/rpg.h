@@ -122,6 +122,7 @@ void set_hover(parameters_t *param, entity_t *entity, char *value);
 void set_click(parameters_t *param, entity_t *entity, char *value);
 void set_texture(parameters_t *param, entity_t *entity, char *value);
 bool unset_entity(system_t *sys, entity_t *e, int component);
+void set_name(parameters_t *param, entity_t *entity, char *value);
 
 // --> system
 system_t *create_system(void);
@@ -149,6 +150,7 @@ int set_to_pause(parameters_t *param, entity_t *entity, bool clicked);
 // --> menu
 int start_menu(parameters_t *param, entity_t *entity, bool state);
 int options_menu(parameters_t *param, entity_t *entity, bool state);
+void in_game_menu(parameters_t *param);
 
 // --> UI
 int hovered(parameters_t *param, entity_t *entity, bool hovered);
@@ -179,6 +181,9 @@ void set_inventory_pos(system_t *sys);
 // --> window size
 int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
 int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
+
+// --> view
+void reset_view(sfRenderWindow* window, sfView* view);
 
 
 

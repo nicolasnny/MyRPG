@@ -12,21 +12,23 @@ int set_2560x1600(parameters_t *param, entity_t *entity, bool state)
 {
     (void)entity;
     (void)state;
-    printf("in\n");
-    sfWindow_setSize((sfWindow *)param->window, (sfVector2u){2560, 1600});
+    sfRenderWindow_setSize(param->window, (sfVector2u){2560, 1600});
+    reset_view(param->window, param->view);
 }
 
 int set_1920x1080(parameters_t *param, entity_t *entity, bool state)
 {
     (void)entity;
     (void)state;
-    sfWindow_setSize((sfWindow *)param->window, (sfVector2u){1920, 1080});
+    sfRenderWindow_setSize(param->window, (sfVector2u){1920, 1080});
+    reset_view(param->window, param->view);
 }
 
 int options_menu(parameters_t *param, entity_t *entity, bool state)
 {
     (void)entity;
     (void)state;
+    reset_view(param->window, param->view);
     while (param->game_state == PAUSE) {
         display_entities(param, SETTINGS);
         sfRenderWindow_display(param->window);

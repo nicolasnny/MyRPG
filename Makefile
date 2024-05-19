@@ -41,9 +41,12 @@ SRC     =	src/main.c	\
 			src/sprite.c								\
 			src/config_parser/get_conf_infos.c			\
 			src/config_parser/param_funcs.c				\
+			src/init/set_name.c							\
 			src/config_parser/parse_dir.c				\
 			src/init/init_inventory.c	\
 			src/inventory/inventory.c	\
+			src/user_interface/in_game_menu/in_game_menu.c	\
+			src/view.c						\
 			src/inventory/set_inventory.c	\
 
 UT_SRC	=	tests/unit_tests.c	\

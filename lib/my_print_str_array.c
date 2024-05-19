@@ -5,6 +5,7 @@
 ** print_str_array.c
 */
 
+#include <stdio.h>
 #include "my.h"
 
 void print_str_array(char **array)
@@ -12,6 +13,6 @@ void print_str_array(char **array)
     if (!array)
         return;
     for (int i = 0; array[i]; i++) {
-        mini_printf("%s\n", array[i]);
+        printf("%s\n", array[i]);
     }
 }

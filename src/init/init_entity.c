@@ -71,11 +71,9 @@ entity_t *create_entity(system_t *sys, int compo)
     entity_t *e = malloc(sizeof(entity_t));
     static unsigned int id = 0;
 
-    if (e == NULL) {
-        perror("create entity malloc failed");
+    if (e == NULL)
         return NULL;
-    }
-    if (!push_to_list(&sys->e_list, e)) {
+    if (sys->e_list && !push_to_list(&sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }
@@ -85,5 +83,6 @@ entity_t *create_entity(system_t *sys, int compo)
     e->rect = NULL;
     e->clicked = NULL;
     e->hovered = NULL;
+    e->name = NULL;
     return e;
 }

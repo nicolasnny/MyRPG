@@ -19,8 +19,6 @@ static sfView *create_view(void)
         dprintf(2, "Error: view initialisation failed\n");
         return NULL;
     }
-    sfView_setSize(view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
-        DEFAULT_VIEW_SIZE_Y});
     return view;
 }
 
@@ -39,6 +37,6 @@ int init_args(parameters_t *param)
     if (param->map_array == NULL)
         return ERROR;
     param->game_state = PAUSE;
-    sfRenderWindow_setView(param->window, param->view);
+    param->view = create_view();
     return SUCCESS;
 }

@@ -55,7 +55,7 @@ static sokospot_t ***char_to_soko(char **char_map, system_t *sys)
             return NULL;
         }
         for (unsigned int col = 0; char_map[line][col]; col++) {
-            map[line][col] = create_sokospot(char_map[line][col], sys);
+            map[line][col] = NULL; //create_sokospot(char_map[line][col], sys);
         }
     }
     return map;

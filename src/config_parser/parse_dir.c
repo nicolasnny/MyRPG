@@ -18,14 +18,15 @@
 
 static char *get_output(int fd, int size)
 {
-    char *buffer = malloc(sizeof(char) * size + 1);
+    char *buffer = malloc(sizeof(char) * (size + 1));
     ssize_t len;
 
-    for (int i = 0; i != size; i++) {
-        buffer[i] = '\0';
+    if (!buffer) {
+        return NULL;
     }
     len = read(fd, buffer, size);
     if (len == -1) {
+        free(buffer);
         return NULL;
     }
     buffer[len] = '\0';

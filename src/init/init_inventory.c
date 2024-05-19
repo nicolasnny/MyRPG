@@ -10,7 +10,7 @@
 #include "rpg.h"
 #include "struct.h"
 
-static void set_inventory_pos(entity_t *entity)
+void set_inventory_pos(system_t *sys)
 {
     sfVector2f pos = {0};
     e_list_t *i_bar = get_entities(sys, BAR | VISIBLE);
@@ -36,7 +36,7 @@ static void set_inventory_pos(entity_t *entity)
 
 int init_inventory(parameters_t *param, entity_t *entity, bool state)
 {
-    set_inventory_pos(entity);
+    set_inventory_pos(param->sys);
     set_inventory_items_pos(param->sys);
     return SUCCESS;
 }

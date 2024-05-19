@@ -32,13 +32,16 @@ typedef enum component_s {
     MENU = 1 << 7,
     CLICKABLE = 1 << 8,
     SETTINGS = 1 << 9,
-    __END__ = 1 << 10,
+    BABLA = 1 << 10,
+    IN_GAME_MENU = 1 << 11,
+    __END__ = 1 << 12,
 } component_t;
 
 typedef struct entity_s {
     int id;
     sfSprite *sprite;
     sfRectangleShape *rect;
+    char *name;
     int (*clicked)(parameters_t *param, entity_t *entity, bool clicked);
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
     sfText *text;

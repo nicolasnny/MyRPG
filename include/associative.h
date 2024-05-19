@@ -46,6 +46,10 @@ static const conf_compo_t compo_list[] = {
     {"MOB", MOB},
     {"CLICKABLE", CLICKABLE},
     {"SETTINGS", SETTINGS},
+    {"IN_GAME_MENU", IN_GAME_MENU},
+    {"INVENTORY", INVENTORY},
+    {"SELECTED", SELECTED},
+    {"BAR", BAR},
     {NULL, 0},
 };
 
@@ -57,6 +61,7 @@ static const conf_param_t param_list[] = {
     {"POS", &set_pos},
     {"CLICK", &set_click},
     {"HOVER", &set_hover},
+    {"NAME", &set_name},
     {"RUN_ON_START", &run_on_start},
     {NULL, NULL},
 };

@@ -12,7 +12,9 @@
 
 bool entity_in_list(e_list_t *list, entity_t *e)
 {
-    while (list != NULL && list->entity != NULL && list->entity->id != e->id) {
+    while (list != NULL &&
+        list->entity != NULL &&
+        list->entity->id != e->id) {
         list = list->next;
     }
     if (list == NULL) {
@@ -25,7 +27,7 @@ bool push_to_list(e_list_t **head, entity_t *e)
 {
     e_list_t *element = NULL;
 
-    if (entity_in_list(*head, e)) {
+    if (*head && entity_in_list(*head, e)) {
         return true;
     }
     element = malloc(sizeof(e_list_t));

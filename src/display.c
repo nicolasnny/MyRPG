@@ -8,6 +8,8 @@
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 #include <SFML/Config.h>
+#include <stdio.h>
+#include <string.h>
 #include "rpg.h"
 
 void display_entities(parameters_t *param, int component)
