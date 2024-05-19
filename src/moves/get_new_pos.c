@@ -103,12 +103,11 @@ void set_player_new_pos(parameters_t *param, sfVector2f move)
     clean_list(p_list);
 }
 
-bool get_sprite_coords_on_sokomap(sfRenderWindow *win, sfSprite *s,
-    int *line, int *col)
+bool get_sprite_coords_on_sokomap(sfSprite *s, int *line, int *col)
 {
     sfVector2f pos = get_center(s);
 
-    if (win == NULL || s == NULL || line == NULL || col == NULL)
+    if (s == NULL || line == NULL || col == NULL)
         return false;
     *col = (int)(MAP_WIDTH * pos.x / WIN_WIDTH);
     *line = (int)(MAP_HEIGHT * pos.y / WIN_HEIGHT);

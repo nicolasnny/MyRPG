@@ -13,7 +13,8 @@ static void set_sprite_slot(unsigned int index, sfSprite *s,
 {
     sfVector2f pos = {bar_rect->left, bar_rect->top};
 
-    pos.x += SLOT1_WIDTH * INVENTORY_SCALE
+    pos.x +=
+        SLOT1_WIDTH * INVENTORY_SCALE
         + SLOT_WIDTH * INVENTORY_SCALE * index;
     pos.y += SLOT_TOP * INVENTORY_SCALE;
     sfSprite_setPosition(s, pos);

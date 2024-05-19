@@ -8,17 +8,26 @@
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 #include <SFML/Config.h>
+#include <stdio.h>
+#include <string.h>
 #include "rpg.h"
 
-void display_sprites(parameters_t *param)
+void display_entities(parameters_t *param, int component)
 {
-    e_list_t *list = get_entities(param->sys, VISIBLE);
+    e_list_t *list = get_entities(param->sys, component);
     e_list_t *head = NULL;
 
     reverse_list(&list);
     head = list;
     while (list != NULL) {
-        sfRenderWindow_drawSprite(param->window, list->entity->sprite, NULL);
+        if (list->entity->sprite) {
+            sfRenderWindow_drawSprite(param->window,
+            list->entity->sprite, NULL);
+        }
+        if (list->entity->rect) {
+            sfRenderWindow_drawRectangleShape(param->window,
+            list->entity->rect, NULL);
+        }
         list = list->next;
     }
     clean_list(head);

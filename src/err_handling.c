@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include "rpg.h"
 
-
 int err_handling(int ac, char **av)
 {
     (void)av;

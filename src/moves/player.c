@@ -57,7 +57,7 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
     int x = 0;
     int y = 0;
 
-    get_sprite_coords_on_sokomap(param->window, player, &y, &x);
+    get_sprite_coords_on_sokomap(player, &y, &x);
     if (x < 0 || y < 0 || x >= MAP_WIDTH || y >= MAP_HEIGHT) {
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
