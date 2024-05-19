@@ -1,6 +1,7 @@
 /*
 ** EPITECH PROJECT, 2023
 ** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
+** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
 ** File description:
 ** rpg.h
 */
@@ -65,12 +66,23 @@
     #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
     #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
     #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
+    #define PLAYER_SPRITE_PATH "assets/player/plane.png"
+    #define MOB_SPRITE_PATH "assets/player/plane.png"
+    #define NPC_SPRITE_PATH "assets/player/plane.png"
+    #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
+    #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
+    #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
+    #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
 
 // errors defines
     #define OPEN_ERROR -1
     #define ERROR 84
     #define NEG_ERROR -1
     #define SYS_ERROR -1
+
+// CONFIG
+    #define CONFIG_DIR "config/"
+    #define CONFIG_ELEMENT_NAME "[ENTITY]"
 
 // CONFIG
     #define CONFIG_DIR "config/"
@@ -87,6 +99,7 @@ sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
 int window_events(parameters_t *param);
+int window_events(parameters_t *param);
 void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
 
@@ -98,6 +111,7 @@ void clean(parameters_t *param);
 void free_entity(entity_t *entity);
 
 //----> display
+void display_entities(parameters_t *param, int component);
 void display_entities(parameters_t *param, int component);
 
 //----> error handling
@@ -115,10 +129,12 @@ bool get_sprite_coords_on_sokomap(sfSprite *s, int *line, int *col);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
+// char **my_pimp_str_to_wa(char *str, char *delim);
 char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
+// unsigned int my_strstrlen(char **array);
 // unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 sfVector2f get_center(sfSprite *s);
@@ -126,6 +142,7 @@ sfVector2f get_center(sfSprite *s);
 // ECS
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
+entity_t *create_entity(system_t *sys, int component);
 entity_t *create_entity(system_t *sys, int component);
 e_list_t *get_entities(system_t *sys, int component);
 void set_scale(parameters_t *param, entity_t *entity, char *value);

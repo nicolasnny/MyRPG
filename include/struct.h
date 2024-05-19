@@ -21,6 +21,16 @@ typedef enum game_state_s {
     PAUSE
 } game_state_t;
 
+typedef struct parameters_s parameters_t;
+typedef struct system_s system_t;
+typedef struct entity_s entity_t;
+
+typedef enum game_state_s {
+    PLAY,
+    QUIT,
+    PAUSE
+} game_state_t;
+
 typedef enum component_s {
     PLAYER = 1 << 0,
     NPC = 1 << 1,
