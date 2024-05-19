@@ -53,12 +53,11 @@ void set_prev_pos(parameters_t *param, sfSprite *player,
 static void move_in_array(parameters_t *param, sokospot_t ***map,
     sfSprite *player)
 {
-    sfVector2f pos = get_center(player);
     sokospot_t *player_spot = get_player_spot(map);
-    sfVector2u w_size = sfRenderWindow_getSize(param->window);
-    int x = (int)(MAP_WIDTH * pos.x / w_size.x);
-    int y = (int)(MAP_HEIGHT * pos.y / w_size.y);
+    int x = 0;
+    int y = 0;
 
+    get_sprite_coords_on_sokomap(param->window, player, &y, &x);
     if (x < 0 || y < 0 || x >= MAP_WIDTH || y >= MAP_HEIGHT) {
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
