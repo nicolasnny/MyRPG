@@ -31,6 +31,7 @@ static void click_entity(e_list_t *compo_list, parameters_t *param)
 
     new_pos.x = (mouse_pos.x / (double)window_pos.x) * (double)WIN_WIDTH;
     new_pos.y = (mouse_pos.y / (double)window_pos.y) * (double)WIN_HEIGHT;
+    printf("mouse pos = %f ; %f\n", new_pos.x, new_pos.y);
     if (!sfMouse_isButtonPressed(sfMouseLeft))
         return;
     while (temp) {
@@ -39,8 +40,11 @@ static void click_entity(e_list_t *compo_list, parameters_t *param)
         }
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
-        if (is_in(&new_pos, &e_pos) && temp->entity->clicked)
+        printf("sprite pos = %f ; %f\n", e_pos.left, e_pos.top);
+        if (is_in(&new_pos, &e_pos) && temp->entity->clicked) {
+            printf("exec func\n");
             temp->entity->clicked(param, temp->entity, true);
+        }
         temp = temp->next;
     }
 }
@@ -86,8 +90,9 @@ int mouse_events(parameters_t *param, int component)
     return SUCCESS;
 }
 
-int window_events(parameters_t *param)
+int window_events(parameters_t *param, int component)
 {
+    e_list_t *compo_list = get_entities(param->sys, component);
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
@@ -98,6 +103,10 @@ int window_events(parameters_t *param)
         }
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
+        }
+        hover_entity(compo_list, param);
+        if (param->event.type == sfEvtMouseButtonPressed) {
+            click_entity(compo_list, param);
         }
     }
     return SUCCESS;

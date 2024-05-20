@@ -17,7 +17,7 @@ static int loop(parameters_t *param)
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
     while (sfRenderWindow_isOpen(param->window)) {
-        window_events(param);
+        window_events(param, VISIBLE);
         make_life(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);

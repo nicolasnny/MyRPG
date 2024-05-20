@@ -9,21 +9,21 @@
 #include <stdio.h>
 #include "rpg.h"
 
-bool kill_entity(system_t *sys, entity_t *entity, bool state)
+int kill_entity(parameters_t *param, entity_t *entity, bool state)
 {
-    e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
+    e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
 
     printf("in kill function\n");
     (void)state;
     if (player == NULL || entity == NULL)
-        return false;
+        return 0;
     if (ennemy_in_range(player->entity, entity)) {
         printf("/* sword sound */");
         printf("You killed %s !\n", entity->name);
-        remove_entity(sys, entity);
+        remove_entity(param->sys, entity);
         clean_list(player);
-        return true;
+        return 1;
     }
     clean_list(player);
-    return false;
+    return 1;
 }

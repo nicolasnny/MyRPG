@@ -86,7 +86,7 @@ int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
-int window_events(parameters_t *param);
+int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
 
@@ -195,7 +195,7 @@ void change_selected_item(system_t *sys);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);
-bool kill_entity(system_t *sys, entity_t *entity, bool state);
+int kill_entity(parameters_t *param, entity_t *entity, bool state);
 
 // --> window size
 int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
