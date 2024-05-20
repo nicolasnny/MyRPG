@@ -22,7 +22,7 @@ sfVector2f get_center(sfSprite *s)
     return pos;
 }
 
-static double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb)
+double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb)
 {
     double height_dist = 0;
     double width_dist = 0;

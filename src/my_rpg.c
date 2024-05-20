@@ -31,7 +31,10 @@ static int loop(parameters_t *param)
 
 static void game_launcher(parameters_t *param)
 {
-    start_menu(param, NULL, true);
+    int start = start_menu(param, NULL, true);
+
+    if (start == ERROR)
+        return;
     sfRenderWindow_setView(param->window, param->view);
     if (param->game_state == PLAY) {
         // set_player_new_pos(param->view, param->map_array);

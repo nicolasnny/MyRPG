@@ -50,6 +50,7 @@ static const conf_compo_t compo_list[] = {
     {"INVENTORY", INVENTORY},
     {"SELECTED", SELECTED},
     {"BAR", BAR},
+    {"ON_MAP", ON_MAP},
     {NULL, 0},
 };
 
