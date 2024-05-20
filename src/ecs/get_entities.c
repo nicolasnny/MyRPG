@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 #include "rpg.h"
 #include "struct.h"
 
@@ -63,4 +64,16 @@ e_list_t *get_entities(system_t *sys, int component)
         s_list = s_list->next;
     }
     return rep_list;
+}
+
+entity_t *get_entity_by_name(system_t *sys, char const *name)
+{
+    while (sys->e_list) {
+        if (sys->e_list->entity->name &&
+            strcmp(sys->e_list->entity->name, name) == 0) {
+            return sys->e_list->entity;
+        }
+        sys->e_list = sys->e_list->next;
+    }
+    return NULL;
 }

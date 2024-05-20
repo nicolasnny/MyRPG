@@ -29,6 +29,7 @@
     #define DEFAULT_NAME "Mob"
 
 // map
+    #define MAP_NAME "Royaume_de_Selestat"
     #define MAP_SPRITE_PATH "assets/maps/map2.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
     #define PLAYER_CHAR 'P'
@@ -126,8 +127,10 @@ void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
 sokospot_t *get_player_spot(sokospot_t ***);
-sfVector2f get_p_move_event(sfSprite *player);
-bool get_sprite_coords_on_sokomap(sfSprite *s, int *line, int *col);
+sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player);
+bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
+    int *line, int *col);
+sfVector2f get_map_size(system_t *sys);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -154,6 +157,7 @@ void set_click(parameters_t *param, entity_t *entity, char *value);
 void set_texture(parameters_t *param, entity_t *entity, char *value);
 bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
+entity_t *get_entity_by_name(system_t *sys, char const *name);
 
 // --> system
 system_t *create_system(void);
