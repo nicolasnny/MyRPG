@@ -56,6 +56,8 @@
     #define INVENTORY_SCALE 1.5
     #define INVENTORY_HEIGHT_POURCENTAGE 0.8
     #define INVENTORY_CAPACITY 4
+    #define SLOT_ERROR_UP_MARGIN 1.1
+    #define SLOT_ERROR_DOWN_MARGIN 0.9
 
 // sprites
     #define PLAYER_SPRITE_PATH "assets/player/plane.png"
