@@ -50,6 +50,7 @@ SRC     =	src/main.c	\
 				src/view.c						\
 				src/inventory/set_inventory.c	\
 				src/inventory/manage.c	\
+				src/bind_assigning/bind_events.c	\
 				src/fight/range.c	\
 				src/fight/kill.c	\
 

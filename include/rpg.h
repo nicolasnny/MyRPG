@@ -225,4 +225,7 @@ int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
 void reset_view(sfRenderWindow* window, sfView* view);
 void set_view_on_player(parameters_t *param);
 
+// --> bind assigning
+int set_user_bind(parameters_t *param, entity_t *entity, bool state);
+
 #endif

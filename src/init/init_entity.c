@@ -89,5 +89,6 @@ entity_t *create_entity(system_t *sys, int compo)
     e->clicked = NULL;
     e->hovered = NULL;
     e->name = NULL;
+    e->text = NULL;
     return e;
 }

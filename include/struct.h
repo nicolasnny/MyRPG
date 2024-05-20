@@ -64,6 +64,20 @@ typedef struct system_s {
     e_list_t *component[__END__];
 } system_t;
 
+typedef struct bind_s {
+    sfKeyCode up;
+    sfKeyCode down;
+    sfKeyCode left;
+    sfKeyCode right;
+    sfKeyCode pick;
+    sfKeyCode grab;
+    sfKeyCode pause;
+    sfKeyCode slot_1;
+    sfKeyCode slot_2;
+    sfKeyCode slot_3;
+    sfKeyCode slot_4;
+} bind_t;
+
 typedef struct parameters_s {
     sfRenderWindow* window;
     sfView *view;
@@ -74,6 +88,7 @@ typedef struct parameters_s {
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
+    bind_t *binds;
 } parameters_t;
 
 #endif
