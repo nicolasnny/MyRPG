@@ -15,10 +15,21 @@ double get_sprites_dist(sfSprite *a, sfSprite *b)
     return get_distance_bewteen_pos(&pa, &pb);
 }
 
-void drop_item(system_t *sys, entity_t *e)
+static void drop_item(system_t *sys, entity_t *e)
 {
-    unset_entity(sys, e, INVENTORY);
+    unset_entity(sys, e, SELECTED);
     set_entity(e, sys, ON_MAP);
+}
+
+void drop_selected_item(system_t *sys)
+{
+    e_list_t *list = get_entities(sys, SELECTED);
+
+    if (list == NULL)
+        return;
+    unset_entity(sys, list->entity, SELECTED);
+    set_entity(list->entity, sys, ON_MAP);
+    refresh_inventory_pos(sys);
 }
 
 static bool remove_inv_last_element(system_t *sys)
@@ -43,6 +54,7 @@ static void grab_item(system_t *sys, entity_t *e)
     if (get_list_size(inventory) > INVENTORY_CAPACITY) {
         remove_inv_last_element(sys);
     }
+    refresh_inventory_pos(sys);
     clean_list(inventory);
 }
 
