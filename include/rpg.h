@@ -135,6 +135,7 @@ void set_click(parameters_t *param, entity_t *entity, char *value);
 void set_texture(parameters_t *param, entity_t *entity, char *value);
 bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
+bool remove_entity(system_t *sys, entity_t *e);
 
 // --> system
 system_t *create_system(void);
@@ -194,7 +195,7 @@ void change_selected_item(system_t *sys);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);
-bool kill_entity(system_t *sys, entity_t *entity);
+bool kill_entity(system_t *sys, entity_t *entity, bool state);
 
 // --> window size
 int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
