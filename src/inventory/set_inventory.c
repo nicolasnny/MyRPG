@@ -20,7 +20,8 @@ static void set_inv_format(sfSprite *s)
             {SLOT_ERROR_DOWN_MARGIN, SLOT_ERROR_DOWN_MARGIN});
         size = sfSprite_getGlobalBounds(s);
     }
-    while (size.width < SLOT_WIDTH * INVENTORY_SCALE * SLOT_ERROR_DOWN_MARGIN) {
+    while (size.width < SLOT_WIDTH * INVENTORY_SCALE
+        * SLOT_ERROR_DOWN_MARGIN) {
         sfSprite_scale(s, (sfVector2f)
             {SLOT_ERROR_UP_MARGIN, SLOT_ERROR_UP_MARGIN});
         size = sfSprite_getGlobalBounds(s);

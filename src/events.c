@@ -10,7 +10,7 @@
 #include "rpg.h"
 #include "struct.h"
 
-bool is_in(sfVector2f *mouse, sfFloatRect *rect)
+static bool is_in(sfVector2f *mouse, sfFloatRect *rect)
 {
     if (mouse->x <= rect->left + rect->width &&
         mouse->x >= rect->left &&
@@ -76,7 +76,6 @@ int mouse_events(parameters_t *param, int component)
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
-            exit(0);
         }
         hover_entity(compo_list, param);
         if (param->event.type == sfEvtMouseButtonPressed) {
@@ -98,6 +97,9 @@ int window_events(parameters_t *param)
         }
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
+        }
+        if (sfKeyboard_isKeyPressed(sfKeyA)) {
+            get_item(param);
         }
     }
     return SUCCESS;
