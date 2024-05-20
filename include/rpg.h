@@ -222,6 +222,7 @@ void set_inventory_pos(system_t *sys);
 void refresh_inventory_pos(system_t *sys);
 void change_selected_item(system_t *sys);
 void get_item(parameters_t *param);
+void drop_selected_item(system_t *sys);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);

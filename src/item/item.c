@@ -24,12 +24,17 @@ static void drop_item(system_t *sys, entity_t *e)
 void drop_selected_item(system_t *sys)
 {
     e_list_t *list = get_entities(sys, SELECTED);
+    sfVector2f dz = sfSprite_getPosition(get_player(sys));
 
-    if (list == NULL)
+    if (list == NULL) {
+        printf("/* error sound: no item selected */\n");
         return;
+    }
     unset_entity(sys, list->entity, SELECTED);
     set_entity(list->entity, sys, ON_MAP);
     refresh_inventory_pos(sys);
+    sfSprite_setPosition(list->entity->sprite, dz);
+    clean_list(list);
 }
 
 static bool remove_inv_last_element(system_t *sys)

@@ -101,6 +101,9 @@ int window_events(parameters_t *param)
         if (sfKeyboard_isKeyPressed(sfKeyA)) {
             get_item(param);
         }
+        if (sfKeyboard_isKeyPressed(sfKeyE)) {
+            drop_selected_item(param->sys);
+        }
     }
     return SUCCESS;
 }
