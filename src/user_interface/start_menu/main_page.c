@@ -12,8 +12,16 @@
 
 int start_menu(parameters_t *param, entity_t *entity, bool state)
 {
+    sfSound *backsound = sfSound_create();
+    sfSoundBuffer *sound_buffer = sfSoundBuffer_createFromFile(MUSIC_PATH);
+
     (void)entity;
     (void)state;
+    if (backsound == NULL || sound_buffer == NULL)
+        return ERROR;
+    sfSound_setBuffer(backsound, sound_buffer);
+    sfSound_setVolume(backsound, 100);
+    sfSound_play(backsound);
     reset_view(param->window, param->view);
     while (sfRenderWindow_isOpen(param->window) &&
         param->game_state == PAUSE) {

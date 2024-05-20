@@ -37,7 +37,7 @@ static void game_launcher(parameters_t *param)
         return;
     sfRenderWindow_setView(param->window, param->view);
     if (param->game_state == PLAY) {
-        // set_player_new_pos(param->view, param->map_array);
+        //set_player_new_pos(param->view, param->map_array);
         loop(param);
     }
 }

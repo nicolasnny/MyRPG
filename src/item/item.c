@@ -5,6 +5,7 @@
 ** get_item
 */
 
+#include <stdio.h>
 #include "rpg.h"
 
 double get_sprites_dist(sfSprite *a, sfSprite *b)

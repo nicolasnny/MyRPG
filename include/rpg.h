@@ -92,6 +92,10 @@
     #define CONFIG_DIR "config/"
     #define CONFIG_ELEMENT_NAME "[ENTITY]"
 
+// view
+    #define MUSIC_PATH "assets/sounds/music.wav"
+    #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
+
 //-->main
 int my_rpg(int, char **);
 
