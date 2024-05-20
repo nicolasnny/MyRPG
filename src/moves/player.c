@@ -76,9 +76,6 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
     int y = 0;
 
     get_sprite_coords_on_sokomap(&map_size, player, &y, &x);
-    sfVector2f tmp = sfSprite_getPosition(player);
-    printf("Sprite pos: {%f, %f}\n", tmp.x, tmp.y);
-    printf("Line: %d, Col: %d\n", y, x);
     if (x < 0 || y < 0 || x >= MAP_WIDTH || y >= MAP_HEIGHT) {
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
@@ -111,10 +108,11 @@ void move_player(parameters_t *param)
 {
     sfVector2f move = {0};
     sfSprite *player = get_player(param->sys);
+    sfVector2f map_size = get_map_size(param->sys);
 
     if (param->map_array == NULL || player == NULL)
         return;
-    move = get_p_move_event(player);
+    move = get_p_move_event(&map_size, player);
     if (move.x != 0.0 || move.y != 0.0) {
         get_player_spot(param->map_array)->last_pos =
             sfSprite_getPosition(player);
@@ -123,17 +121,4 @@ void move_player(parameters_t *param)
         sfRenderWindow_setView(param->window, param->view);
         refresh_inventory_pos(param->sys);
     }
-}
-
-void set_view_on_player(parameters_t *param)
-{
-    e_list_t *p_list = get_entities(param->sys, PLAYER);
-    sfSprite *player = NULL;
-
-    if (!p_list)
-        return;
-    player = p_list->entity->sprite;
-    sfView_setCenter(param->view, get_center(player));
-    clean_list(p_list);
-    sfRenderWindow_setView(param->window, param->view);
 }

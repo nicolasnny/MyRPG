@@ -9,27 +9,24 @@
 #include <SFML/Graphics.h>
 #include "rpg.h"
 
-sfVector2f get_p_move_event(sfSprite *player)
+sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player)
 {
     sfVector2f move = {0};
-    sfVector2f pos = sfSprite_getPosition(player);
+    sfFloatRect p_rect = sfSprite_getGlobalBounds(player);
 
     if ((sfKeyboard_isKeyPressed(sfKeyUp) ||
-        sfKeyboard_isKeyPressed(sfKeyZ)) && pos.y > 0.0) {
+        sfKeyboard_isKeyPressed(sfKeyZ)) && p_rect.top > 0.0)
         move.y -= PLAYER_SPEED;
-    }
-    if ((sfKeyboard_isKeyPressed(sfKeyRight) ||
-        sfKeyboard_isKeyPressed(sfKeyD)) && pos.x < WIN_WIDTH) {
+    if ((sfKeyboard_isKeyPressed(sfKeyRight)
+        || sfKeyboard_isKeyPressed(sfKeyD))
+        && p_rect.left + p_rect.width < map_size->x)
         move.x += PLAYER_SPEED;
-    }
     if ((sfKeyboard_isKeyPressed(sfKeyLeft) ||
-        sfKeyboard_isKeyPressed(sfKeyQ)) && pos.x > 0) {
+        sfKeyboard_isKeyPressed(sfKeyQ)) && p_rect.left > 0)
         move.x -= PLAYER_SPEED;
-    }
-    if ((sfKeyboard_isKeyPressed(sfKeyDown) ||
-        sfKeyboard_isKeyPressed(sfKeyS)) && pos.y < WIN_HEIGHT) {
+    if ((sfKeyboard_isKeyPressed(sfKeyDown) || sfKeyboard_isKeyPressed(sfKeyS))
+        && p_rect.top + p_rect.height < map_size->y)
         move.y += PLAYER_SPEED;
-    }
     return move;
 }
 
@@ -108,7 +105,6 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
 {
     sfVector2f pos = get_center(s);
 
-    printf("Sprite size: {%f, %f}\n", map_size->x, map_size->y);
     if (s == NULL || line == NULL || col == NULL || map_size == NULL)
         return false;
     *col = (int)(MAP_WIDTH * pos.x / map_size->x);

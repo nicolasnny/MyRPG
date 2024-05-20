@@ -21,3 +21,16 @@ void reset_view(sfRenderWindow *window, sfView *view)
     sfView_setViewport(view, viewport);
     sfRenderWindow_setView(window, view);
 }
+
+void set_view_on_player(parameters_t *param)
+{
+    e_list_t *p_list = get_entities(param->sys, PLAYER);
+    sfSprite *player = NULL;
+
+    if (!p_list)
+        return;
+    player = p_list->entity->sprite;
+    sfView_setCenter(param->view, get_center(player));
+    clean_list(p_list);
+    sfRenderWindow_setView(param->window, param->view);
+}

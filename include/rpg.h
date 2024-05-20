@@ -111,7 +111,7 @@ void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
 sokospot_t *get_player_spot(sokospot_t ***);
-sfVector2f get_p_move_event(sfSprite *player);
+sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player);
 bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
