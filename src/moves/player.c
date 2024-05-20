@@ -80,7 +80,7 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
     }
-    if (map[y][x]->type == PLAYER_CHAR)
+    if (!map[y][x] || map[y][x]->type == PLAYER_CHAR)
         return;
     if (spot_available(map[y][x]) || map[y][x]->type == PLAYER_CHAR) {
         if (map[y][x]->type != PLAYER_CHAR)

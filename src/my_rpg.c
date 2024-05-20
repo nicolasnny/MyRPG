@@ -17,6 +17,9 @@ static int loop(parameters_t *param)
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
     while (sfRenderWindow_isOpen(param->window)) {
+        sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
+            DEFAULT_VIEW_SIZE_Y});
+        sfRenderWindow_setView(param->window, param->view);
         window_events(param);
         make_life(param);
         sfRenderWindow_display(param->window);
@@ -31,6 +34,7 @@ static void game_launcher(parameters_t *param)
     start_menu(param, NULL, true);
     sfRenderWindow_setView(param->window, param->view);
     if (param->game_state == PLAY) {
+        // set_player_new_pos(param->view, param->map_array);
         loop(param);
     }
 }

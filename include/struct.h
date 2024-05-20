@@ -44,6 +44,7 @@ typedef struct entity_s {
     char *name;
     int (*clicked)(parameters_t *param, entity_t *entity, bool clicked);
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {
