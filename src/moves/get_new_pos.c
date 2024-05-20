@@ -103,13 +103,15 @@ void set_player_new_pos(parameters_t *param, sfVector2f move)
     clean_list(p_list);
 }
 
-bool get_sprite_coords_on_sokomap(sfSprite *s, int *line, int *col)
+bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
+    int *line, int *col)
 {
     sfVector2f pos = get_center(s);
 
-    if (s == NULL || line == NULL || col == NULL)
+    printf("Sprite size: {%f, %f}\n", map_size->x, map_size->y);
+    if (s == NULL || line == NULL || col == NULL || map_size == NULL)
         return false;
-    *col = (int)(MAP_WIDTH * pos.x / WIN_WIDTH);
-    *line = (int)(MAP_HEIGHT * pos.y / WIN_HEIGHT);
+    *col = (int)(MAP_WIDTH * pos.x / map_size->x);
+    *line = (int)(MAP_HEIGHT * pos.y / map_size->y);
     return true;
 }

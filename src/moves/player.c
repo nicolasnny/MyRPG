@@ -50,14 +50,35 @@ void set_prev_pos(parameters_t *param, sfSprite *player,
     sfView_setCenter(param->view, get_center(player));
 }
 
+sfVector2f get_map_size(system_t *sys)
+{
+    entity_t *map = get_entity_by_name(sys, MAP_NAME);
+    sfFloatRect map_rect = {0};
+    sfVector2f map_size = {0};
+
+    if (map != NULL) {
+        map_rect = sfSprite_getGlobalBounds(map->sprite);
+        map_size.x = map_rect.width;
+        map_size.y = map_rect.height;
+        return map_size;
+    }
+    map_size.x = WIN_WIDTH;
+    map_size.y = WIN_HEIGHT;
+    return map_size;
+}
+
 static void move_in_array(parameters_t *param, sokospot_t ***map,
     sfSprite *player)
 {
     sokospot_t *player_spot = get_player_spot(map);
+    sfVector2f map_size = get_map_size(param->sys);
     int x = 0;
     int y = 0;
 
-    get_sprite_coords_on_sokomap(player, &y, &x);
+    get_sprite_coords_on_sokomap(&map_size, player, &y, &x);
+    sfVector2f tmp = sfSprite_getPosition(player);
+    printf("Sprite pos: {%f, %f}\n", tmp.x, tmp.y);
+    printf("Line: %d, Col: %d\n", y, x);
     if (x < 0 || y < 0 || x >= MAP_WIDTH || y >= MAP_HEIGHT) {
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;

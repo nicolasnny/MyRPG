@@ -35,13 +35,16 @@ static sokospot_t *create_defaut_sokospot(char type)
     return spot;
 }
 
-static bool set_list_on_map(sokospot_t ***map, e_list_t *list, char type)
+static bool set_list_on_map(sokospot_t ***map, e_list_t *list, char type,
+    system_t *sys)
 {
+    sfVector2f map_size = get_map_size(sys);
     int line = 0;
     int col = 0;
 
     while (list) {
-        get_sprite_coords_on_sokomap(list->entity->sprite, &line, &col);
+        get_sprite_coords_on_sokomap(&map_size,
+            list->entity->sprite, &line, &col);
         if (line < 0 || col < 0 || line >= MAP_HEIGHT || col >= MAP_WIDTH)
             return false;
         if (map[line][col])
@@ -54,15 +57,15 @@ static bool set_list_on_map(sokospot_t ***map, e_list_t *list, char type)
 
 static sokospot_t ***fill_sokomap(sokospot_t ***map, system_t *sys)
 {
-    if (!set_list_on_map(map, get_entities(sys, PLAYER), PLAYER_CHAR)) {
+    if (!set_list_on_map(map, get_entities(sys, PLAYER), PLAYER_CHAR, sys)) {
         dprintf(2, "Error: unable to set player on sokomap\n");
         return NULL;
     }
-    if (!set_list_on_map(map, get_entities(sys, MOB), ENEMY)) {
+    if (!set_list_on_map(map, get_entities(sys, MOB), ENEMY, sys)) {
         dprintf(2, "Error: unable to set mobs on sokomap\n");
         return NULL;
     }
-    if (!set_list_on_map(map, get_entities(sys, NPC), NPC_CHAR)) {
+    if (!set_list_on_map(map, get_entities(sys, NPC), NPC_CHAR, sys)) {
         dprintf(2, "Error: unable to set npcs on sokomap\n");
         return NULL;
     }
