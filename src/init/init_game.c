@@ -33,6 +33,7 @@ int init_args(parameters_t *param)
     if (param->sys == NULL || param->window == NULL) {
         return ERROR;
     }
+    create_from_conf(param);
     param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
     if (param->map_array == NULL)
         return ERROR;

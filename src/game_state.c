@@ -13,6 +13,7 @@ int set_to_play(parameters_t *param, entity_t *entity, bool clicked)
     if (clicked) {
         param->game_state = PLAY;
     }
+    (void)entity;
     return SUCCESS;
 }
 
@@ -21,6 +22,7 @@ int set_to_pause(parameters_t *param, entity_t *entity, bool clicked)
     if (clicked) {
         param->game_state = PAUSE;
     }
+    (void)entity;
     return SUCCESS;
 }
 
@@ -29,5 +31,6 @@ int set_to_quit(parameters_t *param, entity_t *entity, bool clicked)
     if (clicked) {
         param->game_state = QUIT;
     }
+    (void)entity;
     return SUCCESS;
 }

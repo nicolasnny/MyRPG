@@ -11,6 +11,8 @@
 
 static int loop(parameters_t *param)
 {
+    set_view_on_player(param);
+    refresh_inventory_pos(param->sys);
     sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
@@ -29,7 +31,6 @@ static int loop(parameters_t *param)
 
 static void game_launcher(parameters_t *param)
 {
-    create_from_conf(param);
     start_menu(param, NULL, true);
     sfRenderWindow_setView(param->window, param->view);
     if (param->game_state == PLAY) {

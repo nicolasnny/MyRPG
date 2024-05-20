@@ -67,6 +67,7 @@ void set_texture(parameters_t *param, entity_t *entity, char *value)
             set_rectangle_texture(entity, value, (sfIntRect *)rect);
     }
     free_str_array(args);
+    (void)param;
 }
 
 static void run_func(char *func, parameters_t *param, entity_t *entity)

@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stddef.h>
 #include <string.h>
 #include <SFML/Graphics.h>
@@ -28,6 +29,7 @@ void set_scale(parameters_t *param, entity_t *entity, char *value)
     if (entity->rect)
         sfRectangleShape_setScale(entity->rect,
             (sfVector2f){scale_value[0], scale_value[1]});
+    (void)param;
     free(scale_value);
 }
 
@@ -44,6 +46,7 @@ void set_pos(parameters_t *param, entity_t *entity, char *value)
         sfRectangleShape_setPosition(entity->rect,
             (sfVector2f){pos_value[0], pos_value[1]});
     free(pos_value);
+    (void)param;
 }
 
 void set_click(parameters_t *param, entity_t *entity, char *value)
@@ -54,10 +57,12 @@ void set_click(parameters_t *param, entity_t *entity, char *value)
         if (strcmp(func_list[i].func_name, value) == 0)
             entity->clicked = func_list[i].function;
     }
+    (void)param;
 }
 
 void set_hover(parameters_t *param, entity_t *entity, char *value)
 {
+    (void)param;
     if (strcmp(value, "NULL") == 0)
         return;
     for (int i = 0; func_list[i].func_name; i++) {
@@ -73,11 +78,11 @@ entity_t *create_entity(system_t *sys, int compo)
 
     if (e == NULL)
         return NULL;
+    e->id = id;
     if (sys->e_list && !push_to_list(&sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }
-    e->id = id;
     id++;
     set_entity(e, sys, compo);
     e->rect = NULL;

@@ -15,4 +15,5 @@ void set_name(parameters_t *param, entity_t *entity, char *value)
     if (strcmp(value, "NULL") != 0) {
         entity->name = strdup(value);
     }
+    (void)param;
 }

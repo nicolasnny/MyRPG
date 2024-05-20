@@ -12,7 +12,6 @@
 
 static void set_sprite_pos(parameters_t *param)
 {
-    sfVector2u window_size = sfRenderWindow_getSize(param->window);
     e_list_t *menu = get_entities(param->sys, IN_GAME_MENU);
     int offset = -100;
     sfVector2f center = sfView_getCenter(param->view);

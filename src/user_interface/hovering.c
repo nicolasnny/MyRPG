@@ -15,5 +15,6 @@ int hovered(parameters_t *param, entity_t *entity, bool hovered)
     } else {
         sfSprite_setScale(entity->sprite, (sfVector2f){1.0, 1.0});
     }
+    (void)param;
     return SUCCESS;
 }

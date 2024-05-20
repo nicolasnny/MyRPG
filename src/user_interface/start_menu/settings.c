@@ -14,6 +14,7 @@ int set_2560x1600(parameters_t *param, entity_t *entity, bool state)
     (void)state;
     sfRenderWindow_setSize(param->window, (sfVector2u){2560, 1600});
     reset_view(param->window, param->view);
+    return SUCCESS;
 }
 
 int set_1920x1080(parameters_t *param, entity_t *entity, bool state)
@@ -22,6 +23,7 @@ int set_1920x1080(parameters_t *param, entity_t *entity, bool state)
     (void)state;
     sfRenderWindow_setSize(param->window, (sfVector2u){1920, 1080});
     reset_view(param->window, param->view);
+    return SUCCESS;
 }
 
 int options_menu(parameters_t *param, entity_t *entity, bool state)

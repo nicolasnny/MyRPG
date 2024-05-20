@@ -66,5 +66,7 @@ int check_player_collisions(system_t *sys)
         check_monsters(player->entity, mobs);
         player = player->next;
     }
+    clean_list(player);
+    clean_list(mobs);
     return SUCCESS;
 }

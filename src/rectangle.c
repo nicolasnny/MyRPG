@@ -17,6 +17,7 @@ void create_rectangle(parameters_t *param, entity_t *entity, char *value)
         if (!entity->rect)
             dprintf(2, "Error: failed to create sprite\n");
     }
+    (void)param;
 }
 
 void set_rectangle_texture(entity_t *e, char const *texture_path,

@@ -10,7 +10,7 @@
 #include "rpg.h"
 #include "struct.h"
 
-bool is_in(sfVector2f *mouse, sfFloatRect *rect, sfVector2u *window_pos)
+bool is_in(sfVector2f *mouse, sfFloatRect *rect)
 {
     if (mouse->x <= rect->left + rect->width &&
         mouse->x >= rect->left &&
@@ -39,7 +39,7 @@ static void click_entity(e_list_t *compo_list, parameters_t *param)
         }
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
-        if (is_in(&new_pos, &e_pos, &window_pos) && temp->entity->clicked)
+        if (is_in(&new_pos, &e_pos) && temp->entity->clicked)
             temp->entity->clicked(param, temp->entity, true);
         temp = temp->next;
     }
@@ -61,9 +61,9 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param)
         }
         if (!temp->entity->sprite && temp->entity->rect)
             e_pos = sfRectangleShape_getGlobalBounds(temp->entity->rect);
-        if (is_in(&new_pos, &e_pos, &window_pos) && temp->entity->hovered)
+        if (is_in(&new_pos, &e_pos) && temp->entity->hovered)
             temp->entity->hovered(param, temp->entity, true);
-        if (!is_in(&new_pos, &e_pos, &window_pos) && temp->entity->hovered)
+        if (!is_in(&new_pos, &e_pos) && temp->entity->hovered)
             temp->entity->hovered(param, temp->entity, false);
         temp = temp->next;
     }
@@ -94,6 +94,7 @@ int window_events(parameters_t *param)
         }
         if (param->event.type == sfEvtKeyPressed) {
             move_player(param);
+            change_selected_item(param->sys);
         }
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
