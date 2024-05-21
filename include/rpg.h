@@ -78,6 +78,10 @@
     #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
     #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
 
+// in game menu
+    #define MENU_OFFSET 100
+    #define MENU_UNZOOM 1.5
+
 // errors defines
     #define OPEN_ERROR -1
     #define ERROR 84
