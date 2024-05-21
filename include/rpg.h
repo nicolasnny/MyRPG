@@ -39,8 +39,8 @@
     #define ENEMY 'E'
     #define NPC_LIMIT 'L'
     #define NPC_CHAR 'N'
-    #define MAP_WIDTH 60
-    #define MAP_HEIGHT 33
+    #define MAP_WIDTH 360
+    #define MAP_HEIGHT 200
     #define TMP_HEIGHT 45
     #define TMP_WIDTH 79
 
