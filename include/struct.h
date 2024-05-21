@@ -11,10 +11,6 @@
     #include <SFML/Audio.h>
     #include <stdbool.h>
 
-typedef struct parameters_s parameters_t;
-typedef struct system_s system_t;
-typedef struct entity_s entity_t;
-
 typedef enum game_state_s {
     PLAY,
     QUIT,
@@ -75,6 +71,7 @@ typedef struct parameters_s {
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
+    sfClock *clock;
 } parameters_t;
 
 #endif
