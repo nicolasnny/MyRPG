@@ -91,7 +91,8 @@ int window_events(parameters_t *param)
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
         }
-        change_selected_item(param->sys);
+        if (param->event.type == sfEvtKeyPressed)
+            change_selected_item(param->sys);
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
         }
