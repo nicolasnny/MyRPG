@@ -118,14 +118,9 @@ TNAME	=	unit_tests
 all:	libb $(NAME)
 
 libb:
-	$(MAKE) all -C lib/
-all:	libb $(NAME)
-
-libb:
-	$(MAKE) all -C lib/
+	$(MAKE) -C lib/
 
 $(NAME):	$(OBJ)
-	$(CC) $(LDFLAGS) -o $(NAME) $(MAIN) $(OBJ) $(LDFLAGS) $(LDLIBS)
 	$(CC) $(LDFLAGS) -o $(NAME) $(MAIN) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 tests_run:
@@ -134,11 +129,9 @@ tests_run:
 
 clean:
 	$(MAKE) clean -C lib/
-	$(MAKE) clean -C lib/
 	$(RM) -f $(OBJ) *~  *.gcda *.gcno src/*.gc*
 
 fclean:	clean
-	$(MAKE) fclean -C lib/
 	$(MAKE) fclean -C lib/
 	$(RM) -f $(NAME) $(TNAME)
 

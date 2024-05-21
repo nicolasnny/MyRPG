@@ -77,6 +77,11 @@
     #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
     #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
 
+// in game menu
+    #define MENU_OFFSET 100
+    #define MENU_UNZOOM 1.5
+    #define MENU_ZOOM 0.66666666666667
+
 // errors defines
     #define OPEN_ERROR -1
     #define ERROR 84
@@ -240,5 +245,6 @@ int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
 // --> view
 void reset_view(sfRenderWindow* window, sfView* view);
 void set_view_on_player(parameters_t *param);
+sfVector2f get_view_pos(sfView *v);
 
 #endif
