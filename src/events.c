@@ -35,11 +35,13 @@ static sfVector2f get_menu_pos(sfRenderWindow *win)
 static sfVector2f get_mouse_pos(parameters_t *param)
 {
     sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(param->window);
-    sfVector2f map_size = get_map_size(param->sys);
+    sfVector2f view_size = sfView_getSize(param->view);
+    sfVector2u win_size = sfRenderWindow_getSize(param->window);
+    sfVector2f view_pos = get_view_pos(param->view);
     sfVector2f new_pos = {0};
 
-    new_pos.x = (mouse_pos.x / (double)map_size.x) * (double)WIN_WIDTH;
-    new_pos.y = (mouse_pos.y / (double)map_size.y) * (double)WIN_HEIGHT;
+    new_pos.x = view_pos.x + (double)mouse_pos.x / win_size.x * view_size.x;
+    new_pos.y = view_pos.y + (double)mouse_pos.y / win_size.y * view_size.y;
     return new_pos;
 }
 
