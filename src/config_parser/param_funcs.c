@@ -47,9 +47,10 @@ int *get_int_array(char *arg)
         return NULL;
     }
     arg_array = my_str_to_word_array(no_brackets, ",");
-    values = calloc(my_strstrlen(arg_array), sizeof(int));
+    values = calloc(my_strstrlen(arg_array) + 1, sizeof(int));
     for (int i = 0; arg_array[i]; i++)
         values[i] = atoi(arg_array[i]);
+    values[my_strstrlen(arg_array)] = -1;
     return values;
 }
 
@@ -57,16 +58,26 @@ void set_texture(parameters_t *param, entity_t *entity, char *value)
 {
     char **args = my_str_to_word_array(value, ";");
     int *rect = NULL;
+    sfIntRect texture_rect = (sfIntRect){0, 0, 0, 0};
+    bool rect_input = false;
 
-    printf("[%s]\n", value);
     if (args[1]) {
         rect = get_int_array(args[1]);
     }
+    if (rect && rect[0] && rect[1] && rect[2] && rect[3]) {
+        texture_rect.left = rect[0];
+        texture_rect.top = rect[1];
+        texture_rect.width = rect[2];
+        texture_rect.height = rect[3];
+        rect_input = true;
+    }
     if (strcmp("NULL", value) != 0) {
-        if (entity->sprite)
+        if (entity->sprite && rect_input)
+            set_sprite_texture(entity, args[0], &texture_rect);
+        if (entity->sprite && !rect_input)
             set_sprite_texture(entity, args[0], (sfIntRect *)rect);
         if (entity->rect)
-            set_rectangle_texture(entity, args[0], (sfIntRect *)rect);
+            set_rectangle_texture(entity, args[0], NULL);
     }
     free_str_array(args);
     (void)param;

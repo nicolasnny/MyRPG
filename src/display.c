@@ -20,6 +20,8 @@ void display_entities(parameters_t *param, int component)
     reverse_list(&list);
     head = list;
     while (list != NULL) {
+        if (list->entity->name != NULL && strcmp("PLAYER\n", list->entity->name))
+            printf("DIPLAYED\n");
         if (list->entity->sprite) {
             sfRenderWindow_drawSprite(param->window,
             list->entity->sprite, NULL);

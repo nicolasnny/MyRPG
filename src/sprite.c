@@ -30,4 +30,5 @@ void set_sprite_texture(entity_t *e, char const *texture_path,
         dprintf(2, "Error: unable to load %s as a texture\n", texture_path);
     }
     sfSprite_setTexture(e->sprite, texture, sfFalse);
+    sfSprite_setTextureRect(e->sprite, *rect);
 }
