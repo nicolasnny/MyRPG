@@ -13,11 +13,9 @@ int kill_entity(parameters_t *param, entity_t *entity, bool state)
 {
     e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
 
-    printf("in kill function\n");
     (void)state;
     if (player == NULL || entity == NULL)
         return ERROR;
-    printf("before checking range\n");
     if (ennemy_in_range(player->entity, entity)) {
         printf("/* sword sound */");
         printf("You killed %s !\n", entity->name);

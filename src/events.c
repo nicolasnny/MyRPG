@@ -112,8 +112,9 @@ int mouse_events(parameters_t *param, int component)
     return SUCCESS;
 }
 
-int window_events(parameters_t *param)
+int window_events(parameters_t *param, int component)
 {
+    e_list_t *compo_list = get_entities(param->sys, component);
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         mouse_events(param, MOB);
         if (param->event.type == sfEvtClosed) {
@@ -127,8 +128,11 @@ int window_events(parameters_t *param)
         if (sfKeyboard_isKeyPressed(sfKeyA)) {
             get_item(param);
         }
-        if (sfKeyboard_isKeyPressed(sfKeyE)) {
+        if (sfKeyboard_isKeyPressed(sfKeyE))
             drop_selected_item(param->sys);
+        hover_entity(compo_list, param, component);
+        if (param->event.type == sfEvtMouseButtonPressed) {
+            click_entity(compo_list, param, component);
         }
     }
     return SUCCESS;

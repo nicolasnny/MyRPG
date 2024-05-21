@@ -112,8 +112,7 @@ sfSound *init_sound(char *path);
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
-int window_events(parameters_t *param);
-int window_events(parameters_t *param);
+int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
 
