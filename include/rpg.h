@@ -1,7 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
 ** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
-** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
 ** File description:
 ** rpg.h
 */
@@ -25,7 +24,7 @@
     #define TIME_BEFORE_MOBS_MOVE 3
     #define FONT_PATH "src/sprites/game_font.ttf"
     #define PLAYER_ATTACK_RANGE 25
-    #define PLAYER_SPEED 2.2
+    #define PLAYER_SPEED 3.0
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
 
@@ -39,8 +38,8 @@
     #define ENEMY 'E'
     #define NPC_LIMIT 'L'
     #define NPC_CHAR 'N'
-    #define MAP_WIDTH 60
-    #define MAP_HEIGHT 33
+    #define MAP_WIDTH 360
+    #define MAP_HEIGHT 200
     #define TMP_HEIGHT 45
     #define TMP_WIDTH 79
 
