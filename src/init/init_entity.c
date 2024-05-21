@@ -79,7 +79,7 @@ entity_t *create_entity(system_t *sys, int compo)
     if (e == NULL)
         return NULL;
     e->id = id;
-    if (sys->e_list && !push_to_list(&sys->e_list, e)) {
+    if (!push_to_list(&sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }
@@ -89,5 +89,6 @@ entity_t *create_entity(system_t *sys, int compo)
     e->clicked = NULL;
     e->hovered = NULL;
     e->name = NULL;
+    e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
     return e;
 }

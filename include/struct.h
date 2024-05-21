@@ -34,7 +34,8 @@ typedef enum component_s {
     SETTINGS = 1 << 9,
     BABLA = 1 << 10,
     IN_GAME_MENU = 1 << 11,
-    __END__ = 1 << 12,
+    ON_MAP = 1 << 12,
+    __END__ = 1 << 13,
 } component_t;
 
 typedef struct entity_s {
@@ -44,6 +45,7 @@ typedef struct entity_s {
     char *name;
     int (*clicked)(parameters_t *param, entity_t *entity, bool clicked);
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
+    sfVector2f pos;
 } entity_t;
 
 typedef struct sokospot_s {

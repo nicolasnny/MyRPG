@@ -53,6 +53,8 @@ SRC     =	src/main.c	\
 				src/inventory/manage.c	\
 				src/fight/range.c	\
 				src/fight/kill.c	\
+				src/item/item.c	\
+				src/init/init_sounds.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\
@@ -90,6 +92,8 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/inventory/manage.c	\
 			src/fight/range.c	\
 			src/fight/kill.c	\
+			src/item/item.c	\
+			src/init/init_sounds.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 
@@ -116,7 +120,7 @@ TNAME	=	unit_tests
 all:	libb $(NAME)
 
 libb:
-	$(MAKE) all -C lib/
+	$(MAKE) -C lib/
 
 $(NAME):	$(OBJ)
 	$(CC) $(LDFLAGS) -o $(NAME) $(MAIN) $(OBJ) $(LDFLAGS) $(LDLIBS)

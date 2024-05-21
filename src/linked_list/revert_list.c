@@ -21,3 +21,14 @@ void reverse_list(e_list_t **head)
     }
     *head = prev;
 }
+
+unsigned int get_list_size(e_list_t *list)
+{
+    unsigned int size = 0;
+
+    while (list) {
+        size++;
+        list = list->next;
+    }
+    return size;
+}
