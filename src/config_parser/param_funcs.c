@@ -68,6 +68,18 @@ static int get_arg_len(char *arg)
     return my_strstrlen(arg_array);
 }
 
+static void fill_texture_rect
+(int *rect, sfIntRect *texture_rect, bool *rect_input, char **args)
+{
+    if (rect && get_arg_len(args[1]) == 4) {
+        texture_rect->left = rect[0];
+        texture_rect->top = rect[1];
+        texture_rect->width = rect[2];
+        texture_rect->height = rect[3];
+        *rect_input = true;
+    }
+}
+
 void set_texture(parameters_t *param, entity_t *entity, char *value)
 {
     char **args = my_str_to_word_array(value, ";");
@@ -78,13 +90,7 @@ void set_texture(parameters_t *param, entity_t *entity, char *value)
     if (args[1]) {
         rect = get_int_array(args[1]);
     }
-    if (rect && get_arg_len(args[1]) == 4) {
-        texture_rect.left = rect[0];
-        texture_rect.top = rect[1];
-        texture_rect.width = rect[2];
-        texture_rect.height = rect[3];
-        rect_input = true;
-    }
+    fill_texture_rect(rect, &texture_rect, &rect_input, args);
     if (strcmp("NULL", value) != 0) {
         if (entity->sprite && rect_input)
             set_sprite_texture(entity, args[0], &texture_rect);
