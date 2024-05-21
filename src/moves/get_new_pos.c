@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.h>
+#include <math.h>
 #include "rpg.h"
 
 sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player)
@@ -107,7 +108,8 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
 
     if (s == NULL || line == NULL || col == NULL || map_size == NULL)
         return false;
-    *col = (int)(MAP_WIDTH * pos.x / map_size->x);
-    *line = (int)(MAP_HEIGHT * pos.y / map_size->y);
+    *col = (int)round(MAP_WIDTH * pos.x / map_size->x);
+    *line = (int)round(MAP_HEIGHT * pos.y / map_size->y);
+    printf("map_size = %f %f\nplayer : %f %f\non_soko: %d %d\n",map_size->x, map_size->y, pos.x, pos.y, *col, *line);
     return true;
 }
