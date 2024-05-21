@@ -82,6 +82,7 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
     }
     if (!map[y][x] || map[y][x]->type == PLAYER_CHAR)
         return;
+    printf("player pos => line: %d | col: %d\n", y, x);
     if (spot_available(map[y][x]) || map[y][x]->type == PLAYER_CHAR) {
         if (map[y][x]->type != PLAYER_CHAR)
             swap_struct(&player_spot, &map[y][x]);

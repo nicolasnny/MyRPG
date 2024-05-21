@@ -47,6 +47,7 @@ static bool set_list_on_map(sokospot_t ***map, e_list_t *list, char type,
             list->entity->sprite, &line, &col);
         if (line < 0 || col < 0 || line >= MAP_HEIGHT || col >= MAP_WIDTH)
             return false;
+        dprintf(2, "Line: %d | Col: %d\n", line, col);
         if (map[line][col])
             dprintf(2, "[WARNING] sokospot not null before adding entity\n");
         map[line][col] = set_sokospot(map[line][col], type, list->entity);

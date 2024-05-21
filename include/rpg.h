@@ -41,8 +41,8 @@
     #define NPC_CHAR 'N'
     #define MAP_WIDTH 360
     #define MAP_HEIGHT 200
-    #define TMP_HEIGHT 45
-    #define TMP_WIDTH 79
+    #define TMP_HEIGHT 60
+    #define TMP_WIDTH 33
 
 // view
     #define DEFAULT_VIEW_SIZE_X 500
@@ -170,6 +170,7 @@ bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
 bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
+bool remove_entity_from_map(system_t *sys, sokospot_t ***map, entity_t *e);
 
 // --> system
 system_t *create_system(void);
