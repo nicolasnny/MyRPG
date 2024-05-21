@@ -62,22 +62,6 @@
     #define SLOT_ERROR_UP_MARGIN 1.1
     #define SLOT_ERROR_DOWN_MARGIN 0.9
 
-// sprites
-    #define PLAYER_SPRITE_PATH "assets/player/plane.png"
-    #define MOB_SPRITE_PATH "assets/player/plane.png"
-    #define NPC_SPRITE_PATH "assets/player/plane.png"
-    #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
-    #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
-    #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
-    #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
-    #define PLAYER_SPRITE_PATH "assets/player/plane.png"
-    #define MOB_SPRITE_PATH "assets/player/plane.png"
-    #define NPC_SPRITE_PATH "assets/player/plane.png"
-    #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
-    #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
-    #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
-    #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
-
 // errors defines
     #define OPEN_ERROR -1
     #define ERROR 84

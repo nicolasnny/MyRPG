@@ -58,13 +58,15 @@ void set_texture(parameters_t *param, entity_t *entity, char *value)
     char **args = my_str_to_word_array(value, ";");
     int *rect = NULL;
 
-    if (args[1])
+    printf("[%s]\n", value);
+    if (args[1]) {
         rect = get_int_array(args[1]);
+    }
     if (strcmp("NULL", value) != 0) {
         if (entity->sprite)
-            set_sprite_texture(entity, value, (sfIntRect *)rect);
+            set_sprite_texture(entity, args[0], (sfIntRect *)rect);
         if (entity->rect)
-            set_rectangle_texture(entity, value, (sfIntRect *)rect);
+            set_rectangle_texture(entity, args[0], (sfIntRect *)rect);
     }
     free_str_array(args);
     (void)param;
