@@ -38,6 +38,7 @@ int *get_int_array(char *arg)
     char *no_brackets = strdup_banned_chars(arg, " {}");
     char **arg_array = NULL;
     int *values = NULL;
+    int i = 0;
 
     if (!no_brackets)
         return NULL;
@@ -47,11 +48,24 @@ int *get_int_array(char *arg)
         return NULL;
     }
     arg_array = my_str_to_word_array(no_brackets, ",");
-    values = calloc(my_strstrlen(arg_array) + 1, sizeof(int));
-    for (int i = 0; arg_array[i]; i++)
+    values = calloc(my_strstrlen(arg_array), sizeof(int));
+    for (i = 0; arg_array[i]; i++)
         values[i] = atoi(arg_array[i]);
-    values[my_strstrlen(arg_array)] = -1;
+    values[i] = -1;
     return values;
+}
+
+static int get_arg_len(char *arg)
+{
+    char *no_brackets = strdup_banned_chars(arg, " {}");
+    char **arg_array = NULL;
+
+    if (no_brackets == NULL)
+        return 0;
+    arg_array = my_str_to_word_array(no_brackets, ",");
+    if (arg_array == NULL)
+        return 0;
+    return my_strstrlen(arg_array);
 }
 
 void set_texture(parameters_t *param, entity_t *entity, char *value)
@@ -64,7 +78,7 @@ void set_texture(parameters_t *param, entity_t *entity, char *value)
     if (args[1]) {
         rect = get_int_array(args[1]);
     }
-    if (rect && rect[0] && rect[1] && rect[2] && rect[3]) {
+    if (rect && get_arg_len(args[1]) == 4) {
         texture_rect.left = rect[0];
         texture_rect.top = rect[1];
         texture_rect.width = rect[2];
