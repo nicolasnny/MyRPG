@@ -8,6 +8,38 @@
 #include <SFML/Graphics.h>
 #include "rpg.h"
 
+static void set_inv_format(sfSprite *s)
+{
+    sfFloatRect size = {0};
+
+    if (s == NULL)
+        return;
+    size = sfSprite_getGlobalBounds(s);
+    while (size.width > SLOT_WIDTH * INVENTORY_SCALE * SLOT_ERROR_UP_MARGIN) {
+        sfSprite_scale(s, (sfVector2f)
+            {SLOT_ERROR_DOWN_MARGIN, SLOT_ERROR_DOWN_MARGIN});
+        size = sfSprite_getGlobalBounds(s);
+    }
+    while (size.width < SLOT_WIDTH * INVENTORY_SCALE
+        * SLOT_ERROR_DOWN_MARGIN) {
+        sfSprite_scale(s, (sfVector2f)
+            {SLOT_ERROR_UP_MARGIN, SLOT_ERROR_UP_MARGIN});
+        size = sfSprite_getGlobalBounds(s);
+    }
+}
+
+static void set_inventory_sprite_size(system_t *sys)
+{
+    e_list_t *list = get_entities(sys, INVENTORY);
+    e_list_t *head = list;
+
+    while (list) {
+        set_inv_format(list->entity->sprite);
+        list = list->next;
+    }
+    clean_list(head);
+}
+
 static void set_sprite_slot(unsigned int index, sfSprite *s,
     sfFloatRect *bar_rect)
 {
@@ -65,6 +97,7 @@ void set_inventory_items_pos(system_t *sys)
 
 void refresh_inventory_pos(system_t *sys)
 {
+    set_inventory_sprite_size(sys);
     set_inventory_pos(sys);
     set_inventory_items_pos(sys);
 }

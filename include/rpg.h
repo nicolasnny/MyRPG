@@ -27,6 +27,7 @@
     #define PLAYER_ATTACK_RANGE 25
     #define PLAYER_SPEED 2.2
     #define DEFAULT_NAME "Mob"
+    #define GRAB_RANGE 30
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -58,6 +59,8 @@
     #define INVENTORY_SCALE 1.5
     #define INVENTORY_HEIGHT_POURCENTAGE 0.8
     #define INVENTORY_CAPACITY 4
+    #define SLOT_ERROR_UP_MARGIN 1.1
+    #define SLOT_ERROR_DOWN_MARGIN 0.9
 
 // sprites
     #define PLAYER_SPRITE_PATH "assets/player/plane.png"
@@ -89,12 +92,17 @@
     #define CONFIG_DIR "config/"
     #define CONFIG_ELEMENT_NAME "[ENTITY]"
 
+// Sounds
+    #define MUSIC_PATH "assets/sounds/music.wav"
+    #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
+
 //-->main
 int my_rpg(int, char **);
 
 //---->> initialisation
 int init_args(parameters_t *param);
 int init_inventory(parameters_t *param, entity_t *entity, bool state);
+sfSound *init_sound(char *path);
 
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
@@ -129,6 +137,7 @@ sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player);
 bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
+sfSprite *get_player(system_t *sys);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -168,6 +177,7 @@ bool clean_list(e_list_t *list);
 void display_entity_id(e_list_t *list);
 void reverse_list(e_list_t **head);
 bool remove_entity_from_list(e_list_t **list, entity_t *e);
+unsigned int get_list_size(e_list_t *list);
 
 // --> collisions
 int check_player_collisions(system_t *sys);
@@ -216,10 +226,13 @@ void set_inventory_items_pos(system_t *sys);
 void set_inventory_pos(system_t *sys);
 void refresh_inventory_pos(system_t *sys);
 void change_selected_item(system_t *sys);
+void get_item(parameters_t *param);
+void drop_selected_item(system_t *sys);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);
 bool kill_entity(system_t *sys, entity_t *entity);
+double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb);
 
 // --> window size
 int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
