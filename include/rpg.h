@@ -81,6 +81,7 @@
 // in game menu
     #define MENU_OFFSET 100
     #define MENU_UNZOOM 1.5
+    #define MENU_ZOOM 0.66666666666667
 
 // errors defines
     #define OPEN_ERROR -1

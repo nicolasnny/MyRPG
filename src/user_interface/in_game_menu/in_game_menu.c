@@ -27,17 +27,18 @@ sfVector2f get_view_pos(sfView *v)
 }
 
 static sfVector2f get_sprite_real_pos(sfSprite *s, sfVector2f *view_pos,
-    sfVector2f *view_size)
+    sfVector2f *view_size, sfVector2f *last_pos)
 {
     sfFloatRect s_size = sfSprite_getGlobalBounds(s);
-    sfVector2f pos = sfSprite_getPosition(s);
+    sfVector2f pos = *last_pos;
 
     pos.x = view_pos->x + view_size->x * pos.x / WIN_WIDTH - s_size.width / 2;
-    pos.y = view_pos->y + view_size->y * pos.y / WIN_HEIGHT - s_size.height / 2;
+    pos.y = view_pos->y + view_size->y * pos.y / WIN_HEIGHT
+    - s_size.height / 2;
     return pos;
 }
 
-static void set_sprite_pos(parameters_t *param)
+static void set_ingame_sprite_pos(parameters_t *param)
 {
     e_list_t *menu = get_entities(param->sys, IN_GAME_MENU);
     sfVector2f view_pos = get_view_pos(param->view);
@@ -47,8 +48,14 @@ static void set_sprite_pos(parameters_t *param)
     sfView_zoom(param->view, MENU_UNZOOM);
     sfRenderWindow_setView(param->window, param->view);
     while (menu) {
+        if (menu->entity->name && strcmp(menu->entity->name, "map") != 0
+            && menu->entity->pos.x == NEG_ERROR) {
+            s_pos = sfSprite_getPosition(menu->entity->sprite);
+            menu->entity->pos = s_pos;
+        }
         if (menu->entity->name && strcmp(menu->entity->name, "map") != 0) {
-            s_pos = get_sprite_real_pos(menu->entity->sprite, &view_pos, &view_size);
+            s_pos = get_sprite_real_pos(menu->entity->sprite, &view_pos,
+            &view_size, &(menu->entity->pos));
             sfSprite_setPosition(menu->entity->sprite, s_pos);
         }
         menu = menu->next;
@@ -57,23 +64,16 @@ static void set_sprite_pos(parameters_t *param)
 
 void in_game_menu(parameters_t *param)
 {
-    set_sprite_pos(param);
+    set_ingame_sprite_pos(param);
     param->game_state = PAUSE;
-    sfFloatRect rect = {0};
-
-    while (param->game_state == PAUSE) {
-        // sfVector2i m_pos = sfMouse_getPositionRenderWindow(param->window);
-        // sfVector2u window_pos = sfRenderWindow_getSize(param->window);
-        // printf("mouse pos: {%f, %f}\n", (m_pos.x / (double)window_pos.x) * (double)WIN_WIDTH, (m_pos.y / (double)window_pos.y) * (double)WIN_HEIGHT);
-        // entity_t *tmp = get_entity_by_name(param->sys, "quit");
-        // if (tmp)
-        //     rect = sfSprite_getGlobalBounds(tmp->sprite);
-        // printf("qui button => pos {%f, %f}, width: %f, height: %f\n" , rect.left, rect.top, rect.width, rect.height);
+    while (param->game_state == PAUSE &&
+        sfRenderWindow_isOpen(param->window)) {
         display_entities(param, IN_GAME_MENU);
         sfRenderWindow_display(param->window);
         mouse_events(param, IN_GAME_MENU);
         sfRenderWindow_clear(param->window, sfBlack);
     }
-    sfView_zoom(param->view, 0.66666666666667);
-    sfRenderWindow_setView(param->window, param->view);
+    sfView_zoom(param->view, MENU_ZOOM);
+    if (sfRenderWindow_isOpen(param->window))
+        sfRenderWindow_setView(param->window, param->view);
 }
