@@ -110,6 +110,5 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
         return false;
     *col = (int)round(MAP_WIDTH * pos.x / map_size->x);
     *line = (int)round(MAP_HEIGHT * pos.y / map_size->y);
-    printf("map_size = %f %f\nplayer : %f %f\non_soko: %d %d\n",map_size->x, map_size->y, pos.x, pos.y, *col, *line);
     return true;
 }
