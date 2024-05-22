@@ -29,6 +29,7 @@
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
+    #define DEFAULT_SCALE 1.0
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
