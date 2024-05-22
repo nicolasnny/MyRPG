@@ -34,7 +34,8 @@ typedef enum component_s {
     BABLA = 1 << 10,
     IN_GAME_MENU = 1 << 11,
     ON_MAP = 1 << 12,
-    __END__ = 1 << 13,
+    LOADING = 1 << 13,
+    __END__ = 1 << 14,
 } component_t;
 
 typedef struct entity_s {

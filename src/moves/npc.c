@@ -35,7 +35,6 @@ bool sprite_in_view(sfView *v, sfSprite *s)
     v_pos = sfView_getCenter(v);
     v_size = sfView_getSize(v);
     s_pos = get_center(s);
-
     if (s_pos.x < v_pos.x - v_size.x / 2 || s_pos.x > v_pos.x + v_size.x / 2)
         return false;
     if (s_pos.y < v_pos.y - v_size.y / 2 || s_pos.y > v_pos.y + v_size.y / 2)
