@@ -56,8 +56,21 @@ static void free_system(system_t *sys)
     free(sys);
 }
 
+static void free_sokomap(sokospot_t ***map)
+{
+    for (unsigned int line = 0; map[line]; line++) {
+        for (unsigned int col = 0; map[line][col]; col++) {
+            free(map[line][col]);
+        }
+        free(map[line]);
+    }
+}
+
 void clean(parameters_t *param)
 {
     free_system(param->sys);
+    sfView_destroy(param->view);
+    sfMusic_destroy(param->music);
+    free_sokomap(param->map_array);
     return;
 }

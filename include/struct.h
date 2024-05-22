@@ -69,7 +69,6 @@ typedef struct parameters_s {
     sfRenderWindow* window;
     sfView *view;
     sfEvent event;
-    sfClock *clock;
     sfMusic *music;
     sokospot_t ***map_array;
     system_t *sys;
