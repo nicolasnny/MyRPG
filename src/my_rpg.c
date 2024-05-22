@@ -58,7 +58,9 @@ int my_rpg(int ac, char **av)
         clean(&param);
         return ERROR;
     }
-    game_launcher(&param);
+    loading_screen_loop(&param);
+    if (sfRenderWindow_isOpen(param.window))
+        game_launcher(&param);
     clean(&param);
     return SUCCESS;
 }

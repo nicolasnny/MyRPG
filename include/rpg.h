@@ -29,6 +29,9 @@
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
+    #define LOAD_MC_NAME "mc"
+    #define LOAD_TIME_MOVE 30
+    #define LOAD_RIGHT_MVT 10
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -255,5 +258,8 @@ int set_music_volume_down(parameters_t *param, entity_t *entity, bool state);
 int reset_sound_volume(parameters_t *param, entity_t *entity, bool state);
 int set_sound_volume_up(parameters_t *param, entity_t *entity, bool state);
 int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
+
+// --> loading screen
+int loading_screen_loop(parameters_t *param);
 
 #endif
