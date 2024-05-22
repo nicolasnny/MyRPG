@@ -21,11 +21,11 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
-    #define TIME_BEFORE_MOBS_MOVE 30
+    #define TIME_BEFORE_MOVE 20
     #define FONT_PATH "src/sprites/game_font.ttf"
     #define PLAYER_ATTACK_RANGE 50
-    #define PLAYER_SPEED 2.2
-    #define MOBS_SPEED 5
+    #define PLAYER_SPEED 4
+    #define MOBS_SPEED 1
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
