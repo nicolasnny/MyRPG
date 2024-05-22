@@ -59,6 +59,7 @@ static const conf_compo_t compo_list[] = {
     {"BAR", BAR},
     {"ON_MAP", ON_MAP},
     {"LOADING", LOADING},
+    {"HEART", HEART},
     {NULL, 0},
 };
 

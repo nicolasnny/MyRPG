@@ -105,6 +105,9 @@
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
+// LIFE
+    #define HEART_WIDTH 900
+    #define HEART_LEFT_POURCENTAGE 0.4
 
 //-->main
 int my_rpg(int, char **);
@@ -146,7 +149,7 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void animate_player_walk(sfSprite *player);
 void annimate_idle(sfIntRect *idle_pos, sfSprite *player);
 sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
@@ -262,5 +265,9 @@ int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
 
 // --> loading screen
 int loading_screen_loop(parameters_t *param);
+
+// --> life
+void refresh_heart_position(system_t *sys);
+void move_heart_rect(sfSprite *s);
 
 #endif
