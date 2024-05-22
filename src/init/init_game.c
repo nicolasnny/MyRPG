@@ -30,7 +30,6 @@ int init_args(parameters_t *param)
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
     param->sys = create_system();
-
     if (param->sys == NULL || param->window == NULL) {
         return ERROR;
     }
