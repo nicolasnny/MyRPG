@@ -47,23 +47,27 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     return false;
 }
 
-static void check_monsters(entity_t *player, e_list_t *mobs)
+static bool check_monsters(entity_t *player, e_list_t *mobs)
 {
     while (mobs != NULL) {
-        if (sprite_collide(player->sprite, mobs->entity->sprite)) {
-            //printf("damm collision here\n");
-        }
+        if (ennemy_in_range(player, mobs->entity))
+            return true;
         mobs = mobs->next;
     }
+    return false;
 }
 
 int check_player_collisions(system_t *sys)
 {
     e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
     e_list_t *mobs = get_entities(sys, MOB | VISIBLE);
+    static sfIntRect texture_pos =
+        (sfIntRect){0, PLAYER_DAMMAGE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
 
     while (player != NULL) {
-        check_monsters(player->entity, mobs);
+        if (check_monsters(player->entity, mobs)) {
+            sfSprite_setTextureRect(player->entity->sprite, texture_pos);
+        }
         player = player->next;
     }
     clean_list(player);

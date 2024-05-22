@@ -129,5 +129,5 @@ void move_player(parameters_t *param)
         update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
     } else
-        annimate_idle(&idle_pos, player->sprite);
+        animate_idle(&idle_pos, player->sprite);
 }

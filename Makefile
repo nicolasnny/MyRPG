@@ -20,7 +20,7 @@ SRC     =	src/main.c	\
 				src/display.c	\
 				src/err_handling.c	\
 				src/time.c	\
-				src/moves/player.c	\
+				src/moves/player_move.c	\
 				src/moves/npc.c	\
 				src/moves/get_new_pos.c	\
 				src/assist_func/my_str_to_word_class_array.c	\

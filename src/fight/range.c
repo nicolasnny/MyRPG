@@ -49,7 +49,7 @@ bool ennemy_in_range(entity_t *player, entity_t *ennemy)
     player_center = get_center(player->sprite);
     ennemy_center = get_center(ennemy->sprite);
     dist_between = get_distance_bewteen_pos(&player_center, &ennemy_center);
-    if (dist_between == NEG_ERROR || dist_between > PLAYER_ATTACK_RANGE)
+    if (dist_between == NEG_ERROR || dist_between > ENNEMY_ATTACK_RANGE)
         return false;
     return true;
 }
