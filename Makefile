@@ -54,6 +54,8 @@ SRC     =	src/main.c	\
 				src/fight/kill.c	\
 				src/item/item.c	\
 				src/init/init_sounds.c	\
+				src/volume/sound.c		\
+				src/volume/music.c		\
 
 UT_SRC	=	tests/unit_tests.c	\
 			tests/test.c	\
@@ -92,6 +94,8 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/fight/kill.c	\
 			src/item/item.c	\
 			src/init/init_sounds.c	\
+			src/volume/sound.c		\
+			src/volume/music.c		\
 
 CRFLAGS	=	--coverage -lcriterion
 

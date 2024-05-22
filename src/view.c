@@ -38,6 +38,5 @@ void destroy_view(parameters_t *param)
 void reset_view(parameters_t *param)
 {
     param->view = create_view();
-
     set_view_on_player(param);
 }

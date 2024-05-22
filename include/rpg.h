@@ -99,6 +99,9 @@
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
     #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
+    #define DEFAULT_VOLUME 100.0
+    #define MAX_VOLUME 100.0
+    #define MIN_VOLUME 0.0
 
 //-->main
 int my_rpg(int, char **);
@@ -249,5 +252,12 @@ sfVector2f get_view_pos(sfView *v);
 sfView *create_view(void);
 void destroy_view(parameters_t *param);
 
+// --> volume
+int reset_music_volume(parameters_t *param, entity_t *entity, bool state);
+int set_music_volume_up(parameters_t *param, entity_t *entity, bool state);
+int set_music_volume_down(parameters_t *param, entity_t *entity, bool state);
+int reset_sound_volume(parameters_t *param, entity_t *entity, bool state);
+int set_sound_volume_up(parameters_t *param, entity_t *entity, bool state);
+int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
 
 #endif
