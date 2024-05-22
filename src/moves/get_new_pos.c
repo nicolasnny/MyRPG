@@ -31,49 +31,6 @@ sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player)
     return move;
 }
 
-static void line_assist(sokospot_t ***map, int l, int *line, unsigned int *col)
-{
-    for (unsigned int i = 0; map[l][i]; i++) {
-        if (map[l][i]->type == PLAYER_CHAR) {
-            *line = l;
-            *col = i;
-            return;
-        }
-    }
-}
-
-static void get_player_pos(sokospot_t ***map, int *line, unsigned int *col)
-{
-    *line = -1;
-    for (int l = 0; map[l] != NULL; l++) {
-        line_assist(map, l, line, col);
-        if (*line != NOT_FOUND) {
-            return;
-        }
-    }
-}
-
-void set_player_first_pos(sfView *view, sokospot_t ***map)
-{
-    int line = 0;
-    unsigned int col = 0;
-    sfVector2f pos = {0};
-    entity_t *player = get_player_spot(map)->entity;
-
-    get_player_pos(map, &line, &col);
-    if (line == NOT_FOUND) {
-        dprintf(2, "Error: player not found in the map\n");
-        return;
-    }
-    pos.x = ((double)col / (double)MAP_WIDTH) * WIN_WIDTH;
-    pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
-    if (player != NULL) {
-        sfSprite_setPosition(player->sprite, pos);
-        pos = get_center(player->sprite);
-        sfView_setCenter(view, pos);
-    }
-}
-
 void set_player_new_pos(parameters_t *param, sfVector2f move)
 {
     e_list_t *p_list = get_entities(param->sys, PLAYER | VISIBLE);

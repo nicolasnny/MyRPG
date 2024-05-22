@@ -21,11 +21,11 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
-    #define TIME_BEFORE_MOBS_MOVE 3
+    #define TIME_BEFORE_MOBS_MOVE 30
     #define FONT_PATH "src/sprites/game_font.ttf"
     #define PLAYER_ATTACK_RANGE 50
     #define PLAYER_SPEED 2.2
-    #define MOBS_SPEED 30
+    #define MOBS_SPEED 5
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
@@ -110,7 +110,7 @@ int init_args(parameters_t *param);
 int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfSound *init_sound(char *path);
 
-sokospot_t ***get_map(char const *filepath, system_t *sys);
+sokospot_t ***get_map(char const *filepath);
 
 //---> events
 int window_events(parameters_t *param, int component);
@@ -126,7 +126,6 @@ void free_entity(entity_t *entity);
 
 //----> display
 void display_entities(parameters_t *param, int component);
-void display_entities(parameters_t *param, int component);
 
 //----> error handling
 int err_handling(int ac, char **av);
@@ -137,13 +136,11 @@ void move_mobs(parameters_t *param, sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
-sokospot_t *get_player_spot(sokospot_t ***);
 sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player);
 bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
-sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -161,7 +158,6 @@ sfVector2f get_center(sfSprite *s);
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
 entity_t *create_entity(system_t *sys, int component);
-entity_t *create_entity(system_t *sys, int component);
 e_list_t *get_entities(system_t *sys, int component);
 void set_scale(parameters_t *param, entity_t *entity, char *value);
 void set_pos(parameters_t *param, entity_t *entity, char *value);
@@ -172,7 +168,6 @@ bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
 bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
-bool remove_entity_from_map(sokospot_t ***map, entity_t *e);
 
 // --> system
 system_t *create_system(void);
@@ -212,11 +207,6 @@ void create_from_conf(parameters_t *param);
 int *get_int_array(char *arg);
 double *get_double_array(char *arg);
 void run_on_start(parameters_t *param, entity_t *entity, char *value);
-
-int *get_int_array(char *arg);
-double *get_double_array(char *arg);
-void run_on_start(parameters_t *param, entity_t *entity, char *value);
-
 
 // --> rectangleShape
 void create_rectangle(parameters_t *param, entity_t *entity, char *value);

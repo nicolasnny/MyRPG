@@ -10,14 +10,6 @@
 #include "rpg.h"
 #include "struct.h"
 
-void swap_struct(sokospot_t **current, sokospot_t **target)
-{
-    sokospot_t *tmp = *current;
-
-    *current = *target;
-    *target = tmp;
-}
-
 static void move_not_possible(void)
 {
     printf("** bump sound **\n");
@@ -37,11 +29,10 @@ static bool spot_available(sokospot_t *spot)
     return false;
 }
 
-void set_prev_pos(parameters_t *param, sfSprite *player,
-    sokospot_t *player_spot)
+void set_prev_pos(parameters_t *param, entity_t *player)
 {
-    sfSprite_setPosition(player, player_spot->last_pos);
-    sfView_setCenter(param->view, get_center(player));
+    sfSprite_setPosition(player->sprite, player->pos);
+    sfView_setCenter(param->view, get_center(player->sprite));
 }
 
 sfVector2f get_map_size(system_t *sys)
@@ -62,28 +53,38 @@ sfVector2f get_map_size(system_t *sys)
 }
 
 static void move_in_array(parameters_t *param, sokospot_t ***map,
-    sfSprite *player)
+    entity_t *player)
 {
-    sokospot_t *player_spot = get_player_spot(map);
     sfVector2f map_size = get_map_size(param->sys);
     int x = 0;
     int y = 0;
 
-    get_sprite_coords_on_sokomap(&map_size, player, &y, &x);
+    get_sprite_coords_on_sokomap(&map_size, player->sprite, &y, &x);
     if (x < 0 || y < 0 || x >= MAP_WIDTH || y >= MAP_HEIGHT) {
         dprintf(2, "Error: player pos can't be at this sokomap index\n");
         return;
     }
-    if (!map[y][x] || map[y][x]->type == PLAYER_CHAR)
+    if (!map[y][x])
         return;
-    if (spot_available(map[y][x]) || map[y][x]->type == PLAYER_CHAR) {
-        if (map[y][x]->type != PLAYER_CHAR)
-            swap_struct(&player_spot, &map[y][x]);
+    if (spot_available(map[y][x])) {
+        player->pos = sfSprite_getPosition(player->sprite);
         return;
     }
     if (map[y][x]->type == OBSTACLE)
         move_not_possible();
-    set_prev_pos(param, player, player_spot);
+    set_prev_pos(param, player);
+}
+
+entity_t *get_player_entity(system_t *sys)
+{
+    e_list_t *p_list = get_entities(sys, PLAYER);
+    entity_t *e = NULL;
+
+    if (p_list == NULL)
+        return NULL;
+    e = p_list->entity;
+    clean_list(p_list);
+    return e;
 }
 
 sfSprite *get_player(system_t *sys)
@@ -101,15 +102,15 @@ sfSprite *get_player(system_t *sys)
 void move_player(parameters_t *param)
 {
     sfVector2f move = {0};
-    sfSprite *player = get_player(param->sys);
+    entity_t *player = get_player_entity(param->sys);
     sfVector2f map_size = get_map_size(param->sys);
 
     if (param->map_array == NULL || player == NULL)
         return;
-    move = get_p_move_event(&map_size, player);
+    move = get_p_move_event(&map_size, player->sprite);
     if (move.x != 0.0 || move.y != 0.0) {
-        get_player_spot(param->map_array)->last_pos =
-            sfSprite_getPosition(player);
+        // player->pos =
+        //     sfSprite_getPosition(player);
         set_player_new_pos(param, move);
         move_in_array(param, param->map_array, player);
         sfRenderWindow_setView(param->window, param->view);

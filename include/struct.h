@@ -49,8 +49,6 @@ typedef struct entity_s {
 } entity_t;
 
 typedef struct sokospot_s {
-    entity_t *entity;
-    sfVector2f last_pos;
     char type;
 } sokospot_t;
 

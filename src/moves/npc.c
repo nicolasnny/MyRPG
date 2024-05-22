@@ -44,39 +44,33 @@ bool sprite_in_view(sfView *v, sfSprite *s)
 }
 
 static void check_move_possible(parameters_t *param, sokospot_t ***map,
-    sokospot_t *current_spot)
+    entity_t *e)
 {
     int line = 0;
     int col = 0;
     sfVector2f map_size = get_map_size(param->sys);
 
-    get_sprite_coords_on_sokomap(&map_size, current_spot->entity->sprite,
-        &line, &col);
+    get_sprite_coords_on_sokomap(&map_size, e->sprite, &line, &col);
     if (line < 0 || col < 0 || line >= MAP_HEIGHT || col >= MAP_WIDTH ||
         !spot_available(map[line][col])) {
-        sfSprite_setPosition(current_spot->entity->sprite,
-            current_spot->last_pos);
+        sfSprite_setPosition(e->sprite, e->pos);
         return;
     }
-    map[line][col]->entity = current_spot->entity;
-    current_spot->entity = NULL;
-    current_spot->type = EMPTY;
-    map[line][col]->type = ENEMY;
+    e->pos = sfSprite_getPosition(e->sprite);
 }
 
 static void move_ennemy(parameters_t *param,
     sokospot_t ***map, entity_t *e, sfVector2f *player_pos)
 {
-    sokospot_t *e_spot = get_entity_spot(map, e);
     sfVector2f e_pos = sfSprite_getPosition(e->sprite);
     sfVector2f v_dir = {player_pos->x - e_pos.x, player_pos->y - e_pos.y};
     float n = sqrt(v_dir.x * v_dir.x + v_dir.y * v_dir.y);
 
-    e_spot->last_pos = e_pos;
+    e->pos = e_pos;
     v_dir.x = v_dir.x / n * MOBS_SPEED;
     v_dir.y = v_dir.y / n * MOBS_SPEED;
     sfSprite_move(e->sprite, v_dir);
-    check_move_possible(param, map, e_spot);
+    check_move_possible(param, map, e);
 }
 
 void move_mobs(parameters_t *param, sokospot_t ***map)
