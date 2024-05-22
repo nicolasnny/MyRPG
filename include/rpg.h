@@ -79,6 +79,18 @@
     #define MUSIC_PATH "assets/sounds/music.wav"
     #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
 
+// Player
+#define PLAYER_WALK_TEXTURE_PATH "assets/player/player_walk.png"
+#define PLAYER_IDE_TEXTURE_PATH "assets/player/player_idl.png"
+#define PLAYER_TEXT_WIDTH 40
+#define PLAYER_TEXT_HEIGHT 30
+#define REFRESH_SPEED 70
+#define MAX_LEFT_TEXTURE 140
+#define MAX_IDLE_TEXTURE 62
+#define PLAYER_IDLE_WIDTH 40
+#define PLAYER_IDLE_HEIGHT 31
+
+
 //-->main
 int my_rpg(int, char **);
 

@@ -133,17 +133,27 @@ void move_player(parameters_t *param)
     sfVector2f move = {0};
     sfSprite *player = get_player(param->sys);
     sfVector2f map_size = get_map_size(param->sys);
-    static sfIntRect texture_pos = (sfIntRect){0, 0, 40, 30};
+    static sfVector2f move_save = (sfVector2f){0, 0};
+    static sfIntRect texture_pos = (sfIntRect){0, 90, 40, 30};
+    static sfVector2f scale = (sfVector2f){1, 1};
 
     if (param->map_array == NULL || player == NULL)
         return;
     move = get_p_move_event(&map_size, player);
+    if (move_save.x == 0 && move_save.y == 0) {
+        move_save.x = move.x;
+        move_save.y = move.y;
+    }
     if (move.x != 0.0 || move.y != 0.0) {
+        if ((move.x > 0.0 && move_save.x != move.x) || (move.x < 0.0 && move_save.x != move.x)) {
+            scale.x = -1;
+            move_save.x = move.x;
+            sfSprite_scale(player, scale);
+        }
         animate_player(&texture_pos);
         sfSprite_setTextureRect(player, texture_pos);
-        sfRenderWindow_drawSprite(param->window, player, NULL);
         get_player_spot(param->map_array)->last_pos =
-            sfSprite_getPosition(player);
+        sfSprite_getPosition(player);
         set_player_new_pos(param, move);
         move_in_array(param, param->map_array, player);
         sfRenderWindow_setView(param->window, param->view);
