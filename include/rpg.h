@@ -135,8 +135,8 @@ sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
 void flip_sprite
 (sfVector2f *move_save, sfVector2f move, sfSprite *player, sfVector2f *scale);
-void animate_player(sfIntRect *texture_pos);
-
+void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void annimate_idle(sfIntRect *idle_pos, sfSprite *player);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);

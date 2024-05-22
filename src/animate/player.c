@@ -26,12 +26,22 @@ static bool is_spaced(float time_sleep)
     return false;
 }
 
-void animate_player(sfIntRect *texture_pos)
+void animate_player_walk(sfIntRect *texture_pos, sfSprite *player)
 {
     if (is_spaced(70))
         texture_pos->left += 40;
     if (texture_pos->left >= 140)
         texture_pos->left = 0;
+    sfSprite_setTextureRect(player, *texture_pos);
+}
+
+void annimate_idle(sfIntRect *idle_pos, sfSprite *player)
+{
+    if (is_spaced(900))
+        idle_pos->top += 40;
+    if (idle_pos->top >= 70)
+        idle_pos->top = 10;
+    sfSprite_setTextureRect(player, *idle_pos);
 }
 
 void flip_sprite
