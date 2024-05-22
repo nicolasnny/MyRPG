@@ -24,7 +24,7 @@ static int loop(parameters_t *param)
             DEFAULT_VIEW_SIZE_Y});
         move_player(param, player, map_size);
         sfRenderWindow_setView(param->window, param->view);
-        window_events(param);
+        window_events(param, MOB);
         make_life(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
@@ -41,7 +41,6 @@ static void game_launcher(parameters_t *param)
         return;
     sfRenderWindow_setView(param->window, param->view);
     if (param->game_state == PLAY) {
-        //set_player_new_pos(param->view, param->map_array);
         loop(param);
     }
 }

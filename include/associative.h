@@ -35,6 +35,7 @@ static const conf_function_t func_list[] = {
     {"init_inventory", &init_inventory},
     {"options_menu", &options_menu},
     {"start_menu", &start_menu},
+    {"kill_entity", &kill_entity},
     {NULL, NULL},
 };
 

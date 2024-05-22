@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.h>
+#include <math.h>
 #include "rpg.h"
 
 sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player)
@@ -52,19 +53,6 @@ static void get_player_pos(sokospot_t ***map, int *line, unsigned int *col)
     }
 }
 
-sokospot_t *get_player_spot(sokospot_t ***map)
-{
-    unsigned int col = 0;
-
-    for (int l = 0; map[l] != NULL; l++) {
-        for (col = 0; map[l][col] && map[l][col]->type != PLAYER_CHAR; col++)
-            continue;
-        if (map[l][col])
-            return map[l][col];
-    }
-    return NULL;
-}
-
 void set_player_first_pos(sfView *view, sokospot_t ***map)
 {
     int line = 0;
@@ -107,7 +95,7 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
 
     if (s == NULL || line == NULL || col == NULL || map_size == NULL)
         return false;
-    *col = (int)(MAP_WIDTH * pos.x / map_size->x);
-    *line = (int)(MAP_HEIGHT * pos.y / map_size->y);
+    *col = (int)round(MAP_WIDTH * pos.x / map_size->x);
+    *line = (int)round(MAP_HEIGHT * pos.y / map_size->y);
     return true;
 }

@@ -51,7 +51,7 @@ static void check_monsters(entity_t *player, e_list_t *mobs)
 {
     while (mobs != NULL) {
         if (sprite_collide(player->sprite, mobs->entity->sprite)) {
-            printf("damm collision here\n");
+            //printf("damm collision here\n");
         }
         mobs = mobs->next;
     }
