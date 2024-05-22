@@ -49,10 +49,7 @@ typedef struct entity_s {
 } entity_t;
 
 typedef struct sokospot_s {
-    entity_t *entity;
-    sfVector2f last_pos;
     char type;
-    bool moved_in_frame;
 } sokospot_t;
 
 typedef struct e_list_s {

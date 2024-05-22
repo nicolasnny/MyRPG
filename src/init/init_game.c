@@ -34,7 +34,7 @@ int init_args(parameters_t *param)
         return ERROR;
     }
     create_from_conf(param);
-    param->map_array = get_map(MAP_ARRAY_PATH, param->sys);
+    param->map_array = get_map(MAP_ARRAY_PATH);
     if (param->map_array == NULL)
         return ERROR;
     param->game_state = PAUSE;

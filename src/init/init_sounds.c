@@ -11,15 +11,14 @@
 #include "rpg.h"
 #include "my.h"
 
-sfSound *init_sound(char *path)
+sfMusic *init_sound(char *path)
 {
-    sfSound *sound = sfSound_create();
-    sfSoundBuffer *sound_buffer = sfSoundBuffer_createFromFile(path);
+    sfMusic *music = sfMusic_createFromFile(path);
 
-    if (sound == NULL || sound_buffer == NULL) {
+    if (music == NULL) {
         return NULL;
     }
-    sfSound_setBuffer(sound, sound_buffer);
-    sfSound_setVolume(sound, 100);
-    return sound;
+    sfMusic_setLoop(music, true);
+    sfMusic_setVolume(music, 100);
+    return music;
 }

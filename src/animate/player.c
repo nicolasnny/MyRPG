@@ -44,17 +44,18 @@ void annimate_idle(sfIntRect *idle_pos, sfSprite *player)
     sfSprite_setTextureRect(player, *idle_pos);
 }
 
-void flip_sprite
-(sfVector2f *move_save, sfVector2f move, sfSprite *player, sfVector2f *scale)
+void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale)
 {
-    if (move_save->x == 0 && move_save->y == 0) {
-        move_save->x = move.x;
-        move_save->y = move.y;
+    static sfVector2f move_save = (sfVector2f){0, 0};
+
+    if (move_save.x == 0 && move_save.y == 0) {
+        move_save.x = move.x;
+        move_save.x = move.y;
     }
-    if ((move.x > 0.0 && move_save->x != move.x) ||
-            (move.x < 0.0 && move_save->x != move.x)) {
+    if ((move.x > 0.0 && move_save.x != move.x) ||
+            (move.x < 0.0 && move_save.x != move.x)) {
             scale->x = -1;
-            move_save->x = move.x;
+            move_save.x = move.x;
             sfSprite_scale(player, *scale);
     }
 }
