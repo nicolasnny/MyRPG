@@ -12,14 +12,15 @@
 
 int start_menu(parameters_t *param, entity_t *entity, bool state)
 {
-    sfMusic *backsound = init_sound(MUSIC_PATH);
 
     (void)entity;
     (void)state;
-    if (backsound == NULL) {
-        return ERROR;
+    if (param->music == NULL) {
+        param->music = init_sound(MUSIC_PATH);
+        sfMusic_play(param->music);
     }
-    sfMusic_play(backsound);
+    if (param->music == NULL)
+        return ERROR;
     destroy_view(param);
     while (sfRenderWindow_isOpen(param->window) &&
         param->game_state == PAUSE) {
