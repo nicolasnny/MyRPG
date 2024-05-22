@@ -62,7 +62,7 @@ static void check_move_possible(parameters_t *param, sokospot_t ***map,
 static void move_ennemy(parameters_t *param,
     sokospot_t ***map, entity_t *e, sfVector2f *player_pos)
 {
-    sfVector2f e_pos = sfSprite_getPosition(e->sprite);
+    sfVector2f e_pos = get_center(e->sprite);
     sfVector2f v_dir = {player_pos->x - e_pos.x, player_pos->y - e_pos.y};
     float n = sqrt(v_dir.x * v_dir.x + v_dir.y * v_dir.y);
 
