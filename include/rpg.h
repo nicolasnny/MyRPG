@@ -103,7 +103,7 @@ int my_rpg(int, char **);
 //---->> initialisation
 int init_args(parameters_t *param);
 int init_inventory(parameters_t *param, entity_t *entity, bool state);
-sfSound *init_sound(char *path);
+sfMusic *init_sound(char *path);
 
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
