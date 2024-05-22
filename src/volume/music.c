@@ -18,6 +18,8 @@ int set_music_volume_down(parameters_t *param, entity_t *entity, bool state)
     actual_volume = sfMusic_getVolume(param->music);
     if (actual_volume > MIN_VOLUME)
         sfMusic_setVolume(param->music, actual_volume - 1);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
 
@@ -30,6 +32,8 @@ int set_music_volume_up(parameters_t *param, entity_t *entity, bool state)
     actual_volume = sfMusic_getVolume(param->music);
     if (actual_volume < MAX_VOLUME)
         sfMusic_setVolume(param->music, actual_volume + 1);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
 
@@ -38,5 +42,7 @@ int reset_music_volume(parameters_t *param, entity_t *entity, bool state)
     if (!param->music)
         return ERROR;
     sfMusic_setVolume(param->music, DEFAULT_VOLUME);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
