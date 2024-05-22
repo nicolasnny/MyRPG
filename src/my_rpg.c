@@ -25,6 +25,7 @@ static int loop(parameters_t *param)
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
         display_entities(param, VISIBLE);
+        display_entities(param, BOX);
     }
     return SUCCESS;
 }

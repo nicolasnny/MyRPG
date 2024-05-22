@@ -59,6 +59,8 @@ static const conf_compo_t compo_list[] = {
     {"BAR", BAR},
     {"ON_MAP", ON_MAP},
     {"LOADING", LOADING},
+    {"BOX", BOX},
+    {"QUEST_TRIGGER", QUEST_TRIGGER},
     {NULL, 0},
 };
 
@@ -72,6 +74,7 @@ static const conf_param_t param_list[] = {
     {"HOVER", &set_hover},
     {"NAME", &set_name},
     {"RUN_ON_START", &run_on_start},
+    {"TEXT", &set_text},
     {NULL, NULL},
 };
 

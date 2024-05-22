@@ -35,7 +35,9 @@ typedef enum component_s {
     IN_GAME_MENU = 1 << 11,
     ON_MAP = 1 << 12,
     LOADING = 1 << 13,
-    __END__ = 1 << 14,
+    BOX = 1 << 14,
+    QUEST_TRIGGER = 1 << 15,
+    __END__ = 1 << 16,
 } component_t;
 
 typedef struct entity_s {
@@ -47,6 +49,7 @@ typedef struct entity_s {
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
     sfVector2f scale;
     sfVector2f pos;
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {
@@ -74,6 +77,7 @@ typedef struct parameters_s {
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
+
 } parameters_t;
 
 #endif

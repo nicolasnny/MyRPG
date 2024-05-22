@@ -20,14 +20,14 @@ void display_entities(parameters_t *param, int component)
     reverse_list(&list);
     head = list;
     while (list != NULL) {
-        if (list->entity->sprite) {
+        if (list->entity->sprite)
             sfRenderWindow_drawSprite(param->window,
             list->entity->sprite, NULL);
-        }
-        if (list->entity->rect) {
+        if (list->entity->rect)
             sfRenderWindow_drawRectangleShape(param->window,
             list->entity->rect, NULL);
-        }
+        if (list->entity->text)
+            sfRenderWindow_drawText(param->window, list->entity->text, NULL);
         list = list->next;
     }
     clean_list(head);

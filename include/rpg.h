@@ -105,6 +105,10 @@
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
+// Quest
+    #define DIST_TO_QUEST 40.0
+    #define DIST_WITH_TRIGGER 20.0
+
 
 //-->main
 int my_rpg(int, char **);
@@ -262,5 +266,11 @@ int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
 
 // --> loading screen
 int loading_screen_loop(parameters_t *param);
+
+// --> text
+void set_text(parameters_t *param, entity_t *entity, char *value);
+
+// --> quests
+void check_quest(parameters_t *param);
 
 #endif
