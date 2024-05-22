@@ -32,6 +32,7 @@
     #define LOAD_MC_NAME "mc"
     #define LOAD_TIME_MOVE 30
     #define LOAD_RIGHT_MVT 10
+    #define DEFAULT_SCALE 1.0
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
