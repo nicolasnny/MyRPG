@@ -35,7 +35,10 @@ typedef enum component_s {
     IN_GAME_MENU = 1 << 11,
     ON_MAP = 1 << 12,
     LOADING = 1 << 13,
-    __END__ = 1 << 14,
+    HEART = 1 << 14,
+    FULL_LIFE = 1 << 15,
+    LOW_LIFE = 1 << 16,
+    __END__ = 1 << 17,
 } component_t;
 
 typedef struct entity_s {
