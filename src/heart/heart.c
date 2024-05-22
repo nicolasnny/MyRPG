@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** RPG
 ** File description:
-** Function to set heart position
+** heart
 */
 
 #include "rpg.h"
@@ -22,11 +22,53 @@ void refresh_heart_position(system_t *sys)
         pos.x = player_center_pos.x - DEFAULT_VIEW_SIZE_X * HEART_LEFT_POURCENTAGE
         + index * sfSprite_getGlobalBounds(hearts->entity->sprite).width;
         pos.y = player_center_pos.y + DEFAULT_VIEW_SIZE_Y *
-            INVENTORY_HEIGHT_POURCENTAGE / 2 - sfSprite_getGlobalBounds(hearts->entity->sprite).height / 2;
+            INVENTORY_HEIGHT_POURCENTAGE / 2;
         sfSprite_setPosition(hearts->entity->sprite, pos);
         hearts = hearts->next;
         index++;
     }
     clean_list(hearts);
     clean_list(player);
+}
+
+static bool wait_time(double time_to_wait)
+{
+    static sfClock *clock = NULL;
+
+    if (clock == NULL) {
+        clock = sfClock_create();
+        return true;
+    }
+    if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock)) > time_to_wait) {
+        sfClock_restart(clock);
+        return true;
+    }
+    return false;
+}
+
+void remove_life(system_t *sys)
+{
+    e_list_t *list = get_entities(sys, FULL_LIFE);
+    entity_t *e = NULL;
+
+    if (list == NULL)
+        return;
+    if (!wait_time(LOSE_LIFE_COOLDOWN)) {
+        clean_list(list);
+        return;
+    }
+    e = list->entity;
+    unset_entity(sys, e, FULL_LIFE);
+    set_entity(e, sys, LOW_LIFE);
+    move_heart_rect(e->sprite);
+    clean_list(list);
+}
+
+bool is_player_alive(system_t *sys)
+{
+    e_list_t *list = get_entities(sys, FULL_LIFE);
+
+    if (list == NULL || get_list_size(list) <= 0)
+        return false;
+    return true;
 }

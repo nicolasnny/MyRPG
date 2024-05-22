@@ -10,6 +10,8 @@
 #include "rpg.h"
 #include "struct.h"
 
+#include <unistd.h>
+
 static bool sprite_contains(sfSprite *s, sfVector2f *pos)
 {
     sfFloatRect s_bounds = sfSprite_getGlobalBounds(s);
@@ -47,11 +49,11 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     return false;
 }
 
-static void check_monsters(entity_t *player, e_list_t *mobs)
+static void check_monsters(system_t *sys, entity_t *player, e_list_t *mobs)
 {
     while (mobs != NULL) {
         if (sprite_collide(player->sprite, mobs->entity->sprite)) {
-            //printf("damm collision here\n");
+            remove_life(sys);
         }
         mobs = mobs->next;
     }
@@ -63,7 +65,7 @@ int check_player_collisions(system_t *sys)
     e_list_t *mobs = get_entities(sys, MOB | VISIBLE);
 
     while (player != NULL) {
-        check_monsters(player->entity, mobs);
+        check_monsters(sys, player->entity, mobs);
         player = player->next;
     }
     clean_list(player);

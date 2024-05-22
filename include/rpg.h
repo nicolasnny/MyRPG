@@ -108,6 +108,7 @@
 // LIFE
     #define HEART_WIDTH 900
     #define HEART_LEFT_POURCENTAGE 0.4
+    #define LOSE_LIFE_COOLDOWN 3000
 
 //-->main
 int my_rpg(int, char **);
@@ -269,5 +270,7 @@ int loading_screen_loop(parameters_t *param);
 // --> life
 void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
+void remove_life(system_t *sys);
+bool is_player_alive(system_t *sys);
 
 #endif

@@ -11,7 +11,7 @@ void move_heart_rect(sfSprite *s)
 {
     sfIntRect rect = sfSprite_getTextureRect(s);
 
-    rect.left += rect.width;
+    rect.left += rect.width * 2;
     if (rect.left >= HEART_WIDTH)
         rect.left = 0;
     sfSprite_setTextureRect(s, rect);
