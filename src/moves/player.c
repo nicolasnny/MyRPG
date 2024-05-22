@@ -99,21 +99,35 @@ sfSprite *get_player(system_t *sys)
     return s;
 }
 
+static void update_player_in_map
+(parameters_t *param, entity_t *player, sfVector2f move)
+{
+    player->pos = sfSprite_getPosition(player->sprite);
+    set_player_new_pos(param, move);
+    move_in_array(param, param->map_array, player);
+    refresh_inventory_pos(param->sys);
+}
+
 void move_player(parameters_t *param)
 {
-    sfVector2f move = {0};
     entity_t *player = get_player_entity(param->sys);
     sfVector2f map_size = get_map_size(param->sys);
+    sfVector2f move = {0};
+    static sfIntRect texture_pos =
+        (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
+    static sfIntRect idle_pos =
+        (sfIntRect){0, PLAYER_IDLE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
+    static sfVector2f scale = (sfVector2f){1, 1};
 
     if (param->map_array == NULL || player == NULL)
         return;
     move = get_p_move_event(&map_size, player->sprite);
     if (move.x != 0.0 || move.y != 0.0) {
-        // player->pos =
-        //     sfSprite_getPosition(player);
-        set_player_new_pos(param, move);
-        move_in_array(param, param->map_array, player);
+        idle_pos.top = PLAYER_IDLE_START;
+        flip_sprite(move, player->sprite, &scale);
+        animate_player_walk(&texture_pos, player->sprite);
+        update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
-        refresh_inventory_pos(param->sys);
-    }
+    } else
+        annimate_idle(&idle_pos, player->sprite);
 }
