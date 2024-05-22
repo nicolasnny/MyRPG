@@ -23,7 +23,7 @@
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOVE 20
     #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 50
+    #define PLAYER_ATTACK_RANGE 250
     #define ENNEMY_ATTACK_RANGE 30
     #define PLAYER_SPEED 4
     #define MOBS_SPEED 1
@@ -99,9 +99,11 @@
 // Player
     #define PLAYER_WALK_START 95
     #define PLAYER_IDLE_START 17
+    #define PLAYER_ATTACK_START 135
     #define PLAYER_IDLE_DIFF PLAYER_HEIGHT + 11
     #define PLAYER_DAMMAGE_START 175
     #define PLAYER_WIDTH 32
+    #define PLAYER_WIDTH_ATTACK 35
     #define PLAYER_HEIGHT 27
     #define REFRESH_SPEED_WALK 70
     #define REFRESH_SPEED_IDLE 900
@@ -151,6 +153,7 @@ sfSprite *get_player(system_t *sys);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
 void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
+void animate_attack(sfIntRect *idle_pos, sfSprite *player);
 sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
 //----> utilities

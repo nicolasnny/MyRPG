@@ -6,6 +6,7 @@
 */
 
 #include <SFML/Graphics.h>
+#include <SFML/Window/Mouse.h>
 #include <stdio.h>
 #include "rpg.h"
 #include "struct.h"
@@ -130,4 +131,6 @@ void move_player(parameters_t *param)
         sfRenderWindow_setView(param->window, param->view);
     } else
         animate_idle(&idle_pos, player->sprite);
+    if (sfMouse_isButtonPressed(sfMouseLeft))
+        animate_attack(&texture_pos, player->sprite);
 }
