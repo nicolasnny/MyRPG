@@ -30,7 +30,6 @@ static sokospot_t *create_defaut_sokospot(char type)
     spot->type = EMPTY;
     if (type == OBSTACLE || type == NPC_LIMIT)
         spot->type = type;
-    spot->moved_in_frame = false;
     spot->last_pos = (sfVector2f){0};
     return spot;
 }

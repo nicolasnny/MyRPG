@@ -14,12 +14,6 @@ void swap_struct(sokospot_t **current, sokospot_t **target)
 {
     sokospot_t *tmp = *current;
 
-    if (((*target)->moved_in_frame || (*current)->moved_in_frame)
-        && (*current)->type != PLAYER_CHAR) {
-        return;
-    }
-    (*current)->moved_in_frame = true;
-    (*target)->moved_in_frame = true;
     *current = *target;
     *target = tmp;
 }

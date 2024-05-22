@@ -25,6 +25,7 @@
     #define FONT_PATH "src/sprites/game_font.ttf"
     #define PLAYER_ATTACK_RANGE 50
     #define PLAYER_SPEED 2.2
+    #define MOBS_SPEED 30
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
