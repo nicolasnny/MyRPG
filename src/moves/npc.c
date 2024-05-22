@@ -23,78 +23,46 @@ static bool spot_available(sokospot_t *spot)
     return false;
 }
 
-static void try_mobs_move(int move, sokospot_t ***map, unsigned int line,
-    unsigned int col)
+bool sprite_in_view(sfView *v, sfSprite *s)
 {
-    if (move == 0 && line > 0 && spot_available(map[line - 1][col])) {
-        swap_struct(&map[line][col], &map[line - 1][col]);
-        return;
-    }
-    if (move == 1 && spot_available(map[line][col + 1])) {
-        swap_struct(&map[line][col], &map[line][col + 1]);
-        return;
-    }
-    if (move == 2 && map[line + 1] && spot_available(map[line + 1][col])) {
-        swap_struct(&map[line][col], &map[line + 1][col]);
-        return;
-    }
-    if (move == 3 && col > 0 && spot_available(map[line][col - 1])) {
-        swap_struct(&map[line][col], &map[line][col - 1]);
-        return;
-    }
+    sfVector2f v_pos = {0};
+    sfVector2f v_size = {0};
+    sfVector2f s_pos = {0};
+
+    if (v == NULL || s == NULL)
+        return false;
+    v_pos = sfView_getCenter(v);
+    v_size = sfView_getSize(v);
+    s_pos = get_center(s);
+
+    if (s_pos.x < v_pos.x - v_size.x / 2 || s_pos.x > v_pos.x + v_size.x / 2)
+        return false;
+    if (s_pos.y < v_pos.y - v_size.y / 2 || s_pos.y > v_pos.y + v_size.y / 2)
+        return false;
+    return true;
 }
 
-bool set_sprite_pos_based_on_soko(sfSprite *sprite,
-    int line, int col)
+static void move_ennemy(sokospot_t ***map, entity_t *e, sfVector2f *player_pos)
 {
+    sfVector2f e_pos = sfSprite_getPosition(e->sprite);
+    static sfVector2f move = {0};
+
+    agro_player(e, player_pos);
+}
+
+void move_mobs(parameters_t *param, sokospot_t ***map)
+{
+    e_list_t *list = get_entities(param->sys, MOB);
+    sfSprite *player = get_player(param->sys);
     sfVector2f pos = {0};
 
-    pos.x = ((double)col / (double)MAP_WIDTH) * WIN_WIDTH;
-    pos.y = ((double)line / (double)MAP_HEIGHT) * WIN_HEIGHT;
-    if (sprite != NULL) {
-        sfSprite_setPosition(sprite, pos);
-        return true;
-    }
-    return false;
-}
-
-static void analyse_and_move(sokospot_t ***map, unsigned int line,
-    unsigned int col)
-{
-    if (map[line][col] && map[line][col]->type == ENEMY) {
-        try_mobs_move(random_nb(0, 4), map, line, col);
-    }
-}
-
-static void enemy_sprite_move(sokospot_t ***map,
-    unsigned int line, unsigned int col)
-{
-    if (map[line][col]->type == ENEMY) {
-        set_sprite_pos_based_on_soko(map[line][col]->entity->sprite,
-        line, col);
-    }
-}
-
-static void reset_move_var(sokospot_t ***map)
-{
-    for (unsigned int i = 0; map[i]; i++) {
-        for (unsigned int j = 0; map[i][j]; j++) {
-            map[i][j]->moved_in_frame = false;
-        }
-    }
-}
-
-void move_mobs(sokospot_t ***map)
-{
-    for (unsigned int line = 0; map[line]; line++) {
-        for (unsigned int col = 0; map[line][col]; col++) {
-            analyse_and_move(map, line, col);
-        }
-    }
-    for (unsigned int line = 0; map[line]; line++) {
-        for (unsigned int col = 0; map[line][col]; col++) {
-            enemy_sprite_move(map, line, col);
-        }
+    if (player == NULL)
+        return;
+    pos = sfSprite_getPosition(player);
+    while (list) {
+        if (sprite_in_view(param->view, list->entity->sprite))
+            move_ennemy(map, list->entity, &pos);
+        list = list->next;
     }
     reset_move_var(map);
 }

@@ -27,6 +27,7 @@
     #define PLAYER_SPEED 2.2
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
+    #define AGRO_DIST 150
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -131,7 +132,7 @@ int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
-void move_mobs(sokospot_t ***map);
+void move_mobs(parameters_t *param, sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
