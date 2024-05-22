@@ -36,6 +36,12 @@ static const conf_function_t func_list[] = {
     {"options_menu", &options_menu},
     {"start_menu", &start_menu},
     {"kill_entity", &kill_entity},
+    {"set_music_volume_up", &set_music_volume_up},
+    {"set_music_volume_down", &set_music_volume_down},
+    {"reset_music_volume", &reset_music_volume},
+    {"set_sound_volume_up", &set_sound_volume_up},
+    {"set_sound_volume_down", &set_sound_volume_down},
+    {"reset_sound_volume", &reset_sound_volume},
     {NULL, NULL},
 };
 

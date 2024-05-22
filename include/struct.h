@@ -68,6 +68,7 @@ typedef struct parameters_s {
     sfSprite *background;
     sfClock *clock;
     sfMusic *music;
+    float sound_volume;
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
