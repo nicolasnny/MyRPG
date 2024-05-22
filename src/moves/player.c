@@ -10,22 +10,6 @@
 #include "rpg.h"
 #include "struct.h"
 
-static bool is_spaced(float time_sleep)
-{
-    static sfClock *clock = NULL;
-
-    if (clock == NULL) {
-        clock = sfClock_create();
-        return true;
-    }
-    if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock))
-            > time_sleep) {
-        sfClock_restart(clock);
-        return true;
-    }
-    return false;
-}
-
 void swap_struct(sokospot_t **current, sokospot_t **target)
 {
     sokospot_t *tmp = *current;
@@ -120,12 +104,13 @@ sfSprite *get_player(system_t *sys)
     return s;
 }
 
-static void animate_player(sfIntRect *texture_pos)
+static void update_player_in_map
+(parameters_t *param, sfSprite *player, sfVector2f move)
 {
-    if (is_spaced(70))
-        texture_pos->left += 40;
-    if (texture_pos->left >= 140)
-        texture_pos->left = 0;
+    get_player_spot(param->map_array)->last_pos =
+        sfSprite_getPosition(player);
+    set_player_new_pos(param, move);
+    move_in_array(param, param->map_array, player);
 }
 
 void move_player(parameters_t *param)
@@ -140,22 +125,11 @@ void move_player(parameters_t *param)
     if (param->map_array == NULL || player == NULL)
         return;
     move = get_p_move_event(&map_size, player);
-    if (move_save.x == 0 && move_save.y == 0) {
-        move_save.x = move.x;
-        move_save.y = move.y;
-    }
     if (move.x != 0.0 || move.y != 0.0) {
-        if ((move.x > 0.0 && move_save.x != move.x) || (move.x < 0.0 && move_save.x != move.x)) {
-            scale.x = -1;
-            move_save.x = move.x;
-            sfSprite_scale(player, scale);
-        }
+        flip_sprite(&move_save, move, player, &scale);
         animate_player(&texture_pos);
         sfSprite_setTextureRect(player, texture_pos);
-        get_player_spot(param->map_array)->last_pos =
-        sfSprite_getPosition(player);
-        set_player_new_pos(param, move);
-        move_in_array(param, param->map_array, player);
+        update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
         refresh_inventory_pos(param->sys);
     }

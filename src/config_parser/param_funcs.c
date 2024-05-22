@@ -87,11 +87,11 @@ void set_texture(parameters_t *param, entity_t *entity, char *value)
     sfIntRect texture_rect = (sfIntRect){0, 0, 0, 0};
     bool rect_input = false;
 
-    if (args[1]) {
+    if (args[1])
         rect = get_int_array(args[1]);
-    }
     fill_texture_rect(rect, &texture_rect, &rect_input, args);
-    sfSprite_setOrigin(entity->sprite, (sfVector2f){texture_rect.width / 2, texture_rect.height / 2});
+    sfSprite_setOrigin(entity->sprite,
+        (sfVector2f){texture_rect.width / 2, texture_rect.height / 2});
     if (strcmp("NULL", value) != 0) {
         if (entity->sprite && rect_input)
             set_sprite_texture(entity, args[0], &texture_rect);

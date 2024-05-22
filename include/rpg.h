@@ -80,15 +80,15 @@
     #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
 
 // Player
-#define PLAYER_WALK_TEXTURE_PATH "assets/player/player_walk.png"
-#define PLAYER_IDE_TEXTURE_PATH "assets/player/player_idl.png"
-#define PLAYER_TEXT_WIDTH 40
-#define PLAYER_TEXT_HEIGHT 30
-#define REFRESH_SPEED 70
-#define MAX_LEFT_TEXTURE 140
-#define MAX_IDLE_TEXTURE 62
-#define PLAYER_IDLE_WIDTH 40
-#define PLAYER_IDLE_HEIGHT 31
+    #define PLAYER_WALK_TEXTURE_PATH "assets/player/player_walk.png"
+    #define PLAYER_IDE_TEXTURE_PATH "assets/player/player_idl.png"
+    #define PLAYER_TEXT_WIDTH 40
+    #define PLAYER_TEXT_HEIGHT 30
+    #define REFRESH_SPEED 70
+    #define MAX_LEFT_TEXTURE 140
+    #define MAX_IDLE_TEXTURE 62
+    #define PLAYER_IDLE_WIDTH 40
+    #define PLAYER_IDLE_HEIGHT 31
 
 
 //-->main
@@ -133,6 +133,10 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
+void flip_sprite
+(sfVector2f *move_save, sfVector2f move, sfSprite *player, sfVector2f *scale);
+void animate_player(sfIntRect *texture_pos);
+
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
