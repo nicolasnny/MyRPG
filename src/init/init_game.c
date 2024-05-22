@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "rpg.h"
 
-static sfView *create_view(void)
+sfView *create_view(void)
 {
     sfView *view = sfView_create();
 
@@ -39,5 +39,7 @@ int init_args(parameters_t *param)
         return ERROR;
     param->game_state = PAUSE;
     param->view = create_view();
+    param->sound_volume = 100.0;
+    param->music = NULL;
     return SUCCESS;
 }
