@@ -12,7 +12,6 @@
     #include <stdbool.h>
 
 typedef struct parameters_s parameters_t;
-typedef struct system_s system_t;
 typedef struct entity_s entity_t;
 
 typedef enum game_state_s {
