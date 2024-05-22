@@ -20,7 +20,7 @@ int start_menu(parameters_t *param, entity_t *entity, bool state)
         return ERROR;
     }
     sfSound_play(backsound);
-    reset_view(param->window, param->view);
+    destroy_view(param);
     while (sfRenderWindow_isOpen(param->window) &&
         param->game_state == PAUSE) {
         display_entities(param, MENU);
@@ -30,5 +30,6 @@ int start_menu(parameters_t *param, entity_t *entity, bool state)
     }
     if (!sfRenderWindow_isOpen(param->window))
         return ERROR;
+    reset_view(param);
     return SUCCESS;
 }

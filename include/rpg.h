@@ -85,6 +85,9 @@
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
     #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
+    #define DEFAULT_VOLUME 100.0
+    #define MAX_VOLUME 100.0
+    #define MIN_VOLUME 0.0
 
 // Player
     #define PLAYER_WALK_START 90
@@ -247,8 +250,18 @@ int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
 int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
 
 // --> view
-void reset_view(sfRenderWindow* window, sfView* view);
+void reset_view(parameters_t *param);
 void set_view_on_player(parameters_t *param);
 sfVector2f get_view_pos(sfView *v);
+sfView *create_view(void);
+void destroy_view(parameters_t *param);
+
+// --> volume
+int reset_music_volume(parameters_t *param, entity_t *entity, bool state);
+int set_music_volume_up(parameters_t *param, entity_t *entity, bool state);
+int set_music_volume_down(parameters_t *param, entity_t *entity, bool state);
+int reset_sound_volume(parameters_t *param, entity_t *entity, bool state);
+int set_sound_volume_up(parameters_t *param, entity_t *entity, bool state);
+int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
 
 #endif
