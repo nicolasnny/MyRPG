@@ -42,6 +42,16 @@ static bool select_item(system_t *sys, unsigned int slot_nb)
     return set_new_select(sys, inventory_list->entity);
 }
 
+void grab_drop_events(parameters_t *param)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyA)) {
+            get_item(param);
+        }
+    if (sfKeyboard_isKeyPressed(sfKeyE)) {
+        drop_selected_item(param->sys);
+    }
+}
+
 void change_selected_item(system_t *sys)
 {
     if (sfKeyboard_isKeyPressed(sfKeyNum1)

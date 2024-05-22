@@ -32,5 +32,8 @@ void free_entity(entity_t *e)
     if (e->sprite != NULL) {
         sfSprite_destroy(e->sprite);
     }
+    if (e->name != NULL) {
+        free(e->name);
+    }
     free(e);
 }
