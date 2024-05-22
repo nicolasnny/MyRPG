@@ -243,8 +243,11 @@ int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
 int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
 
 // --> view
-void reset_view(sfRenderWindow* window, sfView* view);
+void reset_view(parameters_t *param);
 void set_view_on_player(parameters_t *param);
 sfVector2f get_view_pos(sfView *v);
+sfView *create_view(void);
+void destroy_view(parameters_t *param);
+
 
 #endif

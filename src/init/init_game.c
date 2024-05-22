@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "rpg.h"
 
-static sfView *create_view(void)
+sfView *create_view(void)
 {
     sfView *view = sfView_create();
 
