@@ -11,9 +11,6 @@
 
 static int loop(parameters_t *param)
 {
-    sfSprite *player = get_player(param->sys);
-    sfVector2f map_size = get_map_size(param->sys);
-
     set_view_on_player(param);
     refresh_inventory_pos(param->sys);
     sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
@@ -22,7 +19,7 @@ static int loop(parameters_t *param)
     while (sfRenderWindow_isOpen(param->window)) {
         sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
             DEFAULT_VIEW_SIZE_Y});
-        move_player(param, player, map_size);
+        move_player(param);
         sfRenderWindow_setView(param->window, param->view);
         window_events(param, MOB);
         make_life(param);
