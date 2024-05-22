@@ -142,6 +142,7 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
+sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -170,7 +171,7 @@ bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
 bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
-bool remove_entity_from_map(system_t *sys, sokospot_t ***map, entity_t *e);
+bool remove_entity_from_map(sokospot_t ***map, entity_t *e);
 
 // --> system
 system_t *create_system(void);

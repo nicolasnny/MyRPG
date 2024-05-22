@@ -23,6 +23,7 @@ SRC     =	src/main.c	\
 				src/moves/player.c	\
 				src/moves/npc.c	\
 				src/moves/get_new_pos.c	\
+				src/moves/get_spot.c	\
 				src/assist_func/my_str_to_word_class_array.c	\
 				src/assist_func/file.c	\
 				src/assist_func/random.c	\
@@ -71,6 +72,7 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/moves/player.c	\
 			src/moves/npc.c	\
 			src/moves/get_new_pos.c	\
+			src/moves/get_spot.c	\
 			src/assist_func/my_str_to_word_class_array.c	\
 			src/assist_func/file.c	\
 			src/assist_func/random.c	\

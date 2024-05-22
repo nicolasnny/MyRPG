@@ -53,19 +53,6 @@ static void get_player_pos(sokospot_t ***map, int *line, unsigned int *col)
     }
 }
 
-sokospot_t *get_player_spot(sokospot_t ***map)
-{
-    unsigned int col = 0;
-
-    for (int l = 0; map[l] != NULL; l++) {
-        for (col = 0; map[l][col] && map[l][col]->type != PLAYER_CHAR; col++)
-            continue;
-        if (map[l][col])
-            return map[l][col];
-    }
-    return NULL;
-}
-
 void set_player_first_pos(sfView *view, sokospot_t ***map)
 {
     int line = 0;
