@@ -48,7 +48,7 @@ int *get_int_array(char *arg)
         return NULL;
     }
     arg_array = my_str_to_word_array(no_brackets, ",");
-    values = calloc(my_strstrlen(arg_array), sizeof(int));
+    values = calloc(my_strstrlen(arg_array) + 1, sizeof(int));
     for (i = 0; arg_array[i]; i++)
         values[i] = atoi(arg_array[i]);
     values[i] = -1;

@@ -19,7 +19,7 @@ static int loop(parameters_t *param)
     sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
-    while (sfRenderWindow_isOpen(param->window)) {
+    while (sfRenderWindow_isOpen(param->window) && param->game_state != QUIT) {
         sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
             DEFAULT_VIEW_SIZE_Y});
         move_player(param, player, map_size);

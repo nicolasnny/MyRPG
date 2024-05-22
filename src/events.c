@@ -102,6 +102,7 @@ int mouse_events(parameters_t *param, int component)
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
+            param->game_state = QUIT;
         }
         if (param->event.type == sfEvtMouseMoved)
             hover_entity(compo_list, param, component);

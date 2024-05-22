@@ -29,6 +29,7 @@ void set_scale(parameters_t *param, entity_t *entity, char *value)
     if (entity->rect)
         sfRectangleShape_setScale(entity->rect,
             (sfVector2f){scale_value[0], scale_value[1]});
+    entity->scale = (sfVector2f){scale_value[0], scale_value[1]};
     (void)param;
     free(scale_value);
 }
@@ -90,5 +91,6 @@ entity_t *create_entity(system_t *sys, int compo)
     e->hovered = NULL;
     e->name = NULL;
     e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
+    e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
     return e;
 }

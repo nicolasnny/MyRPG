@@ -27,6 +27,7 @@
     #define PLAYER_SPEED 2.2
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
+    #define DEFAULT_SCALE 1.0
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
