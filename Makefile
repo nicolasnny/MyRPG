@@ -11,6 +11,7 @@ MAIN	=
 
 SRC     =	src/main.c	\
 				src/my_rpg.c	\
+				src/init/init_inventory.c	\
 				src/init/init_game.c	\
 				src/init/init_map.c	\
 				src/init/init_entity.c	\
@@ -22,6 +23,7 @@ SRC     =	src/main.c	\
 				src/moves/player.c	\
 				src/moves/npc.c	\
 				src/moves/get_new_pos.c	\
+				src/moves/get_spot.c	\
 				src/assist_func/my_str_to_word_class_array.c	\
 				src/assist_func/file.c	\
 				src/assist_func/random.c	\
@@ -32,6 +34,7 @@ SRC     =	src/main.c	\
 				src/ecs/get_entities.c	\
 				src/ecs/set_entities.c	\
 				src/ecs/unset_entity.c	\
+				src/ecs/delete_entity.c	\
 				src/animate/make_life.c	\
 				src/collisions/check_collisions.c	\
 				src/user_interface/start_menu/main_page.c	\
@@ -44,7 +47,6 @@ SRC     =	src/main.c	\
 				src/config_parser/param_funcs.c				\
 				src/init/set_name.c							\
 				src/config_parser/parse_dir.c				\
-				src/init/init_inventory.c	\
 				src/inventory/inventory.c	\
 				src/user_interface/in_game_menu/in_game_menu.c	\
 				src/view.c						\
@@ -61,6 +63,7 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/init/init_game.c	\
 			src/init/init_map.c	\
 			src/init/init_entity.c	\
+			src/init/init_inventory.c	\
 			src/events.c	\
 			src/clean.c	\
 			src/display.c	\
@@ -69,6 +72,7 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/moves/player.c	\
 			src/moves/npc.c	\
 			src/moves/get_new_pos.c	\
+			src/moves/get_spot.c	\
 			src/assist_func/my_str_to_word_class_array.c	\
 			src/assist_func/file.c	\
 			src/assist_func/random.c	\
@@ -79,12 +83,12 @@ UT_SRC	=	tests/unit_tests.c	\
 			src/ecs/get_entities.c	\
 			src/ecs/set_entities.c	\
 			src/ecs/unset_entity.c	\
+			src/ecs/delete_entity.c	\
+			src/ecs/destroy_entity.c	\
 			src/animate/make_life.c	\
 			src/collisions/check_collisions.c	\
-			src/ecs/destroy_entity.c	\
 			src/user_interface/start_menu/main_page.c	\
 			src/user_interface/hovering.c				\
-			src/init/init_inventory.c	\
 			src/inventory/inventory.c	\
 			src/inventory/set_inventory.c	\
 			src/inventory/manage.c	\

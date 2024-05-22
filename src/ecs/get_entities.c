@@ -68,12 +68,14 @@ e_list_t *get_entities(system_t *sys, int component)
 
 entity_t *get_entity_by_name(system_t *sys, char const *name)
 {
-    while (sys->e_list) {
-        if (sys->e_list->entity->name &&
-            strcmp(sys->e_list->entity->name, name) == 0) {
-            return sys->e_list->entity;
+    e_list_t *list = sys->e_list;
+
+    while (list) {
+        if (list->entity->name &&
+            strcmp(list->entity->name, name) == 0) {
+            return list->entity;
         }
-        sys->e_list = sys->e_list->next;
+        list = list->next;
     }
     return NULL;
 }

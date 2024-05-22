@@ -23,8 +23,8 @@
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOBS_MOVE 3
     #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 25
-    #define PLAYER_SPEED 3.0
+    #define PLAYER_ATTACK_RANGE 50
+    #define PLAYER_SPEED 2.2
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
 
@@ -40,8 +40,8 @@
     #define NPC_CHAR 'N'
     #define MAP_WIDTH 360
     #define MAP_HEIGHT 200
-    #define TMP_HEIGHT 45
-    #define TMP_WIDTH 79
+    #define TMP_HEIGHT 60
+    #define TMP_WIDTH 33
 
 // view
     #define DEFAULT_VIEW_SIZE_X 500
@@ -111,8 +111,7 @@ sfSound *init_sound(char *path);
 sokospot_t ***get_map(char const *filepath, system_t *sys);
 
 //---> events
-int window_events(parameters_t *param);
-int window_events(parameters_t *param);
+int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
 
@@ -142,6 +141,7 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
+sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -168,7 +168,9 @@ void set_click(parameters_t *param, entity_t *entity, char *value);
 void set_texture(parameters_t *param, entity_t *entity, char *value);
 bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
+bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
+bool remove_entity_from_map(sokospot_t ***map, entity_t *e);
 
 // --> system
 system_t *create_system(void);
@@ -232,10 +234,11 @@ void refresh_inventory_pos(system_t *sys);
 void change_selected_item(system_t *sys);
 void get_item(parameters_t *param);
 void drop_selected_item(system_t *sys);
+void grab_drop_events(parameters_t *param);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);
-bool kill_entity(system_t *sys, entity_t *entity);
+int kill_entity(parameters_t *param, entity_t *entity, bool state);
 double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb);
 
 // --> window size

@@ -21,7 +21,7 @@ static int loop(parameters_t *param)
             DEFAULT_VIEW_SIZE_Y});
         move_player(param);
         sfRenderWindow_setView(param->window, param->view);
-        window_events(param);
+        window_events(param, MOB);
         make_life(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
