@@ -28,19 +28,19 @@ static bool is_spaced(float time_sleep)
 
 void animate_player_walk(sfIntRect *texture_pos, sfSprite *player)
 {
-    if (is_spaced(70))
-        texture_pos->left += 40;
-    if (texture_pos->left >= 140)
+    if (is_spaced(REFRESH_SPEED_WALK))
+        texture_pos->left += PLAYER_WIDTH;
+    if (texture_pos->left >= MAX_WALK_TEXTURE)
         texture_pos->left = 0;
     sfSprite_setTextureRect(player, *texture_pos);
 }
 
 void annimate_idle(sfIntRect *idle_pos, sfSprite *player)
 {
-    if (is_spaced(900))
-        idle_pos->top += 40;
-    if (idle_pos->top >= 70)
-        idle_pos->top = 10;
+    if (is_spaced(REFRESH_SPEED_IDLE))
+        idle_pos->top += PLAYER_WIDTH;
+    if (idle_pos->top >= MAX_IDLE_TEXTURE)
+        idle_pos->top = PLAYER_IDLE_START;
     sfSprite_setTextureRect(player, *idle_pos);
 }
 

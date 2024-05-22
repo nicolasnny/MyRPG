@@ -80,15 +80,14 @@
     #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
 
 // Player
-    #define PLAYER_WALK_TEXTURE_PATH "assets/player/player_walk.png"
-    #define PLAYER_IDE_TEXTURE_PATH "assets/player/player_idl.png"
-    #define PLAYER_TEXT_WIDTH 40
-    #define PLAYER_TEXT_HEIGHT 30
-    #define REFRESH_SPEED 70
-    #define MAX_LEFT_TEXTURE 140
-    #define MAX_IDLE_TEXTURE 62
-    #define PLAYER_IDLE_WIDTH 40
-    #define PLAYER_IDLE_HEIGHT 31
+    #define PLAYER_WALK_START 90
+    #define PLAYER_IDLE_START 10
+    #define PLAYER_WIDTH 40
+    #define PLAYER_HEIGHT 30
+    #define REFRESH_SPEED_WALK 70
+    #define REFRESH_SPEED_IDLE 900
+    #define MAX_WALK_TEXTURE 140
+    #define MAX_IDLE_TEXTURE 70
 
 
 //-->main
@@ -122,7 +121,7 @@ void display_entities(parameters_t *param, int component);
 int err_handling(int ac, char **av);
 
 // --> moves
-void move_player(parameters_t *param);
+void move_player(parameters_t *param, sfSprite *player, sfVector2f map_size);
 void move_mobs(sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
