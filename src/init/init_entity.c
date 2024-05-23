@@ -25,6 +25,7 @@ void set_scale(parameters_t *param, entity_t *entity, char *value)
     if (entity->sprite) {
         sfSprite_setScale(entity->sprite,
             (sfVector2f){scale_value[0], scale_value[1]});
+        entity->entity_time = sfClock_getElapsedTime(param->clock);
     }
     if (entity->rect)
         sfRectangleShape_setScale(entity->rect,

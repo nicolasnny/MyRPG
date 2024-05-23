@@ -26,6 +26,7 @@ int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};
 
+    param->clock = sfClock_create();
     param->window = sfRenderWindow_create(video_mode, "My RPG",
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);

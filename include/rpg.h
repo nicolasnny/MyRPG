@@ -110,6 +110,18 @@
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
+// Enemy
+    #define ENEMY_WALK_START 50
+    #define ENEMY_IDLE_START 0
+    #define ENEMY_ATTACK_START 100
+    #define ENEMY_DAMMAGE_START 150
+    #define ENEMY_IDLE_DIFF PLAYER_HEIGHT + 11
+    #define ENEMY_WIDTH 32
+    #define ENEMY_WIDTH_ATTACK 35
+    #define ENEMY_HEIGHT 27
+    #define ENEMY_MAX_WALK_TEXTURE 140
+    #define ENEMY_MAX_IDLE_TEXTURE 70
+
 // LIFE
     #define HEART_WIDTH 900
     #define HEART_LEFT_POURCENTAGE 0.4
@@ -156,11 +168,14 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
+sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
+
+// Animation
 void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
 void animate_attack(sfIntRect *idle_pos, sfSprite *player);
-sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
+void anime_enemy_walk(parameters_t *param, entity_t *enemy);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);

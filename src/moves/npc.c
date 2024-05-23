@@ -82,8 +82,10 @@ void move_mobs(parameters_t *param, sokospot_t ***map)
         return;
     pos = sfSprite_getPosition(player);
     while (list) {
-        if (sprite_in_view(param->view, list->entity->sprite))
+        if (sprite_in_view(param->view, list->entity->sprite)) {
             move_ennemy(param, map, list->entity, &pos);
+            anime_enemy_walk(param, list->entity);
+        }
         list = list->next;
     }
 }
