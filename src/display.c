@@ -12,6 +12,18 @@
 #include <string.h>
 #include "rpg.h"
 
+static bool disp_box(parameters_t *param)
+{
+    e_list_t *is_box = get_entities(param->sys, BOX);
+
+    while (is_box) {
+        if (is_box->entity->text)
+            sfRenderWindow_drawText(param->window, is_box->entity->text, NULL);
+        is_box = is_box->next;
+    }
+    return true;
+}
+
 void display_entities(parameters_t *param, int component)
 {
     e_list_t *list = get_entities(param->sys, component);
@@ -26,9 +38,8 @@ void display_entities(parameters_t *param, int component)
         if (list->entity->rect)
             sfRenderWindow_drawRectangleShape(param->window,
             list->entity->rect, NULL);
-        if (list->entity->text)
-            sfRenderWindow_drawText(param->window, list->entity->text, NULL);
         list = list->next;
     }
+    disp_box(param);
     clean_list(head);
 }

@@ -50,7 +50,7 @@ bool check_npc_quest(entity_t *npc, entity_t *player, parameters_t *param)
     if (dist < DIST_TO_QUEST) {
         disp_trigger(&npc_pos, param);
         if (sfKeyboard_isKeyPressed(sfKeyEnter)) {
-            set_entity(npc, param->sys, NPC | VISIBLE | BOX);
+            set_entity(npc, param->sys, BOX);
         }
     } else {
         reset_trigger(param);
