@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** RPG
 ** File description:
-** Functiond to know if ennemy is in player attack range
+** Functiond to know if enemy is in player attack range
 */
 
 #include <stddef.h>
@@ -38,18 +38,18 @@ double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb)
     return result;
 }
 
-bool ennemy_in_range(entity_t *player, entity_t *ennemy)
+bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range)
 {
     sfVector2f player_center = {0};
-    sfVector2f ennemy_center = {0};
+    sfVector2f enemy_center = {0};
     double dist_between = 0;
 
-    if (player == NULL || ennemy == NULL)
+    if (player == NULL || enemy == NULL)
         return false;
     player_center = get_center(player->sprite);
-    ennemy_center = get_center(ennemy->sprite);
-    dist_between = get_distance_bewteen_pos(&player_center, &ennemy_center);
-    if (dist_between == NEG_ERROR || dist_between > ENNEMY_ATTACK_RANGE)
+    enemy_center = get_center(enemy->sprite);
+    dist_between = get_distance_bewteen_pos(&player_center, &enemy_center);
+    if (dist_between == NEG_ERROR || dist_between > range)
         return false;
     return true;
 }
