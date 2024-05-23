@@ -107,6 +107,7 @@ static void update_player_in_map
     set_player_new_pos(param, move);
     move_in_array(param, param->map_array, player);
     refresh_inventory_pos(param->sys);
+    refresh_heart_position(param->sys);
 }
 
 void move_player
