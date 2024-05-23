@@ -26,15 +26,19 @@ int set_1920x1080(parameters_t *param, entity_t *entity, bool state)
 
 int options_menu(parameters_t *param, entity_t *entity, bool state)
 {
+    e_list_t *compo_list = get_entities(param->sys, SETTINGS);
+    e_list_t *temp = compo_list;
+
     (void)entity;
     (void)state;
     destroy_view(param);
     while (param->game_state == PAUSE) {
         display_entities(param, SETTINGS);
         sfRenderWindow_display(param->window);
-        mouse_events(param, SETTINGS);
+        mouse_events(param, SETTINGS, temp);
         sfRenderWindow_clear(param->window, sfBlack);
     }
     reset_view(param);
+    clean_list(compo_list);
     return true;
 }

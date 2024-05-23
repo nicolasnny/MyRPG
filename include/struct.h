@@ -38,7 +38,9 @@ typedef enum component_s {
     HEART = 1 << 14,
     FULL_LIFE = 1 << 15,
     LOW_LIFE = 1 << 16,
-    __END__ = 1 << 17,
+    TUTORIAL = 1 << 17,
+    IMAGE = 1 << 18,
+    __END__ = 1 << 19,
 } component_t;
 
 typedef struct entity_s {

@@ -61,6 +61,7 @@ SRC     =	src/main.c	\
 				src/volume/music.c		\
 				src/loading/loop.c	\
 				src/heart/heart.c	\
+				src/user_interface/start_menu/tutorial.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			    tests/test.c	\
@@ -133,7 +134,7 @@ LIBNAME	=	libmy.a
 
 CPPFLAGS	=	-I./include/
 
-CFLAGS	=	-Wall -Wextra
+CFLAGS	=	-Wall -Wextra #-fsanitize=address
 
 LIBNAME	=	libmy.a
 

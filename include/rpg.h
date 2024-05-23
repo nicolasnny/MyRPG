@@ -128,7 +128,7 @@ sokospot_t ***get_map(char const *filepath);
 //---> events
 int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
-int mouse_events(parameters_t *param, int component);
+int mouse_events(parameters_t *param, int component, e_list_t *compo_list);
 
 //-->time
 //int wait_time(sfClock *clock, float time_sleep);
@@ -280,5 +280,10 @@ void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
 void remove_life(system_t *sys);
 bool is_player_alive(system_t *sys);
+
+// --> tutorial
+int tutorial(parameters_t *param, entity_t *entity, bool state);
+int prev_image(parameters_t *param, entity_t *entity, bool state);
+int next_image(parameters_t *param, entity_t *entity, bool state);
 
 #endif
