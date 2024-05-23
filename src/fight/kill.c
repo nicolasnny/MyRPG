@@ -9,17 +9,20 @@
 #include <stdio.h>
 #include "rpg.h"
 
-bool kill_entity(system_t *sys, entity_t *entity)
+int kill_entity(parameters_t *param, entity_t *entity, bool state)
 {
-    e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
+    e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
 
+    (void)state;
     if (player == NULL || entity == NULL)
-        return false;
+        return ERROR;
     if (ennemy_in_range(player->entity, entity)) {
         printf("/* sword sound */");
         printf("You killed %s !\n", entity->name);
-        printf("add function to delete entity");
-        return true;
+        remove_entity(param->sys, entity);
+        clean_list(player);
+        return 1;
     }
-    return false;
+    clean_list(player);
+    return SUCCESS;
 }

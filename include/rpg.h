@@ -1,7 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
 ** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
-** B-MUL-200-PAR-2-1-myrpg-nicolas.nunney
 ** File description:
 ** rpg.h
 */
@@ -22,12 +21,18 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
-    #define TIME_BEFORE_MOBS_MOVE 3
+    #define TIME_BEFORE_MOVE 20
     #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 25
-    #define PLAYER_SPEED 2.2
+    #define PLAYER_ATTACK_RANGE 50
+    #define PLAYER_SPEED 4
+    #define MOBS_SPEED 1
     #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
+    #define AGRO_DIST 150
+    #define LOAD_MC_NAME "mc"
+    #define LOAD_TIME_MOVE 30
+    #define LOAD_RIGHT_MVT 10
+    #define DEFAULT_SCALE 1.0
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -39,10 +44,10 @@
     #define ENEMY 'E'
     #define NPC_LIMIT 'L'
     #define NPC_CHAR 'N'
-    #define MAP_WIDTH 60
-    #define MAP_HEIGHT 33
-    #define TMP_HEIGHT 45
-    #define TMP_WIDTH 79
+    #define MAP_WIDTH 360
+    #define MAP_HEIGHT 200
+    #define TMP_HEIGHT 60
+    #define TMP_WIDTH 33
 
 // view
     #define DEFAULT_VIEW_SIZE_X 500
@@ -62,21 +67,11 @@
     #define SLOT_ERROR_UP_MARGIN 1.1
     #define SLOT_ERROR_DOWN_MARGIN 0.9
 
-// sprites
-    #define PLAYER_SPRITE_PATH "assets/player/plane.png"
-    #define MOB_SPRITE_PATH "assets/player/plane.png"
-    #define NPC_SPRITE_PATH "assets/player/plane.png"
-    #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
-    #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
-    #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
-    #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
-    #define PLAYER_SPRITE_PATH "assets/player/plane.png"
-    #define MOB_SPRITE_PATH "assets/player/plane.png"
-    #define NPC_SPRITE_PATH "assets/player/plane.png"
-    #define MENU_BACKGROUND_PATH "assets/menu/menu_background.jpeg"
-    #define PLAY_BUTTON_PATH "assets/menu/buttons/play.png"
-    #define QUIT_BUTTON_PATH "assets/menu/buttons/quit.png"
-    #define OPTION_BUTTON_PATH "assets/menu/buttons/options.png"
+// errors defines
+    #define OPEN_ERROR -1
+    #define ERROR 84
+    #define NEG_ERROR -1
+    #define SYS_ERROR -1
 
 // in game menu
     #define MENU_OFFSET 100
@@ -93,13 +88,27 @@
     #define CONFIG_DIR "config/"
     #define CONFIG_ELEMENT_NAME "[ENTITY]"
 
-// CONFIG
-    #define CONFIG_DIR "config/"
-    #define CONFIG_ELEMENT_NAME "[ENTITY]"
-
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
     #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
+    #define DEFAULT_VOLUME 100.0
+    #define MAX_VOLUME 100.0
+    #define MIN_VOLUME 0.0
+
+// Player
+    #define PLAYER_WALK_START 90
+    #define PLAYER_IDLE_START 10
+    #define PLAYER_WIDTH 40
+    #define PLAYER_HEIGHT 30
+    #define REFRESH_SPEED_WALK 70
+    #define REFRESH_SPEED_IDLE 900
+    #define MAX_WALK_TEXTURE 140
+    #define MAX_IDLE_TEXTURE 70
+
+// LIFE
+    #define HEART_WIDTH 900
+    #define HEART_LEFT_POURCENTAGE 0.4
+    #define LOSE_LIFE_COOLDOWN 3000
 
 //-->main
 int my_rpg(int, char **);
@@ -107,13 +116,12 @@ int my_rpg(int, char **);
 //---->> initialisation
 int init_args(parameters_t *param);
 int init_inventory(parameters_t *param, entity_t *entity, bool state);
-sfSound *init_sound(char *path);
+sfMusic *init_sound(char *path);
 
-sokospot_t ***get_map(char const *filepath, system_t *sys);
+sokospot_t ***get_map(char const *filepath);
 
 //---> events
-int window_events(parameters_t *param);
-int window_events(parameters_t *param);
+int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
 
@@ -126,23 +134,25 @@ void free_entity(entity_t *entity);
 
 //----> display
 void display_entities(parameters_t *param, int component);
-void display_entities(parameters_t *param, int component);
 
 //----> error handling
 int err_handling(int ac, char **av);
 
 // --> moves
 void move_player(parameters_t *param);
-void move_mobs(sokospot_t ***map);
+void move_mobs(parameters_t *param, sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
 void set_player_new_pos(parameters_t *param, sfVector2f move);
-sokospot_t *get_player_spot(sokospot_t ***);
 sfVector2f get_p_move_event(sfVector2f *map_size, sfSprite *player);
 bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
+void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
+void animate_player_walk(sfSprite *player);
+void annimate_idle(sfIntRect *idle_pos, sfSprite *player);
+sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -160,7 +170,6 @@ sfVector2f get_center(sfSprite *s);
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
 entity_t *create_entity(system_t *sys, int component);
-entity_t *create_entity(system_t *sys, int component);
 e_list_t *get_entities(system_t *sys, int component);
 void set_scale(parameters_t *param, entity_t *entity, char *value);
 void set_pos(parameters_t *param, entity_t *entity, char *value);
@@ -169,6 +178,7 @@ void set_click(parameters_t *param, entity_t *entity, char *value);
 void set_texture(parameters_t *param, entity_t *entity, char *value);
 bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
+bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
 
 // --> system
@@ -210,11 +220,6 @@ int *get_int_array(char *arg);
 double *get_double_array(char *arg);
 void run_on_start(parameters_t *param, entity_t *entity, char *value);
 
-int *get_int_array(char *arg);
-double *get_double_array(char *arg);
-void run_on_start(parameters_t *param, entity_t *entity, char *value);
-
-
 // --> rectangleShape
 void create_rectangle(parameters_t *param, entity_t *entity, char *value);
 void set_rectangle_texture(entity_t *e, char const *texture_path,
@@ -233,10 +238,11 @@ void refresh_inventory_pos(system_t *sys);
 void change_selected_item(system_t *sys);
 void get_item(parameters_t *param);
 void drop_selected_item(system_t *sys);
+void grab_drop_events(parameters_t *param);
 
 // --> fight
 bool ennemy_in_range(entity_t *player, entity_t *ennemy);
-bool kill_entity(system_t *sys, entity_t *entity);
+int kill_entity(parameters_t *param, entity_t *entity, bool state);
 double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb);
 
 // --> window size
@@ -244,8 +250,27 @@ int set_2560x1600(parameters_t *param, entity_t *entity, bool state);
 int set_1920x1080(parameters_t *param, entity_t *entity, bool state);
 
 // --> view
-void reset_view(sfRenderWindow* window, sfView* view);
+void reset_view(parameters_t *param);
 void set_view_on_player(parameters_t *param);
 sfVector2f get_view_pos(sfView *v);
+sfView *create_view(void);
+void destroy_view(parameters_t *param);
+
+// --> volume
+int reset_music_volume(parameters_t *param, entity_t *entity, bool state);
+int set_music_volume_up(parameters_t *param, entity_t *entity, bool state);
+int set_music_volume_down(parameters_t *param, entity_t *entity, bool state);
+int reset_sound_volume(parameters_t *param, entity_t *entity, bool state);
+int set_sound_volume_up(parameters_t *param, entity_t *entity, bool state);
+int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
+
+// --> loading screen
+int loading_screen_loop(parameters_t *param);
+
+// --> life
+void refresh_heart_position(system_t *sys);
+void move_heart_rect(sfSprite *s);
+void remove_life(system_t *sys);
+bool is_player_alive(system_t *sys);
 
 #endif

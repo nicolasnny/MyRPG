@@ -38,6 +38,7 @@ int *get_int_array(char *arg)
     char *no_brackets = strdup_banned_chars(arg, " {}");
     char **arg_array = NULL;
     int *values = NULL;
+    int i = 0;
 
     if (!no_brackets)
         return NULL;
@@ -47,24 +48,57 @@ int *get_int_array(char *arg)
         return NULL;
     }
     arg_array = my_str_to_word_array(no_brackets, ",");
-    values = calloc(my_strstrlen(arg_array), sizeof(int));
-    for (int i = 0; arg_array[i]; i++)
+    values = calloc(my_strstrlen(arg_array) + 1, sizeof(int));
+    for (i = 0; arg_array[i]; i++)
         values[i] = atoi(arg_array[i]);
+    values[i] = -1;
     return values;
+}
+
+static int get_arg_len(char *arg)
+{
+    char *no_brackets = strdup_banned_chars(arg, " {}");
+    char **arg_array = NULL;
+
+    if (no_brackets == NULL)
+        return 0;
+    arg_array = my_str_to_word_array(no_brackets, ",");
+    if (arg_array == NULL)
+        return 0;
+    return my_strstrlen(arg_array);
+}
+
+static void fill_texture_rect
+(int *rect, sfIntRect *texture_rect, bool *rect_input, char **args)
+{
+    if (rect && get_arg_len(args[1]) == 4) {
+        texture_rect->left = rect[0];
+        texture_rect->top = rect[1];
+        texture_rect->width = rect[2];
+        texture_rect->height = rect[3];
+        *rect_input = true;
+    }
 }
 
 void set_texture(parameters_t *param, entity_t *entity, char *value)
 {
     char **args = my_str_to_word_array(value, ";");
     int *rect = NULL;
+    sfIntRect texture_rect = (sfIntRect){0, 0, 0, 0};
+    bool rect_input = false;
 
     if (args[1])
         rect = get_int_array(args[1]);
+    fill_texture_rect(rect, &texture_rect, &rect_input, args);
+    sfSprite_setOrigin(entity->sprite,
+        (sfVector2f){texture_rect.width / 2, texture_rect.height / 2});
     if (strcmp("NULL", value) != 0) {
-        if (entity->sprite)
-            set_sprite_texture(entity, value, (sfIntRect *)rect);
+        if (entity->sprite && rect_input)
+            set_sprite_texture(entity, args[0], &texture_rect);
+        if (entity->sprite && !rect_input)
+            set_sprite_texture(entity, args[0], (sfIntRect *)rect);
         if (entity->rect)
-            set_rectangle_texture(entity, value, (sfIntRect *)rect);
+            set_rectangle_texture(entity, args[0], NULL);
     }
     free_str_array(args);
     (void)param;

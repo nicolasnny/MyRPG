@@ -102,6 +102,7 @@ int mouse_events(parameters_t *param, int component)
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
+            param->game_state = QUIT;
         }
         if (param->event.type == sfEvtMouseMoved)
             hover_entity(compo_list, param, component);
@@ -112,22 +113,23 @@ int mouse_events(parameters_t *param, int component)
     return SUCCESS;
 }
 
-int window_events(parameters_t *param)
+int window_events(parameters_t *param, int component)
 {
+    e_list_t *compo_list = get_entities(param->sys, component);
+
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
-        if (param->event.type == sfEvtClosed) {
-            sfRenderWindow_close(param->window);
-        }
-        if (param->event.type == sfEvtKeyPressed)
-            change_selected_item(param->sys);
+        mouse_events(param, MOB);
+        change_selected_item(param->sys);
+        grab_drop_events(param);
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
         }
-        if (sfKeyboard_isKeyPressed(sfKeyA)) {
-            get_item(param);
+        hover_entity(compo_list, param, component);
+        if (param->event.type == sfEvtMouseButtonPressed) {
+            click_entity(compo_list, param, component);
         }
-        if (sfKeyboard_isKeyPressed(sfKeyE)) {
-            drop_selected_item(param->sys);
+        if (param->event.type == sfEvtClosed) {
+            sfRenderWindow_close(param->window);
         }
     }
     return SUCCESS;

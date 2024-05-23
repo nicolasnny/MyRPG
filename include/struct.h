@@ -12,7 +12,6 @@
     #include <stdbool.h>
 
 typedef struct parameters_s parameters_t;
-typedef struct system_s system_t;
 typedef struct entity_s entity_t;
 
 typedef enum game_state_s {
@@ -35,7 +34,11 @@ typedef enum component_s {
     BABLA = 1 << 10,
     IN_GAME_MENU = 1 << 11,
     ON_MAP = 1 << 12,
-    __END__ = 1 << 13,
+    LOADING = 1 << 13,
+    HEART = 1 << 14,
+    FULL_LIFE = 1 << 15,
+    LOW_LIFE = 1 << 16,
+    __END__ = 1 << 17,
 } component_t;
 
 typedef struct entity_s {
@@ -45,14 +48,12 @@ typedef struct entity_s {
     char *name;
     int (*clicked)(parameters_t *param, entity_t *entity, bool clicked);
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
+    sfVector2f scale;
     sfVector2f pos;
 } entity_t;
 
 typedef struct sokospot_s {
-    entity_t *entity;
-    sfVector2f last_pos;
     char type;
-    bool moved_in_frame;
 } sokospot_t;
 
 typedef struct e_list_s {
@@ -70,6 +71,7 @@ typedef struct parameters_s {
     sfView *view;
     sfEvent event;
     sfMusic *music;
+    float sound_volume;
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;

@@ -16,12 +16,11 @@ static int loop(parameters_t *param)
     sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
-    while (sfRenderWindow_isOpen(param->window)) {
+    while (sfRenderWindow_isOpen(param->window) && param->game_state != QUIT) {
         sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
             DEFAULT_VIEW_SIZE_Y});
-        move_player(param);
         sfRenderWindow_setView(param->window, param->view);
-        window_events(param);
+        window_events(param, MOB);
         make_life(param);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
@@ -58,7 +57,9 @@ int my_rpg(int ac, char **av)
         clean(&param);
         return ERROR;
     }
-    game_launcher(&param);
+    loading_screen_loop(&param);
+    if (sfRenderWindow_isOpen(param.window))
+        game_launcher(&param);
     clean(&param);
     return SUCCESS;
 }

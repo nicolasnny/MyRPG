@@ -73,7 +73,8 @@ void in_game_menu(parameters_t *param)
         mouse_events(param, IN_GAME_MENU);
         sfRenderWindow_clear(param->window, sfBlack);
     }
-    sfView_zoom(param->view, MENU_ZOOM);
+    if (param->view)
+        sfView_zoom(param->view, MENU_ZOOM);
     if (sfRenderWindow_isOpen(param->window))
         sfRenderWindow_setView(param->window, param->view);
 }
