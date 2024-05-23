@@ -40,7 +40,9 @@ typedef enum component_s {
     XP = 1 << 16,
     TEXT = 1 << 17,
     ITEM = 1 << 18,
-    __END__ = 1 << 19,
+    TUTORIAL = 1 << 18,
+    IMAGE = 1 << 19,
+    __END__ = 1 << 20,
 } component_t;
 
 typedef struct entity_s {

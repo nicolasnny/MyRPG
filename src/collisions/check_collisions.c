@@ -49,7 +49,8 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     return false;
 }
 
-static bool check_monsters(parameters_t *param, entity_t *player, e_list_t *mobs)
+static bool check_monsters(parameters_t *param, entity_t *player,
+    e_list_t *mobs)
 {
     while (mobs != NULL) {
         if (enemy_in_range(player, mobs->entity, ENEMY_ATTACK_RANGE)) {

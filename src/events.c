@@ -45,19 +45,27 @@ static sfVector2f get_mouse_pos(parameters_t *param)
     return new_pos;
 }
 
+static sfVector2f get_real_pos(int component, parameters_t *param)
+{
+    sfVector2f m_pos = {0};
+
+    if (component == CLICKABLE || component == SETTINGS ||
+        component == TUTORIAL)
+        m_pos = get_menu_pos(param->window);
+    else
+        m_pos = get_mouse_pos(param);
+    return m_pos;
+}
+
 static void click_entity(e_list_t *compo_list, parameters_t *param,
     int component)
 {
     e_list_t *temp = compo_list;
     sfFloatRect e_pos = {0};
-    sfVector2f m_pos = {0};
+    sfVector2f m_pos = get_real_pos(component, param);
 
     if (!sfMouse_isButtonPressed(sfMouseLeft))
         return;
-    if (component == CLICKABLE || component == SETTINGS)
-        m_pos = get_menu_pos(param->window);
-    else
-        m_pos = get_mouse_pos(param);
     while (temp) {
         if (temp->entity->sprite) {
             e_pos = sfSprite_getGlobalBounds(temp->entity->sprite);
@@ -75,12 +83,8 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param,
 {
     e_list_t *temp = compo_list;
     sfFloatRect e_pos = {0};
-    sfVector2f m_pos = {0};
+    sfVector2f m_pos = get_real_pos(component, param);
 
-    if (component == CLICKABLE || component == SETTINGS)
-        m_pos = get_menu_pos(param->window);
-    else
-        m_pos = get_mouse_pos(param);
     while (temp) {
         if (temp->entity->sprite) {
             e_pos = sfSprite_getGlobalBounds(temp->entity->sprite);
@@ -95,10 +99,8 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param,
     }
 }
 
-int mouse_events(parameters_t *param, int component)
+int mouse_events(parameters_t *param, int component, e_list_t *compo_list)
 {
-    e_list_t *compo_list = get_entities(param->sys, component);
-
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
@@ -116,21 +118,23 @@ int mouse_events(parameters_t *param, int component)
 int window_events(parameters_t *param, int component)
 {
     e_list_t *compo_list = get_entities(param->sys, component);
+    e_list_t *temp = compo_list;
 
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
-        mouse_events(param, MOB);
+        mouse_events(param, component, temp);
         change_selected_item(param->sys);
         grab_drop_events(param);
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
         }
-        hover_entity(compo_list, param, component);
+        hover_entity(temp, param, component);
         if (param->event.type == sfEvtMouseButtonPressed) {
-            click_entity(compo_list, param, component);
+            click_entity(temp, param, component);
         }
         if (param->event.type == sfEvtClosed) {
             sfRenderWindow_close(param->window);
         }
     }
+    clean_list(compo_list);
     return SUCCESS;
 }

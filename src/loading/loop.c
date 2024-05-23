@@ -58,15 +58,18 @@ static bool load_events(parameters_t *param, bool state)
 
 int loading_screen_loop(parameters_t *param)
 {
+    e_list_t *compo_list = get_entities(param->sys, LOADING);
+    e_list_t *temp = compo_list;
     bool load_over = false;
 
     while (!load_over && sfRenderWindow_isOpen(param->window)) {
         load_over = move_screen(param);
         display_entities(param, LOADING);
         sfRenderWindow_display(param->window);
-        mouse_events(param, LOADING);
+        mouse_events(param, LOADING, temp);
         load_over = load_events(param, load_over);
         sfRenderWindow_clear(param->window, sfBlack);
     }
+    clean_list(compo_list);
     return SUCCESS;
 }

@@ -19,7 +19,6 @@ int kill_entity(parameters_t *param, entity_t *entity, bool state)
         return ERROR;
     if (entity_in_list(tmp_mob, entity) &&
         enemy_in_range(player->entity, entity, PLAYER_ATTACK_RANGE)) {
-        //anime_enemy_die(param, entity);
         printf("/* sword sound */");
         if (entity->name)
             printf("You killed %s !\n", entity->name);

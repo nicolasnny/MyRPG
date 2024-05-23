@@ -73,8 +73,14 @@ void remove_life(system_t *sys)
 bool is_player_alive(system_t *sys)
 {
     e_list_t *list = get_entities(sys, FULL_LIFE);
+    e_list_t *temp = list;
 
-    if (list == NULL || get_list_size(list) <= 0)
+    if (!list)
         return false;
+    if (get_list_size(temp) <= 0) {
+        clean_list(list);
+        return false;
+    }
+    clean_list(list);
     return true;
 }
