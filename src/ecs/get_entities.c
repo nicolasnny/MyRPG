@@ -55,6 +55,7 @@ static bool check_entity(entity_t *entity, system_t *sys, int component)
 e_list_t *get_entities(system_t *sys, int component)
 {
     e_list_t *s_list = get_pot_list(sys, component);
+    e_list_t *head = s_list;
     e_list_t *rep_list = NULL;
 
     while (s_list != NULL) {
@@ -63,6 +64,7 @@ e_list_t *get_entities(system_t *sys, int component)
         }
         s_list = s_list->next;
     }
+    clean_list(head);
     return rep_list;
 }
 

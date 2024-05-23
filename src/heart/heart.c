@@ -7,9 +7,19 @@
 
 #include "rpg.h"
 
-void refresh_heart_position(system_t *sys)
+static void heart_pos(entity_t *e, sfVector2f *player_center_pos, int index)
 {
     sfVector2f pos = {0};
+
+    pos.x = player_center_pos->x - DEFAULT_VIEW_SIZE_X * HEART_LEFT_POURCENTAGE
+        + index * sfSprite_getGlobalBounds(e->sprite).width;
+        pos.y = player_center_pos->y + DEFAULT_VIEW_SIZE_Y *
+            INVENTORY_HEIGHT_POURCENTAGE / 2;
+    sfSprite_setPosition(e->sprite, pos);
+}
+
+void refresh_heart_position(system_t *sys)
+{
     e_list_t *hearts = get_entities(sys, HEART | VISIBLE);
     e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
     sfVector2f player_center_pos = {0};
@@ -19,11 +29,7 @@ void refresh_heart_position(system_t *sys)
         return;
     player_center_pos = get_center(player->entity->sprite);
     while (hearts != NULL) {
-        pos.x = player_center_pos.x - DEFAULT_VIEW_SIZE_X * HEART_LEFT_POURCENTAGE
-        + index * sfSprite_getGlobalBounds(hearts->entity->sprite).width;
-        pos.y = player_center_pos.y + DEFAULT_VIEW_SIZE_Y *
-            INVENTORY_HEIGHT_POURCENTAGE / 2;
-        sfSprite_setPosition(hearts->entity->sprite, pos);
+        heart_pos(hearts->entity, &player_center_pos, index);
         hearts = hearts->next;
         index++;
     }
