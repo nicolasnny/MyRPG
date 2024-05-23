@@ -75,17 +75,19 @@ static void move_enemy(parameters_t *param,
 void move_mobs(parameters_t *param, sokospot_t ***map)
 {
     e_list_t *list = get_entities(param->sys, MOB);
+    e_list_t *temp = list;
     sfSprite *player = get_player(param->sys);
     sfVector2f pos = {0};
 
     if (player == NULL)
         return;
     pos = sfSprite_getPosition(player);
-    while (list) {
-        if (sprite_in_view(param->view, list->entity->sprite)) {
-            move_enemy(param, map, list->entity, &pos);
+    while (temp) {
+        if (sprite_in_view(param->view, temp->entity->sprite)) {
+            move_enemy(param, map, temp->entity, &pos);
             anime_enemy_walk(param, list->entity);
         }
-        list = list->next;
+        temp = temp->next;
     }
+    clean_list(list);
 }

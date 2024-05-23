@@ -23,6 +23,8 @@ static bool set_new_select(system_t *sys, entity_t *e)
     unset_entity(sys, e, INVENTORY);
     ret = set_entity(e, sys, SELECTED);
     refresh_inventory_pos(sys);
+    if (select_list)
+        clean_list(select_list);
     return ret;
 }
 
