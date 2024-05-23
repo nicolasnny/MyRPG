@@ -48,6 +48,7 @@ void anime_enemy_fight(parameters_t *param, entity_t *enemy)
     sfInt32 time = (sfTime_asMilliseconds(sfClock_getElapsedTime(param->clock)) -
         sfTime_asMilliseconds(enemy->entity_time));
 
+    printf("Yup %s\n", enemy->name);
     current.top = ENEMY_ATTACK_START;
     if (time >= ENEMY_REFRESH_SPEED_WALK) {
         current.left += ENEMY_WIDTH * 2;

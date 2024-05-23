@@ -49,36 +49,37 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     return false;
 }
 
-static bool check_monsters(parameters_t *param, entity_t *player,
-    e_list_t *mobs)
+static bool check_monsters(parameters_t *param, entity_t *player)
 {
+    e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
+
     while (mobs != NULL) {
+            printf("First name: %s\n", mobs->entity->name);
         if (enemy_in_range(player, mobs->entity, ENEMY_ATTACK_RANGE)) {
             remove_life(param->sys);
+            printf("name: %s\n", mobs->entity->name);
             anime_enemy_fight(param, mobs->entity);
             return true;
         }
         mobs = mobs->next;
     }
+    clean_list(mobs);
     return false;
 }
 
 int check_player_collisions(parameters_t *param)
 {
     e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
-    e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
-    e_list_t *m_head = mobs;
     e_list_t *p_head = player;
     static sfIntRect texture_pos =
         (sfIntRect){0, PLAYER_DAMMAGE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
 
     while (player != NULL) {
-        if (check_monsters(param, player->entity, mobs)) {
+        if (check_monsters(param, player->entity)) {
             sfSprite_setTextureRect(player->entity->sprite, texture_pos);
         }
         player = player->next;
     }
     clean_list(p_head);
-    clean_list(m_head);
     return SUCCESS;
 }
