@@ -17,7 +17,6 @@ void display_entities(parameters_t *param, int component)
     e_list_t *list = get_entities(param->sys, component);
     e_list_t *head = NULL;
 
-    reverse_list(&list);
     head = list;
     while (list != NULL) {
         if (list->entity->sprite) {
