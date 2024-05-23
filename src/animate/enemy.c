@@ -53,7 +53,9 @@ void anime_enemy_fight(parameters_t *param, entity_t *enemy)
         current.left += ENEMY_WIDTH * 2;
         enemy->entity_time = sfClock_getElapsedTime(param->clock);
     }
-    if (current.left >= ENEMY_MAX_ATTACK_TEXTURE)
+    if (current.left >= ENEMY_MAX_ATTACK_TEXTURE) {
+        sfSound_play(param->sounds_effect->enemy_attack);
         current.left = 0;
+    }
     sfSprite_setTextureRect(enemy->sprite, current);
 }

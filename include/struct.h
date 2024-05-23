@@ -71,6 +71,12 @@ typedef struct system_s {
     e_list_t *component[__END__];
 } system_t;
 
+typedef struct sounds_effect_s {
+    sfSound *player_attack;
+    sfSound *player_damage;
+    sfSound *enemy_attack;
+} sounds_effect_t;
+
 typedef struct parameters_s {
     sfRenderWindow* window;
     sfView *view;
@@ -81,6 +87,7 @@ typedef struct parameters_s {
     system_t *sys;
     int game_state;
     sfClock *clock;
+    sounds_effect_t *sounds_effect;
 } parameters_t;
 
 #endif

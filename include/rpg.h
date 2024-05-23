@@ -80,8 +80,10 @@
 
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
-    #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
-    #define DEFAULT_VOLUME 100.0
+    #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
+    #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
+    #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
     #define MIN_VOLUME 0.0
 
