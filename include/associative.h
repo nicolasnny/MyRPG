@@ -62,6 +62,7 @@ static const conf_compo_t compo_list[] = {
     {"HEART", HEART},
     {"FULL_LIFE", FULL_LIFE},
     {"LOW_LIFE", LOW_LIFE},
+    {"XP", XP},
     {NULL, 0},
 };
 

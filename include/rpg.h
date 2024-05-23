@@ -115,6 +115,12 @@
     #define HEART_LEFT_POURCENTAGE 0.4
     #define LOSE_LIFE_COOLDOWN 1000
 
+// xp
+    #define XP_WIDTH 0.5
+    #define XP_HEIGHT 0.5
+    #define XP_RECT_HEIGHT 30
+    #define XP_MAP_RECT_HEIGHT 180
+
 //-->main
 int my_rpg(int, char **);
 
@@ -280,5 +286,9 @@ void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
 void remove_life(system_t *sys);
 bool is_player_alive(system_t *sys);
+
+// --> lvl
+void set_lvl_pos(system_t *sys);
+void move_lvl_rect(system_t *sys);
 
 #endif
