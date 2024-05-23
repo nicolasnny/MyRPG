@@ -21,13 +21,11 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
-    #define TIME_BEFORE_MOVE 20
-    #define FONT_PATH "src/sprites/game_font.ttf"
+    #define TIME_BEFORE_MOVE 30
     #define PLAYER_ATTACK_RANGE 60
     #define ENEMY_ATTACK_RANGE 30
     #define PLAYER_SPEED 4
     #define MOBS_SPEED 1
-    #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
     #define LOAD_MC_NAME "mc"
@@ -37,18 +35,12 @@
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
-    #define MAP_SPRITE_PATH "assets/maps/map2.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
-    #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
     #define EMPTY ' '
     #define ENEMY 'E'
-    #define NPC_LIMIT 'L'
-    #define NPC_CHAR 'N'
     #define MAP_WIDTH 360
     #define MAP_HEIGHT 200
-    #define TMP_HEIGHT 60
-    #define TMP_WIDTH 33
 
 // view
     #define DEFAULT_VIEW_SIZE_X 500
@@ -59,9 +51,6 @@
     #define SLOT_TOP 5
     #define SLOT1_WIDTH 33
     #define SLOT_WIDTH 17
-    #define DESCRIPTION_BOX_START 32
-    #define DESCRIPTION_BOX_END 99
-    #define DESCRIPTION_FONT_SIZE 14
     #define INVENTORY_SCALE 1.5
     #define INVENTORY_HEIGHT_POURCENTAGE 0.8
     #define INVENTORY_CAPACITY 4
@@ -186,12 +175,10 @@ void anime_enemy_fight(parameters_t *param, entity_t *enemy);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
-// char **my_pimp_str_to_wa(char *str, char *delim);
 char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
-// unsigned int my_strstrlen(char **array);
 // unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 sfVector2f get_center(sfSprite *s);

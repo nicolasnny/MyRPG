@@ -24,7 +24,7 @@ static bool spot_available(sokospot_t *spot)
         return false;
     }
     type = spot->type;
-    if (type == EMPTY || type == NPC_LIMIT) {
+    if (type == EMPTY) {
         return true;
     }
     return false;
