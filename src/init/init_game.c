@@ -22,29 +22,6 @@ sfView *create_view(void)
     return view;
 }
 
-sounds_effect_t *init_sounds_effect(void)
-{
-    sounds_effect_t *sounds = malloc(sizeof(sounds_effect_t));
-
-    if (sounds == NULL) {
-        perror("systemp malloc failed");
-        return NULL;
-    }
-    sounds->enemy_attack = sfSound_create();
-    sounds->player_attack = sfSound_create();
-    sounds->player_damage = sfSound_create();
-    sfSound_setBuffer(sounds->enemy_attack,
-        sfSoundBuffer_createFromFile(ENEMY_ATTACK_SOUND));
-    sfSound_setBuffer(sounds->player_attack,
-        sfSoundBuffer_createFromFile(PLAYER_ATTACK_SOUND));
-    sfSound_setBuffer(sounds->player_damage,
-        sfSoundBuffer_createFromFile(PLAYER_DAMMAGE_SOUND));
-    sfSound_setVolume(sounds->enemy_attack, MAX_VOLUME);
-    sfSound_setVolume(sounds->player_attack, MAX_VOLUME);
-    sfSound_setVolume(sounds->player_damage, MAX_VOLUME);
-    return sounds;
-}
-
 int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};

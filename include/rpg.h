@@ -85,6 +85,7 @@
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
     #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define EFFECTS_VOLUME 20.0
     #define MIN_VOLUME 0.0
 
 // Player

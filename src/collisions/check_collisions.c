@@ -54,13 +54,14 @@ static bool check_monsters(parameters_t *param, entity_t *player)
     e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
 
     while (mobs != NULL) {
-            printf("First name: %s\n", mobs->entity->name);
+           // printf("First name: %s\n", mobs->entity->name);
         if (enemy_in_range(player, mobs->entity, ENEMY_ATTACK_RANGE)) {
             remove_life(param->sys);
-            printf("name: %s\n", mobs->entity->name);
+            //  printf("name: %s\n", mobs->entity->name);
             anime_enemy_fight(param, mobs->entity);
             return true;
-        }
+        } else
+            anime_enemy_walk(param, mobs->entity);
         mobs = mobs->next;
     }
     clean_list(mobs);
