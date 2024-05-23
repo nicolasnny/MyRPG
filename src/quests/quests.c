@@ -64,14 +64,17 @@ void check_quest(parameters_t *param)
 {
     e_list_t *npc_s = get_entities(param->sys, NPC);
     e_list_t *player = get_entities(param->sys, PLAYER);
+    e_list_t *temp_npc_s = npc_s;
 
     if (!npc_s || !player) {
         printf("no quest to attribute\n");
         return;
     }
-    while (npc_s) {
-        check_npc_quest(npc_s->entity, player->entity, param);
-        npc_s = npc_s->next;
+    while (temp_npc_s) {
+        check_npc_quest(temp_npc_s->entity, player->entity, param);
+        temp_npc_s = temp_npc_s->next;
     }
+    clean_list(npc_s);
+    clean_list(player);
     return;
 }

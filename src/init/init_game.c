@@ -41,5 +41,6 @@ int init_args(parameters_t *param)
     param->view = create_view();
     param->sound_volume = 100.0;
     param->music = NULL;
+    param->actual_quest = NULL;
     return SUCCESS;
 }

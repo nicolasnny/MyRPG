@@ -22,9 +22,9 @@ static int loop(parameters_t *param)
         sfRenderWindow_setView(param->window, param->view);
         window_events(param, MOB);
         make_life(param);
+        display_entities(param, VISIBLE);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
-        display_entities(param, VISIBLE);
     }
     return SUCCESS;
 }
