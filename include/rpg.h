@@ -23,8 +23,8 @@
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOVE 20
     #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 250
-    #define ENNEMY_ATTACK_RANGE 30
+    #define PLAYER_ATTACK_RANGE 60
+    #define ENEMY_ATTACK_RANGE 30
     #define PLAYER_SPEED 4
     #define MOBS_SPEED 1
     #define DEFAULT_NAME "Mob"
@@ -267,7 +267,7 @@ void drop_selected_item(system_t *sys);
 void grab_drop_events(parameters_t *param);
 
 // --> fight
-bool ennemy_in_range(entity_t *player, entity_t *ennemy);
+bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range);
 int kill_entity(parameters_t *param, entity_t *entity, bool state);
 double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb);
 

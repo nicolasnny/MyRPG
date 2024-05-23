@@ -52,7 +52,7 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
 static bool check_monsters(parameters_t *param, entity_t *player, e_list_t *mobs)
 {
     while (mobs != NULL) {
-        if (ennemy_in_range(player, mobs->entity)) {
+        if (enemy_in_range(player, mobs->entity, ENEMY_ATTACK_RANGE)) {
             remove_life(param->sys);
             anime_enemy_fight(param, mobs->entity);
             return true;
