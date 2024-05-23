@@ -23,8 +23,8 @@
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOVE 20
     #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 250
-    #define ENNEMY_ATTACK_RANGE 30
+    #define PLAYER_ATTACK_RANGE 60
+    #define ENEMY_ATTACK_RANGE 30
     #define PLAYER_SPEED 4
     #define MOBS_SPEED 1
     #define DEFAULT_NAME "Mob"
@@ -110,10 +110,23 @@
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
+// Enemy
+    #define ENEMY_WALK_START 60
+    #define ENEMY_ATTACK_START 105
+    #define ENEMY_DAMMAGE_START 150
+    #define ENEMY_WIDTH 40
+    #define ENEMY_WIDTH_ATTACK 45
+    #define ENEMY_HEIGHT 35
+    #define ENEMY_MAX_WALK_TEXTURE 300
+    #define ENEMY_MAX_DAMMAGE_TEXTURE 370
+    #define ENEMY_MAX_IDLE_TEXTURE 70
+    #define ENEMY_REFRESH_SPEED_WALK 150
+    #define ENEMY_MAX_ATTACK_TEXTURE 700
+
 // LIFE
     #define HEART_WIDTH 900
     #define HEART_LEFT_POURCENTAGE 0.4
-    #define LOSE_LIFE_COOLDOWN 3000
+    #define LOSE_LIFE_COOLDOWN 1000
 
 //-->main
 int my_rpg(int, char **);
@@ -156,11 +169,16 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
+sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
+
+// Animation
 void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
 void animate_attack(sfIntRect *idle_pos, sfSprite *player);
-sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
+void anime_enemy_walk(parameters_t *param, entity_t *enemy);
+void anime_enemy_fight(parameters_t *param, entity_t *enemy);
+//void anime_enemy_die(parameters_t *param, entity_t *enemy);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -203,7 +221,7 @@ bool remove_entity_from_list(e_list_t **list, entity_t *e);
 unsigned int get_list_size(e_list_t *list);
 
 // --> collisions
-int check_player_collisions(system_t *sys);
+int check_player_collisions(parameters_t *param);
 
 // --> random
 int random_nb(int a, int b);
@@ -249,7 +267,7 @@ void drop_selected_item(system_t *sys);
 void grab_drop_events(parameters_t *param);
 
 // --> fight
-bool ennemy_in_range(entity_t *player, entity_t *ennemy);
+bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range);
 int kill_entity(parameters_t *param, entity_t *entity, bool state);
 double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb);
 

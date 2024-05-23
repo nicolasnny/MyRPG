@@ -58,7 +58,7 @@ static void check_move_possible(parameters_t *param, sokospot_t ***map,
     e->pos = sfSprite_getPosition(e->sprite);
 }
 
-static void move_ennemy(parameters_t *param,
+static void move_enemy(parameters_t *param,
     sokospot_t ***map, entity_t *e, sfVector2f *player_pos)
 {
     sfVector2f e_pos = get_center(e->sprite);
@@ -83,8 +83,10 @@ void move_mobs(parameters_t *param, sokospot_t ***map)
         return;
     pos = sfSprite_getPosition(player);
     while (temp) {
-        if (sprite_in_view(param->view, temp->entity->sprite))
-            move_ennemy(param, map, temp->entity, &pos);
+        if (sprite_in_view(param->view, temp->entity->sprite)) {
+            move_enemy(param, map, temp->entity, &pos);
+            anime_enemy_walk(param, list->entity);
+        }
         temp = temp->next;
     }
     clean_list(list);
