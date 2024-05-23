@@ -56,6 +56,7 @@ SRC     =	src/main.c	\
 				src/item/item.c	\
 				src/init/init_sounds.c	\
 				src/animate/player.c	\
+				src/animate/enemy.c	\
 				src/animate/heart.c	\
         src/volume/sound.c		\
 				src/volume/music.c		\
