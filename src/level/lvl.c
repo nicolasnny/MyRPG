@@ -17,15 +17,13 @@ void set_lvl_pos(system_t *sys)
     if (xp == NULL || player == NULL)
         return;
     player_center_pos = get_center(player->entity->sprite);
-    pos.x = player_center_pos.x - sfSprite_getGlobalBounds
-        (xp->entity->sprite).width * XP_WIDTH;
-    pos.y = player_center_pos.y - DEFAULT_VIEW_SIZE_Y * XP_HEIGHT / 2
-    - sfSprite_getGlobalBounds(xp->entity->sprite).height / 2;
+    pos.x = player_center_pos.x - DEFAULT_VIEW_SIZE_X / 2 + DEFAULT_VIEW_SIZE_X
+    * XP_WIDTH;
+    pos.y = player_center_pos.y - DEFAULT_VIEW_SIZE_Y / 2 + DEFAULT_VIEW_SIZE_Y
+    * XP_HEIGHT;
     sfSprite_setPosition(xp->entity->sprite, pos);
     clean_list(xp);
     clean_list(player);
-    printf("Lvl pos: {%f, %f}\n", pos.x, pos.y);
-    printf("Player pos: {%f, %f}\n", player_center_pos.x, player_center_pos.y);
 }
 
 void move_lvl_rect(system_t *sys)

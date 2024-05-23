@@ -112,12 +112,13 @@
 
 // LIFE
     #define HEART_WIDTH 900
-    #define HEART_LEFT_POURCENTAGE 0.4
+    #define HEART_LEFT_POURCENTAGE 0.45
     #define LOSE_LIFE_COOLDOWN 1000
+    #define HEART_HEIGHT_POURCENTAGE 0.65
 
 // xp
-    #define XP_WIDTH 0.5
-    #define XP_HEIGHT 0.5
+    #define XP_WIDTH 0.17
+    #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
     #define XP_MAP_RECT_HEIGHT 180
 
@@ -135,9 +136,6 @@ sokospot_t ***get_map(char const *filepath);
 int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
 int mouse_events(parameters_t *param, int component);
-
-//-->time
-//int wait_time(sfClock *clock, float time_sleep);
 
 //----> clean
 void clean(parameters_t *param);
