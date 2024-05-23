@@ -31,12 +31,13 @@ void move_lvl_rect(system_t *sys)
     e_list_t *xp = get_entities(sys, XP);
     sfIntRect rect = {0};
 
-    if (xp == NULL || xp->entity->sprite != NULL)
+    if (xp == NULL || xp->entity->sprite == NULL)
         return;
     rect = sfSprite_getTextureRect(xp->entity->sprite);
-    rect.height += rect.height;
-    if (rect.height >= XP_MAP_RECT_HEIGHT)
-        rect.height = 0;
+    printf("rect => top: %d, height: %d\n", rect.top, rect.height);
+    rect.top -= rect.height;
+    if (rect.top < 0)
+        rect.top = 0;
     sfSprite_setTextureRect(xp->entity->sprite, rect);
     clean_list(xp);
 }
