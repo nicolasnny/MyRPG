@@ -17,6 +17,7 @@ int kill_entity(parameters_t *param, entity_t *entity, bool state)
     if (player == NULL || entity == NULL)
         return ERROR;
     if (ennemy_in_range(player->entity, entity)) {
+        //anime_enemy_die(param, entity);
         printf("/* sword sound */");
         printf("You killed %s !\n", entity->name);
         remove_entity(param->sys, entity);

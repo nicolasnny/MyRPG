@@ -28,16 +28,47 @@ static bool frame_is_spaced(float time_sleep)
 
 void anime_enemy_walk(parameters_t *param, entity_t *enemy)
 {
-    if (enemy == NULL)
-        return;
     sfIntRect current = sfSprite_getTextureRect(enemy->sprite);
-    sfInt32 time = sfClock_getElapsedTime(param->clock).microseconds - enemy->entity_time.microseconds;
+    sfInt32 time = (sfClock_getElapsedTime(param->clock).microseconds - enemy->entity_time.microseconds) / 1000;
 
-    if (time < REFRESH_SPEED_WALK)
-        current.left += ENEMY_WIDTH + 8;
-    else
+    current.top = ENEMY_WALK_START;
+    if (time >= ENEMY_REFRESH_SPEED_WALK) {
+        current.left += ENEMY_WIDTH * 2;
         enemy->entity_time = sfClock_getElapsedTime(param->clock);
+    }
     if (current.left >= ENEMY_MAX_WALK_TEXTURE)
         current.left = 0;
     sfSprite_setTextureRect(enemy->sprite, current);
 }
+
+void anime_enemy_fight(parameters_t *param, entity_t *enemy)
+{
+    sfIntRect current = sfSprite_getTextureRect(enemy->sprite);
+    sfInt32 time = (sfClock_getElapsedTime(param->clock).microseconds - enemy->entity_time.microseconds) / 1000;
+
+    current.top = ENEMY_ATTACK_START;
+    if (time >= ENEMY_REFRESH_SPEED_WALK) {
+        current.left += ENEMY_WIDTH * 2;
+        enemy->entity_time = sfClock_getElapsedTime(param->clock);
+    }
+    if (current.left >= ENEMY_MAX_ATTACK_TEXTURE)
+        current.left = 0;
+    sfSprite_setTextureRect(enemy->sprite, current);
+}
+
+/*void anime_enemy_die(parameters_t *param, entity_t *enemy)
+{
+    sfIntRect current = sfSprite_getTextureRect(enemy->sprite);
+    sfInt32 time = (sfClock_getElapsedTime(param->clock).microseconds - enemy->entity_time.microseconds) / 1000;
+
+    while (current.left < ENEMY_MAX_DAMMAGE_TEXTURE) {
+        current.top = ENEMY_DAMMAGE_START;
+        if (time >= ENEMY_REFRESH_SPEED_WALK) {
+            current.left += ENEMY_WIDTH * 2;
+            enemy->entity_time = sfClock_getElapsedTime(param->clock);
+        }
+        sfSprite_setTextureRect(enemy->sprite, current);
+        sfRenderWindow_drawSprite(param->window, enemy->sprite, NULL);
+    }
+    current.left = 0;
+} */

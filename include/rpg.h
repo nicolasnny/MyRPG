@@ -111,16 +111,17 @@
     #define MAX_IDLE_TEXTURE 70
 
 // Enemy
-    #define ENEMY_WALK_START 50
-    #define ENEMY_IDLE_START 0
-    #define ENEMY_ATTACK_START 100
+    #define ENEMY_WALK_START 60
+    #define ENEMY_ATTACK_START 105
     #define ENEMY_DAMMAGE_START 150
-    #define ENEMY_IDLE_DIFF PLAYER_HEIGHT + 11
-    #define ENEMY_WIDTH 32
-    #define ENEMY_WIDTH_ATTACK 35
-    #define ENEMY_HEIGHT 27
-    #define ENEMY_MAX_WALK_TEXTURE 140
+    #define ENEMY_WIDTH 40
+    #define ENEMY_WIDTH_ATTACK 45
+    #define ENEMY_HEIGHT 35
+    #define ENEMY_MAX_WALK_TEXTURE 300
+    #define ENEMY_MAX_DAMMAGE_TEXTURE 370
     #define ENEMY_MAX_IDLE_TEXTURE 70
+    #define ENEMY_REFRESH_SPEED_WALK 150
+    #define ENEMY_MAX_ATTACK_TEXTURE 700
 
 // LIFE
     #define HEART_WIDTH 900
@@ -176,6 +177,8 @@ void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
 void animate_attack(sfIntRect *idle_pos, sfSprite *player);
 void anime_enemy_walk(parameters_t *param, entity_t *enemy);
+void anime_enemy_fight(parameters_t *param, entity_t *enemy);
+//void anime_enemy_die(parameters_t *param, entity_t *enemy);
 
 //----> utilities
 // char **my_pimp_str_to_wa(char *str, char *delim);
@@ -218,7 +221,7 @@ bool remove_entity_from_list(e_list_t **list, entity_t *e);
 unsigned int get_list_size(e_list_t *list);
 
 // --> collisions
-int check_player_collisions(system_t *sys);
+int check_player_collisions(parameters_t *param);
 
 // --> random
 int random_nb(int a, int b);
