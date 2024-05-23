@@ -9,13 +9,19 @@
 #include <stdio.h>
 #include "rpg.h"
 
-static int loop(parameters_t *param)
+static void loop_setup(parameters_t *param)
 {
     set_view_on_player(param);
     refresh_inventory_pos(param->sys);
+    refresh_heart_position(param->sys);
     sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
+}
+
+static int loop(parameters_t *param)
+{
+    loop_setup(param);
     while (sfRenderWindow_isOpen(param->window) && param->game_state != QUIT) {
         sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
             DEFAULT_VIEW_SIZE_Y});
