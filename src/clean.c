@@ -20,6 +20,7 @@ void free_str_array(char **array)
 
 void clean(parameters_t *param)
 {
+    sfMusic_stop(param->music);
     (void)param;
     return;
 }

@@ -49,14 +49,17 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     return false;
 }
 
-static void check_monsters(system_t *sys, entity_t *player, e_list_t *mobs)
+static bool check_monsters(system_t *sys, entity_t *player, e_list_t *mobs)
 {
     while (mobs != NULL) {
+        if (ennemy_in_range(player, mobs->entity))
+            return true;
         if (sprite_collide(player->sprite, mobs->entity->sprite)) {
             remove_life(sys);
         }
         mobs = mobs->next;
     }
+    return false;
 }
 
 int check_player_collisions(system_t *sys)

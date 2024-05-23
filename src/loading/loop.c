@@ -34,9 +34,11 @@ static bool move_screen(parameters_t *param)
 {
     sfVector2u win_size = sfRenderWindow_getSize(param->window);
     entity_t *e = get_entity_by_name(param->sys, LOAD_MC_NAME);
+    static sfIntRect texture_pos =
+        (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
 
     if (e != NULL && wait_time(LOAD_TIME_MOVE)) {
-        animate_player_walk(e->sprite);
+        animate_player_walk(&texture_pos, e->sprite);
         if (!move_sprite(e->sprite, &win_size))
             return true;
         return false;

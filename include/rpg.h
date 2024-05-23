@@ -23,7 +23,8 @@
     #define NOT_FOUND -1
     #define TIME_BEFORE_MOVE 20
     #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 50
+    #define PLAYER_ATTACK_RANGE 250
+    #define ENNEMY_ATTACK_RANGE 30
     #define PLAYER_SPEED 4
     #define MOBS_SPEED 1
     #define DEFAULT_NAME "Mob"
@@ -96,10 +97,14 @@
     #define MIN_VOLUME 0.0
 
 // Player
-    #define PLAYER_WALK_START 90
-    #define PLAYER_IDLE_START 10
-    #define PLAYER_WIDTH 40
-    #define PLAYER_HEIGHT 30
+    #define PLAYER_WALK_START 95
+    #define PLAYER_IDLE_START 17
+    #define PLAYER_ATTACK_START 135
+    #define PLAYER_IDLE_DIFF PLAYER_HEIGHT + 11
+    #define PLAYER_DAMMAGE_START 175
+    #define PLAYER_WIDTH 32
+    #define PLAYER_WIDTH_ATTACK 35
+    #define PLAYER_HEIGHT 27
     #define REFRESH_SPEED_WALK 70
     #define REFRESH_SPEED_IDLE 900
     #define MAX_WALK_TEXTURE 140
@@ -117,7 +122,7 @@ int my_rpg(int, char **);
 int init_args(parameters_t *param);
 int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfMusic *init_sound(char *path);
-
+void launch_music(parameters_t *param);
 sokospot_t ***get_map(char const *filepath);
 
 //---> events
@@ -139,7 +144,9 @@ void display_entities(parameters_t *param, int component);
 int err_handling(int ac, char **av);
 
 // --> moves
-void move_player(parameters_t *param);
+void move_player
+(parameters_t *param, sfIntRect *texture_pos,
+    sfIntRect *idle_pos, sfVector2f *scale);
 void move_mobs(parameters_t *param, sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
@@ -150,8 +157,9 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
-void animate_player_walk(sfSprite *player);
-void annimate_idle(sfIntRect *idle_pos, sfSprite *player);
+void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void animate_idle(sfIntRect *idle_pos, sfSprite *player);
+void animate_attack(sfIntRect *idle_pos, sfSprite *player);
 sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
 //----> utilities
