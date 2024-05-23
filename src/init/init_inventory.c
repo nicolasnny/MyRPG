@@ -13,7 +13,7 @@
 void set_inventory_pos(system_t *sys)
 {
     sfVector2f pos = {0};
-    e_list_t *i_bar = get_entities(sys, BAR | VISIBLE);
+    e_list_t *i_bar = get_entities(sys, BAR | INVENTORY | VISIBLE);
     e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
     sfVector2f player_center_pos = {0};
 

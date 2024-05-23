@@ -44,11 +44,12 @@ static bool remove_last_element(e_list_t **list)
 
 bool add_element_to_inventory(system_t *sys, entity_t *e)
 {
-    e_list_t *inventory = get_entities(sys, INVENTORY);
+    e_list_t *inventory = get_entities(sys, INVENTORY | ITEM);
 
     if (is_empty_slot(inventory)) {
         set_entity(e, sys, INVENTORY);
         return true;
     }
+    set_entity(e, sys, INVENTORY);
     return remove_last_element(&sys->component[INVENTORY]);
 }

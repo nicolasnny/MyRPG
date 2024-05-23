@@ -10,7 +10,7 @@
 void set_lvl_pos(system_t *sys)
 {
     sfVector2f pos = {0};
-    e_list_t *xp = get_entities(sys, XP | VISIBLE);
+    e_list_t *xp = get_entities(sys, XP | BAR | VISIBLE);
     e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
     sfVector2f player_center_pos = {0};
 
@@ -34,7 +34,6 @@ void move_lvl_rect(system_t *sys)
     if (xp == NULL || xp->entity->sprite == NULL)
         return;
     rect = sfSprite_getTextureRect(xp->entity->sprite);
-    printf("rect => top: %d, height: %d\n", rect.top, rect.height);
     rect.top -= rect.height;
     if (rect.top < 0)
         rect.top = 0;
