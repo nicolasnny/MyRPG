@@ -109,6 +109,10 @@
     #define DIST_TO_QUEST 40.0
     #define DIST_WITH_TRIGGER 20.0
 
+// LIFE
+    #define HEART_WIDTH 900
+    #define HEART_LEFT_POURCENTAGE 0.4
+    #define LOSE_LIFE_COOLDOWN 3000
 
 //-->main
 int my_rpg(int, char **);
@@ -150,7 +154,7 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void animate_player_walk(sfSprite *player);
 void annimate_idle(sfIntRect *idle_pos, sfSprite *player);
 sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 
@@ -272,5 +276,11 @@ void set_text(parameters_t *param, entity_t *entity, char *value);
 
 // --> quests
 void check_quest(parameters_t *param);
+
+// --> life
+void refresh_heart_position(system_t *sys);
+void move_heart_rect(sfSprite *s);
+void remove_life(system_t *sys);
+bool is_player_alive(system_t *sys);
 
 #endif

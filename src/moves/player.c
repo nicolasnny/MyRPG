@@ -106,6 +106,7 @@ static void update_player_in_map
     set_player_new_pos(param, move);
     move_in_array(param, param->map_array, player);
     refresh_inventory_pos(param->sys);
+    refresh_heart_position(param->sys);
 }
 
 void move_player(parameters_t *param)
@@ -113,8 +114,6 @@ void move_player(parameters_t *param)
     entity_t *player = get_player_entity(param->sys);
     sfVector2f map_size = get_map_size(param->sys);
     sfVector2f move = {0};
-    static sfIntRect texture_pos =
-        (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
     static sfIntRect idle_pos =
         (sfIntRect){0, PLAYER_IDLE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
     static sfVector2f scale = (sfVector2f){1, 1};
@@ -125,7 +124,7 @@ void move_player(parameters_t *param)
     if (move.x != 0.0 || move.y != 0.0) {
         idle_pos.top = PLAYER_IDLE_START;
         flip_sprite(move, player->sprite, &scale);
-        animate_player_walk(&texture_pos, player->sprite);
+        animate_player_walk(player->sprite);
         update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
     } else

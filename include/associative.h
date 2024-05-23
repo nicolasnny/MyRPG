@@ -61,6 +61,9 @@ static const conf_compo_t compo_list[] = {
     {"LOADING", LOADING},
     {"BOX", BOX},
     {"QUEST_TRIGGER", QUEST_TRIGGER},
+    {"HEART", HEART},
+    {"FULL_LIFE", FULL_LIFE},
+    {"LOW_LIFE", LOW_LIFE},
     {NULL, 0},
 };
 

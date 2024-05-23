@@ -56,10 +56,12 @@ SRC     =	src/main.c	\
 				src/item/item.c	\
 				src/init/init_sounds.c	\
 				src/animate/player.c	\
+				src/animate/heart.c	\
         src/volume/sound.c		\
 				src/volume/music.c		\
 				src/loading/loop.c	\
 				src/quests/quests.c			\
+				src/heart/heart.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			    tests/test.c	\
@@ -114,6 +116,7 @@ UT_SRC	=	tests/unit_tests.c	\
         src/volume/sound.c		\
 				src/volume/music.c		\
 				src/loading/loop.c	\
+				src/heart/heart.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 

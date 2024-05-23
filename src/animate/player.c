@@ -26,13 +26,16 @@ static bool is_spaced(float time_sleep)
     return false;
 }
 
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player)
+void animate_player_walk(sfSprite *player)
 {
+    static sfIntRect texture_pos =
+        (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
+
     if (is_spaced(REFRESH_SPEED_WALK))
-        texture_pos->left += PLAYER_WIDTH;
-    if (texture_pos->left >= MAX_WALK_TEXTURE)
-        texture_pos->left = 0;
-    sfSprite_setTextureRect(player, *texture_pos);
+        texture_pos.left += PLAYER_WIDTH;
+    if (texture_pos.left >= MAX_WALK_TEXTURE)
+        texture_pos.left = 0;
+    sfSprite_setTextureRect(player, texture_pos);
 }
 
 void annimate_idle(sfIntRect *idle_pos, sfSprite *player)
