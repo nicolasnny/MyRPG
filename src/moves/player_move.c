@@ -109,28 +109,25 @@ static void update_player_in_map
     refresh_inventory_pos(param->sys);
 }
 
-void move_player(parameters_t *param)
+void move_player
+(parameters_t *param, sfIntRect *texture_pos,
+    sfIntRect *idle_pos, sfVector2f *scale)
 {
     entity_t *player = get_player_entity(param->sys);
     sfVector2f map_size = get_map_size(param->sys);
     sfVector2f move = {0};
-    static sfIntRect texture_pos =
-        (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
-    static sfIntRect idle_pos =
-        (sfIntRect){0, PLAYER_IDLE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
-    static sfVector2f scale = (sfVector2f){1, 1};
 
     if (param->map_array == NULL || player == NULL)
         return;
     move = get_p_move_event(&map_size, player->sprite);
     if (move.x != 0.0 || move.y != 0.0) {
-        idle_pos.top = PLAYER_IDLE_START;
-        flip_sprite(move, player->sprite, &scale);
-        animate_player_walk(&texture_pos, player->sprite);
+        idle_pos->top = PLAYER_IDLE_START;
+        flip_sprite(move, player->sprite, scale);
+        animate_player_walk(texture_pos, player->sprite);
         update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
     } else
-        animate_idle(&idle_pos, player->sprite);
+        animate_idle(idle_pos, player->sprite);
     if (sfMouse_isButtonPressed(sfMouseLeft))
-        animate_attack(&texture_pos, player->sprite);
+        animate_attack(texture_pos, player->sprite);
 }

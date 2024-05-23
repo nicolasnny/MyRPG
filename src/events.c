@@ -98,7 +98,6 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param,
 int mouse_events(parameters_t *param, int component)
 {
     e_list_t *compo_list = get_entities(param->sys, component);
-    sfSprite *player = get_entities(param->sys, PLAYER)->entity->sprite;
 
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         if (param->event.type == sfEvtClosed) {

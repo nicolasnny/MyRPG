@@ -118,7 +118,7 @@ int my_rpg(int, char **);
 int init_args(parameters_t *param);
 int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfMusic *init_sound(char *path);
-
+void launch_music(parameters_t *param);
 sokospot_t ***get_map(char const *filepath);
 
 //---> events
@@ -140,7 +140,9 @@ void display_entities(parameters_t *param, int component);
 int err_handling(int ac, char **av);
 
 // --> moves
-void move_player(parameters_t *param);
+void move_player
+(parameters_t *param, sfIntRect *texture_pos,
+    sfIntRect *idle_pos, sfVector2f *scale);
 void move_mobs(parameters_t *param, sokospot_t ***map);
 void set_player_first_pos(sfView *view, sokospot_t ***map);
 void swap_struct(sokospot_t **current, sokospot_t **target);
