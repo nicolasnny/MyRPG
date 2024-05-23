@@ -36,7 +36,7 @@ void move_lvl_rect(system_t *sys)
     rect = sfSprite_getTextureRect(xp->entity->sprite);
     rect.top -= rect.height;
     if (rect.top < 0)
-        rect.top = 0;
+        rect.top = XP_MAX_RECT_HEIGHT - rect.height;
     sfSprite_setTextureRect(xp->entity->sprite, rect);
     clean_list(xp);
 }

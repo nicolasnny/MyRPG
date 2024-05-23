@@ -122,7 +122,7 @@
     #define XP_WIDTH 0.17
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
-    #define XP_MAP_RECT_HEIGHT 180
+    #define XP_MAX_RECT_HEIGHT 180
 
 //-->main
 int my_rpg(int, char **);
