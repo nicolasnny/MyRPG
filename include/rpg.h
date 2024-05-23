@@ -186,7 +186,7 @@ sfVector2f get_center(sfSprite *s);
 // ECS
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
-entity_t *create_entity(system_t *sys, int component);
+entity_t *create_entity(parameters_t *param, int compo);
 e_list_t *get_entities(system_t *sys, int component);
 void set_scale(parameters_t *param, entity_t *entity, char *value);
 void set_pos(parameters_t *param, entity_t *entity, char *value);

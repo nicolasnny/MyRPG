@@ -29,8 +29,8 @@ static bool frame_is_spaced(float time_sleep)
 void anime_enemy_walk(parameters_t *param, entity_t *enemy)
 {
     sfIntRect current = sfSprite_getTextureRect(enemy->sprite);
-    sfInt32 time = (sfClock_getElapsedTime(param->clock).microseconds -
-        enemy->entity_time.microseconds) / 1000;
+    sfInt32 time = (sfTime_asMilliseconds(sfClock_getElapsedTime(param->clock)) -
+        sfTime_asMilliseconds(enemy->entity_time));
 
     current.top = ENEMY_WALK_START;
     if (time >= ENEMY_REFRESH_SPEED_WALK) {
@@ -45,8 +45,8 @@ void anime_enemy_walk(parameters_t *param, entity_t *enemy)
 void anime_enemy_fight(parameters_t *param, entity_t *enemy)
 {
     sfIntRect current = sfSprite_getTextureRect(enemy->sprite);
-    sfInt32 time = (sfClock_getElapsedTime(param->clock).microseconds -
-        enemy->entity_time.microseconds) / 1000;
+    sfInt32 time = (sfTime_asMilliseconds(sfClock_getElapsedTime(param->clock)) -
+        sfTime_asMilliseconds(enemy->entity_time));
 
     current.top = ENEMY_ATTACK_START;
     if (time >= ENEMY_REFRESH_SPEED_WALK) {
