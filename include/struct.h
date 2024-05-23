@@ -77,7 +77,7 @@ typedef struct parameters_s {
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
-
+    bool (*actual_quest)(parameters_t *param);
 } parameters_t;
 
 #endif

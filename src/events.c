@@ -82,7 +82,7 @@ static void hover_entity(e_list_t *compo_list, parameters_t *param,
     else
         m_pos = get_mouse_pos(param);
     while (temp) {
-        if (temp->entity->sprite) {
+        if (temp->entity && temp->entity->sprite) {
             e_pos = sfSprite_getGlobalBounds(temp->entity->sprite);
         }
         if (!temp->entity->sprite && temp->entity->rect)

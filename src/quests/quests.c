@@ -41,7 +41,8 @@ static void disp_trigger(sfVector2f *npc_pos, parameters_t *param)
     set_entity(final_trigger, param->sys, QUEST_TRIGGER | VISIBLE);
 }
 
-bool check_npc_quest(entity_t *npc, entity_t *player, parameters_t *param)
+static bool check_npc_quest(entity_t *npc, entity_t *player,
+    parameters_t *param)
 {
     sfVector2f npc_pos = sfSprite_getPosition(npc->sprite);
     sfVector2f player_pos = sfSprite_getPosition(player->sprite);
