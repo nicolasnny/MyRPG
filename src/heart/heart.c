@@ -14,7 +14,7 @@ static void heart_pos(entity_t *e, sfVector2f *player_center_pos, int index)
     pos.x = player_center_pos->x - DEFAULT_VIEW_SIZE_X * HEART_LEFT_POURCENTAGE
         + index * sfSprite_getGlobalBounds(e->sprite).width;
         pos.y = player_center_pos->y + DEFAULT_VIEW_SIZE_Y *
-            INVENTORY_HEIGHT_POURCENTAGE / 2;
+            HEART_HEIGHT_POURCENTAGE / 2;
     sfSprite_setPosition(e->sprite, pos);
 }
 

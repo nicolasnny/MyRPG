@@ -11,7 +11,7 @@
 
 static bool set_new_select(system_t *sys, entity_t *e)
 {
-    e_list_t *select_list = get_entities(sys, SELECTED);
+    e_list_t *select_list = get_entities(sys, SELECTED | ITEM);
     entity_t *prev_select = NULL;
     bool ret = false;
 
@@ -30,7 +30,7 @@ static bool set_new_select(system_t *sys, entity_t *e)
 
 static bool select_item(system_t *sys, unsigned int slot_nb)
 {
-    e_list_t *inventory_list = get_entities(sys, INVENTORY);
+    e_list_t *inventory_list = get_entities(sys, INVENTORY | ITEM);
     unsigned int index = 1;
 
     if (inventory_list == NULL)

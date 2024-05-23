@@ -67,6 +67,8 @@ static const conf_compo_t compo_list[] = {
     {"LOW_LIFE", LOW_LIFE},
     {"TUTORIAL", TUTORIAL},
     {"IMAGE", IMAGE},
+    {"XP", XP},
+    {"ITEM", ITEM},
     {NULL, 0},
 };
 

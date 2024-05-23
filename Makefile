@@ -63,6 +63,7 @@ SRC     =	src/main.c	\
 				src/loading/loop.c	\
 				src/heart/heart.c	\
 				src/user_interface/start_menu/tutorial.c	\
+				src/level/lvl.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			    tests/test.c	\
@@ -118,6 +119,7 @@ UT_SRC	=	tests/unit_tests.c	\
 				src/volume/music.c		\
 				src/loading/loop.c	\
 				src/heart/heart.c	\
+				src/level/lvl.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 

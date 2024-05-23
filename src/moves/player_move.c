@@ -108,10 +108,10 @@ static void update_player_in_map
     move_in_array(param, param->map_array, player);
     refresh_inventory_pos(param->sys);
     refresh_heart_position(param->sys);
+    set_lvl_pos(param->sys);
 }
 
-void move_player
-(parameters_t *param, sfIntRect *texture_pos,
+void move_player(parameters_t *param, sfIntRect *texture_pos,
     sfIntRect *idle_pos, sfVector2f *scale)
 {
     entity_t *player = get_player_entity(param->sys);

@@ -26,6 +26,7 @@ int kill_entity(parameters_t *param, entity_t *entity, bool state)
         unset_entity(param->sys, entity, VISIBLE);
         clean_list(player);
         clean_list(tmp_mob);
+        move_lvl_rect(param->sys);
         return 1;
     }
     clean_list(player);
