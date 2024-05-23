@@ -50,6 +50,7 @@ typedef struct entity_s {
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
     sfVector2f scale;
     sfVector2f pos;
+    sfTime entity_time;
 } entity_t;
 
 typedef struct sokospot_s {
@@ -75,6 +76,7 @@ typedef struct parameters_s {
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
+    sfClock *clock;
 } parameters_t;
 
 #endif
