@@ -63,12 +63,14 @@ int check_player_collisions(system_t *sys)
 {
     e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
     e_list_t *mobs = get_entities(sys, MOB | VISIBLE);
+    e_list_t *m_head = mobs;
+    e_list_t *p_head = player;
 
     while (player != NULL) {
         check_monsters(sys, player->entity, mobs);
         player = player->next;
     }
-    clean_list(player);
-    clean_list(mobs);
+    clean_list(p_head);
+    clean_list(m_head);
     return SUCCESS;
 }

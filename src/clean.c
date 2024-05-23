@@ -18,12 +18,6 @@ void free_str_array(char **array)
     free(array);
 }
 
-void clean(parameters_t *param)
-{
-    (void)param;
-    return;
-}
-
 void free_entity(entity_t *e)
 {
     if (e == NULL) {
@@ -32,8 +26,51 @@ void free_entity(entity_t *e)
     if (e->sprite != NULL) {
         sfSprite_destroy(e->sprite);
     }
-    if (e->name != NULL) {
+    if (e->name != NULL)
         free(e->name);
-    }
+    if (e->rect != NULL)
+        sfRectangleShape_destroy(e->rect);
     free(e);
+}
+
+static void delete_entity_list(e_list_t *list)
+{
+    while (list) {
+        free_entity(list->entity);
+        list = list->next;
+    }
+}
+
+static void free_system(system_t *sys)
+{
+    e_list_t *next = NULL;
+
+    delete_entity_list(sys->e_list);
+    for (unsigned int i = 0; i < __END__; i++) {
+        while (sys->component[i]) {
+            next = sys->component[i]->next;
+            free(sys->component[i]);
+            sys->component[i] = next;
+        }
+    }
+    free(sys);
+}
+
+static void free_sokomap(sokospot_t ***map)
+{
+    for (unsigned int line = 0; map[line]; line++) {
+        for (unsigned int col = 0; map[line][col]; col++) {
+            free(map[line][col]);
+        }
+        free(map[line]);
+    }
+}
+
+void clean(parameters_t *param)
+{
+    free_system(param->sys);
+    sfView_destroy(param->view);
+    sfMusic_destroy(param->music);
+    free_sokomap(param->map_array);
+    return;
 }
