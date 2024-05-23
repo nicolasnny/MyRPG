@@ -67,9 +67,13 @@ int check_player_collisions(system_t *sys)
     e_list_t *mobs = get_entities(sys, MOB | VISIBLE);
     e_list_t *m_head = mobs;
     e_list_t *p_head = player;
+    static sfIntRect texture_pos =
+        (sfIntRect){0, PLAYER_DAMMAGE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
 
     while (player != NULL) {
-        check_monsters(sys, player->entity, mobs);
+        if (check_monsters(sys, player->entity, mobs)) {
+            sfSprite_setTextureRect(player->entity->sprite, texture_pos);
+        }
         player = player->next;
     }
     clean_list(p_head);

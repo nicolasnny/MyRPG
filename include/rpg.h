@@ -113,7 +113,7 @@
 // LIFE
     #define HEART_WIDTH 900
     #define HEART_LEFT_POURCENTAGE 0.4
-    #define LOSE_LIFE_COOLDOWN 3000
+    #define LOSE_LIFE_COOLDOWN 1000
 
 //-->main
 int my_rpg(int, char **);
