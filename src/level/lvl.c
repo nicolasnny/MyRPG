@@ -29,14 +29,17 @@ void set_lvl_pos(system_t *sys)
 void move_lvl_rect(system_t *sys)
 {
     e_list_t *xp = get_entities(sys, XP);
+    e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
     sfIntRect rect = {0};
 
-    if (xp == NULL || xp->entity->sprite == NULL)
+    if (xp == NULL || xp->entity->sprite == NULL || player == NULL)
         return;
     rect = sfSprite_getTextureRect(xp->entity->sprite);
     rect.top -= rect.height;
-    if (rect.top < 0)
-        rect.top = 0;
+    if (rect.top < 0) {
+        rect.top = XP_MAX_RECT_HEIGHT;
+        player->entity->attack += 1;
+    }
     sfSprite_setTextureRect(xp->entity->sprite, rect);
     clean_list(xp);
 }

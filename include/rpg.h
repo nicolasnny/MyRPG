@@ -32,6 +32,8 @@
     #define LOAD_TIME_MOVE 30
     #define LOAD_RIGHT_MVT 10
     #define DEFAULT_SCALE 1.0
+    #define DEFAULT_ENTITY_ATTACK 1
+    #define DEFAULT_ENTITY_HEALTH 3
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -131,7 +133,7 @@
     #define XP_WIDTH 0.17
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
-    #define XP_MAP_RECT_HEIGHT 180
+    #define XP_MAX_RECT_HEIGHT 180
 
 //-->main
 int my_rpg(int, char **);
@@ -302,6 +304,7 @@ void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
 void remove_life(system_t *sys);
 bool is_player_alive(system_t *sys);
+int add_life(parameters_t *param, entity_t *e, bool state);
 
 // --> tutorial
 int tutorial(parameters_t *param, entity_t *entity, bool state);
