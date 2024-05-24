@@ -75,6 +75,8 @@ typedef struct sounds_effect_s {
     sfSound *player_attack;
     sfSound *player_damage;
     sfSound *enemy_attack;
+    sfSound *walk_1;
+    sfSound *walk_2;
 } sounds_effect_t;
 
 typedef struct parameters_s {

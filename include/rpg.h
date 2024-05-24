@@ -83,9 +83,12 @@
     #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
     #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
+    #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
     #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
     #define EFFECTS_VOLUME 20.0
+    #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
 
 // Player
@@ -171,7 +174,8 @@ sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
 
 // Animation
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void animate_player_walk
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
 void animate_attack
 (parameters_t *param, sfIntRect *texture_pos, sfSprite *player);

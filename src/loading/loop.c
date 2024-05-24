@@ -38,7 +38,7 @@ static bool move_screen(parameters_t *param)
         (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
 
     if (e != NULL && wait_time(LOAD_TIME_MOVE)) {
-        animate_player_walk(&texture_pos, e->sprite);
+        animate_player_walk(param, &texture_pos, e->sprite);
         if (!move_sprite(e->sprite, &win_size))
             return true;
         return false;
