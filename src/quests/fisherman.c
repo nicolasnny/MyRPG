@@ -37,6 +37,7 @@ bool fisherman(parameters_t *param)
         create_sprite(param, reward, "TRUE");
         set_pos(param, reward, "990,852");
         set_texture(param, reward, "assets/UI/empty.png");
+        set_click(param, reward, "add_life");
         return true;
     }
     set_entity(quest, param->sys, VISIBLE);
