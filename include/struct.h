@@ -46,7 +46,8 @@ typedef enum component_s {
     QUEST_TRIGGER = 1 << 22,
     QUEST = 1 << 23,
     IN_GAME = 1 << 24,
-    __END__ = 1 << 25,
+    TALKABLE = 1 << 25,
+    __END__ = 1 << 26,
 } component_t;
 
 typedef struct entity_s {

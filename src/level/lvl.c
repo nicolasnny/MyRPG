@@ -70,24 +70,40 @@ static void updtate_text(system_t *sys, int lvl)
     clean_list(l);
 }
 
-void move_lvl_rect(parameters_t *param)
+static void update_lvl(entity_t *player, int *lvl)
 {
-    e_list_t *xp = get_entities(param->sys, XP);
+    player->attack += 1;
+    *lvl += 1;
+}
+
+bool move_lvl_rect(parameters_t *param)
+{
+    e_list_t *xp = get_entities(param->sys, XP | BAR | VISIBLE);
     e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
     sfIntRect rect = {0};
     static int lvl = 1;
+    bool ret = false;
 
     if (xp == NULL || xp->entity->sprite == NULL || player == NULL)
-        return;
+        return true;
     rect = sfSprite_getTextureRect(xp->entity->sprite);
     rect.top -= rect.height;
     if (rect.top < 0) {
         rect.top = XP_MAX_RECT_HEIGHT - rect.height;
-        player->entity->attack += 1;
-        lvl++;
+        update_lvl(player->entity, &lvl);
         add_life(param, NULL, false);
         updtate_text(param->sys, lvl);
+        ret = true;
     }
     sfSprite_setTextureRect(xp->entity->sprite, rect);
     clean_list(xp);
+    return ret;
+}
+
+int add_one_lvl(parameters_t *param, entity_t *e, bool state)
+{
+    while (!move_lvl_rect(param));
+    (void)e;
+    (void)state;
+    return SUCCESS;
 }

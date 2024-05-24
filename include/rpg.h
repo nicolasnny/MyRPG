@@ -340,7 +340,8 @@ int next_image(parameters_t *param, entity_t *entity, bool state);
 
 // --> lvl
 void refresh_lvl_pos(system_t *sys);
-void move_lvl_rect(parameters_t *param);
+bool move_lvl_rect(parameters_t *param);
+int add_one_lvl(parameters_t *param, entity_t *e, bool state);
 
 // --> health and attack
 void set_health(parameters_t *param, entity_t *entity, char *value);

@@ -29,9 +29,14 @@ bool fisherman(parameters_t *param)
     int actual_nb_mob = get_nb_mob(param, MOB | VISIBLE);
     entity_t *quest = get_entity_by_name(param->sys, "fisherman_quest");
     entity_t *reset_btn = get_entity_by_name(param->sys, "reset_quest");
+    entity_t *reward = NULL;
 
     if (initial_nb_mob - actual_nb_mob >= 2) {
         reset_quest(param, NULL, false);
+        reward = create_entity(param, ITEM | ON_MAP | VISIBLE);
+        create_sprite(param, reward, "TRUE");
+        set_pos(param, reward, "990,852");
+        set_texture(param, reward, "assets/UI/empty.png");
         return true;
     }
     set_entity(quest, param->sys, VISIBLE);
