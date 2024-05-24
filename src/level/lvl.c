@@ -11,17 +11,17 @@
 
 static void set_text_lvl_pos(system_t *sys)
 {
-    e_list_t *xp_bar = get_entities(sys, BAR | XP | VISIBLE);
-    e_list_t *txt_list = get_entities(sys, TEXT | XP | VISIBLE);
-    sfVector2f pos = {0};
+    // e_list_t *xp_bar = get_entities(sys, BAR | XP | VISIBLE);
+    // e_list_t *txt_list = get_entities(sys, TEXT | XP | VISIBLE);
+    // sfVector2f pos = {0};
 
-    if (sys == NULL || xp_bar == NULL || txt_list)
-        return;
-    pos = sfSprite_getPosition(xp_bar->entity->sprite);
-    pos.y -= sfText_getGlobalBounds(txt_list->entity->text).height
-    + LVL_GAP_WITH_BAR;
-    pos.x += sfSprite_getGlobalBounds(xp_bar->entity->sprite).width -
-    sfText_getGlobalBounds(txt_list->entity->text).width;
+    // if (sys == NULL || xp_bar == NULL || txt_list)
+    //     return;
+    // pos = sfSprite_getPosition(xp_bar->entity->sprite);
+    // pos.y -= sfText_getGlobalBounds(txt_list->entity->text).height
+    // + LVL_GAP_WITH_BAR;
+    // pos.x += sfSprite_getGlobalBounds(xp_bar->entity->sprite).width -
+    // sfText_getGlobalBounds(txt_list->entity->text).width;
 }
 
 static void set_lvl_pos(system_t *sys)
@@ -76,12 +76,12 @@ void move_lvl_rect(system_t *sys)
 
     if (xp == NULL || xp->entity->sprite == NULL || player == NULL)
         return;
-    lvl += 1;
     rect = sfSprite_getTextureRect(xp->entity->sprite);
     rect.top -= rect.height;
     if (rect.top < 0) {
         rect.top = XP_MAX_RECT_HEIGHT - rect.height;
         player->entity->attack += 1;
+        lvl++;
     }
     sfSprite_setTextureRect(xp->entity->sprite, rect);
     clean_list(xp);

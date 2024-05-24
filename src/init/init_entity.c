@@ -96,6 +96,6 @@ entity_t *create_entity(parameters_t *param, int compo)
     e->entity_time = sfClock_getElapsedTime(param->clock);
     e->attack = DEFAULT_ENTITY_ATTACK;
     e->health = DEFAULT_ENTITY_HEALTH;
+    e->sprite = NULL;
     return e;
-   return e;
 }
