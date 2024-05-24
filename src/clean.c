@@ -71,7 +71,9 @@ void clean(parameters_t *param)
     free_system(param->sys);
     sfView_destroy(param->view);
     free_sokomap(param->map_array);
-    sfMusic_stop(param->music);
-    sfMusic_destroy(param->music);
+    if (param->music) {
+        sfMusic_stop(param->music);
+        sfMusic_destroy(param->music);
+    }
     return;
 }

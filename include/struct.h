@@ -54,7 +54,10 @@ typedef struct entity_s {
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
     sfVector2f scale;
     sfVector2f pos;
+    int attack;
+    int health;
     sfTime entity_time;
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {

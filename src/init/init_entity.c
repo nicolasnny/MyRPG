@@ -92,6 +92,7 @@ entity_t *create_entity(parameters_t *param, int compo)
     e->name = NULL;
     e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
     e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
+    e->text = NULL;
     e->entity_time = sfClock_getElapsedTime(param->clock);
-    return e;
+   return e;
 }
