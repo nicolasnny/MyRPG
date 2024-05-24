@@ -108,7 +108,7 @@ static void update_player_in_map
     move_in_array(param, param->map_array, player);
     refresh_inventory_pos(param->sys);
     refresh_heart_position(param->sys);
-    set_lvl_pos(param->sys);
+    refresh_lvl_pos(param->sys);
 }
 
 void move_player(parameters_t *param, sfIntRect *texture_pos,

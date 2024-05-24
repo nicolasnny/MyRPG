@@ -93,5 +93,6 @@ entity_t *create_entity(system_t *sys, int compo)
     e->name = NULL;
     e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
     e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
+    e->text = NULL;
     return e;
 }

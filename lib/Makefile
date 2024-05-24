@@ -15,6 +15,7 @@ SRC	=	my_print_str_array.c		\
 		my_strstrlen.c				\
 		my_str_array_dup_ban_str.c	\
 		my_str_to_word_array.c		\
+		my_nb_to_str.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

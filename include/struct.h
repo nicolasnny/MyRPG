@@ -55,6 +55,7 @@ typedef struct entity_s {
     sfVector2f scale;
     sfVector2f pos;
     sfTime entity_time;
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {
