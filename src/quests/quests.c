@@ -11,14 +11,24 @@
 #include "rpg.h"
 #include "associative.h"
 
-static void reset_trigger(parameters_t *param)
+static void reset_trigger(parameters_t *param, sfVector2f *npc_pos)
 {
     e_list_t *triggers = get_entities(param->sys, QUEST_TRIGGER);
+    sfVector2f trigger_pos = sfSprite_getPosition(triggers->entity->sprite);
+    double dist = get_distance_bewteen_pos(npc_pos, &trigger_pos);
+    double tmp_dist = 0.0;
+    entity_t *final_trigger = triggers->entity;
 
     while (triggers) {
-        unset_entity(param->sys, triggers->entity, VISIBLE);
+        trigger_pos = sfSprite_getPosition(triggers->entity->sprite);
+        tmp_dist = get_distance_bewteen_pos(&trigger_pos, npc_pos);
+        if (tmp_dist < dist) {
+            final_trigger = triggers->entity;
+            dist = tmp_dist;
+        }
         triggers = triggers->next;
     }
+    unset_entity(param->sys, final_trigger, VISIBLE);
 }
 
 static entity_t *disp_trigger(sfVector2f *npc_pos, parameters_t *param)
@@ -73,11 +83,12 @@ static bool check_npc_quest(entity_t *npc, entity_t *player,
         set_text_pos(npc, param);
         if (sfKeyboard_isKeyPressed(sfKeyEnter)) {
             set_entity(npc, param->sys, BOX);
-            trigger->clicked(param, NULL, false);
         }
+        if (sfKeyboard_isKeyPressed(sfKeyEnter) && trigger->clicked)
+            trigger->clicked(param, NULL, false);
     } else {
-        reset_trigger(param);
         unset_entity(param->sys, npc, BOX);
+        reset_trigger(param, &npc_pos);
     }
     return false;
 }
