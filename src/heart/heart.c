@@ -70,6 +70,23 @@ void remove_life(system_t *sys)
     clean_list(list);
 }
 
+int add_life(parameters_t *param, entity_t *tmp, bool state)
+{
+    e_list_t *list = get_entities(param->sys, LOW_LIFE);
+    entity_t *e = NULL;
+
+    if (list == NULL)
+        return ERROR;
+    e = list->entity;
+    unset_entity(param->sys, e, LOW_LIFE);
+    set_entity(e, param->sys, FULL_LIFE);
+    move_heart_rect(e->sprite);
+    clean_list(list);
+    (void)state;
+    (void)tmp;
+    return SUCCESS;
+}
+
 bool is_player_alive(system_t *sys)
 {
     e_list_t *list = get_entities(sys, FULL_LIFE);

@@ -94,5 +94,8 @@ entity_t *create_entity(parameters_t *param, int compo)
     e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
     e->text = NULL;
     e->entity_time = sfClock_getElapsedTime(param->clock);
+    e->attack = DEFAULT_ENTITY_ATTACK;
+    e->health = DEFAULT_ENTITY_HEALTH;
+    return e;
    return e;
 }
