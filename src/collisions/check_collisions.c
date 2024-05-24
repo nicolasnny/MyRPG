@@ -14,18 +14,19 @@
 bool check_monsters(parameters_t *param, entity_t *player)
 {
     e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
+    bool flag = false;
 
     while (mobs != NULL) {
         if (enemy_in_range(player, mobs->entity, ENEMY_ATTACK_RANGE)) {
             remove_life(param->sys);
             anime_enemy_fight(param, mobs->entity);
-            return true;
+            flag = true;
         } else
             anime_enemy_walk(param, mobs->entity);
         mobs = mobs->next;
     }
     clean_list(mobs);
-    return false;
+    return flag;
 }
 
 int check_player_collisions(parameters_t *param)
