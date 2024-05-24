@@ -49,7 +49,7 @@ static bool sprite_collide(sfSprite *a, sfSprite *b)
     return false;
 }
 
-static bool check_monsters(parameters_t *param, entity_t *player)
+bool check_monsters(parameters_t *param, entity_t *player)
 {
     e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
 
@@ -74,10 +74,17 @@ int check_player_collisions(parameters_t *param)
     e_list_t *p_head = player;
     static sfIntRect texture_pos =
         (sfIntRect){0, PLAYER_DAMMAGE_START, PLAYER_WIDTH, PLAYER_HEIGHT};
+    sfInt32 time = 0;
 
     while (player != NULL) {
+        time = (sfTime_asMilliseconds(sfClock_getElapsedTime(param->clock)) -
+        sfTime_asMilliseconds(player->entity->entity_time));
         if (check_monsters(param, player->entity)) {
             sfSprite_setTextureRect(player->entity->sprite, texture_pos);
+        }
+        if (check_monsters(param, player->entity) && time >= REFRESH_SPEED_DAMAGE) {
+            sfSound_play(param->sounds_effect->player_damage);
+            player->entity->entity_time = sfClock_getElapsedTime(param->clock);
         }
         player = player->next;
     }

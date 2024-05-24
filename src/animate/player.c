@@ -45,12 +45,15 @@ void animate_idle(sfIntRect *idle_pos, sfSprite *player)
     sfSprite_setTextureRect(player, *idle_pos);
 }
 
-void animate_attack(sfIntRect *texture_pos, sfSprite *player)
+void animate_attack
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player)
 {
     texture_pos->top = PLAYER_ATTACK_START;
     texture_pos->width = PLAYER_WIDTH_ATTACK;
     if (is_spaced(REFRESH_SPEED_WALK))
         texture_pos->left += PLAYER_WIDTH + 8;
+    if (texture_pos->left == (PLAYER_WIDTH + 8) * 2)
+        sfSound_play(param->sounds_effect->player_attack);
     if (texture_pos->left >= MAX_WALK_TEXTURE)
         texture_pos->left = 0;
     sfSprite_setTextureRect(player, *texture_pos);

@@ -99,6 +99,7 @@
     #define PLAYER_HEIGHT 27
     #define REFRESH_SPEED_WALK 70
     #define REFRESH_SPEED_IDLE 900
+    #define REFRESH_SPEED_DAMAGE 900
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
@@ -136,6 +137,7 @@ int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfMusic *init_sound(char *path);
 void launch_music(parameters_t *param);
 sokospot_t ***get_map(char const *filepath);
+sounds_effect_t *init_sounds_effect(void);
 
 //---> events
 int window_events(parameters_t *param, int component);
@@ -171,7 +173,8 @@ void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
 // Animation
 void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
-void animate_attack(sfIntRect *idle_pos, sfSprite *player);
+void animate_attack
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
 void anime_enemy_walk(parameters_t *param, entity_t *enemy);
 void anime_enemy_fight(parameters_t *param, entity_t *enemy);
 //void anime_enemy_die(parameters_t *param, entity_t *enemy);
@@ -185,6 +188,7 @@ int get_file_size(char const *filename);
 // unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 sfVector2f get_center(sfSprite *s);
+bool check_monsters(parameters_t *param, entity_t *player);
 
 // ECS
 // --> entity

@@ -40,7 +40,7 @@ sounds_effect_t *init_sounds_effect(void)
         sfSoundBuffer_createFromFile(PLAYER_DAMMAGE_SOUND));
     sfSound_setVolume(sounds->enemy_attack, EFFECTS_VOLUME);
     sfSound_setVolume(sounds->player_attack, EFFECTS_VOLUME);
-    sfSound_setVolume(sounds->player_damage, EFFECTS_VOLUME);
+    sfSound_setVolume(sounds->player_damage, MAX_VOLUME);
     return sounds;
 }
 
