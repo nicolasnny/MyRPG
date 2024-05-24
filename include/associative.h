@@ -45,6 +45,8 @@ static const conf_function_t func_list[] = {
     {"tutorial", &tutorial},
     {"next_image", &next_image},
     {"prev_image", &prev_image},
+    {"reset_quest", &reset_quest},
+    {"launch_fisherman", &launch_fisherman},
     {NULL, NULL},
 };
 
@@ -71,6 +73,8 @@ static const conf_compo_t compo_list[] = {
     {"IMAGE", IMAGE},
     {"XP", XP},
     {"ITEM", ITEM},
+    {"QUEST", QUEST},
+    {"IN_GAME", IN_GAME},
     {NULL, 0},
 };
 

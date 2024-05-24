@@ -27,7 +27,7 @@ static int loop(parameters_t *param)
         sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
             DEFAULT_VIEW_SIZE_Y});
         sfRenderWindow_setView(param->window, param->view);
-        window_events(param, MOB);
+        window_events(param, VISIBLE);
         make_life(param);
         display_entities(param, VISIBLE);
         sfRenderWindow_display(param->window);

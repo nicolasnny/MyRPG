@@ -21,7 +21,7 @@ static void reset_trigger(parameters_t *param)
     }
 }
 
-static void disp_trigger(sfVector2f *npc_pos, parameters_t *param)
+static entity_t *disp_trigger(sfVector2f *npc_pos, parameters_t *param)
 {
     e_list_t *triggers = get_entities(param->sys, QUEST_TRIGGER);
     sfVector2f trigger_pos = sfSprite_getPosition(triggers->entity->sprite);
@@ -39,6 +39,7 @@ static void disp_trigger(sfVector2f *npc_pos, parameters_t *param)
         triggers = triggers->next;
     }
     set_entity(final_trigger, param->sys, VISIBLE);
+    return final_trigger;
 }
 
 static bool check_npc_quest(entity_t *npc, entity_t *player,
@@ -47,17 +48,37 @@ static bool check_npc_quest(entity_t *npc, entity_t *player,
     sfVector2f npc_pos = sfSprite_getPosition(npc->sprite);
     sfVector2f player_pos = sfSprite_getPosition(player->sprite);
     double dist = get_distance_bewteen_pos(&npc_pos, &player_pos);
+    entity_t *trigger = NULL;
 
     if (dist < DIST_TO_QUEST) {
-        disp_trigger(&npc_pos, param);
+        trigger = disp_trigger(&npc_pos, param);
         if (sfKeyboard_isKeyPressed(sfKeyEnter)) {
             set_entity(npc, param->sys, BOX);
+            trigger->clicked(param, NULL, false);
         }
     } else {
         reset_trigger(param);
         unset_entity(param->sys, npc, BOX);
     }
     return false;
+}
+
+int reset_quest(parameters_t *param, entity_t *entity, bool state)
+{
+    e_list_t *quests = get_entities(param->sys, QUEST);
+    e_list_t *temp = quests;
+    entity_t *reset_button = get_entity_by_name(param->sys, "reset_quest");
+
+    while (temp) {
+        unset_entity(param->sys, temp->entity, VISIBLE);
+        temp = temp->next;
+    }
+    unset_entity(param->sys, reset_button, VISIBLE);
+    clean_list(quests);
+    param->actual_quest = NULL;
+    (void)entity;
+    (void)state;
+    return SUCCESS;
 }
 
 void check_quest(parameters_t *param)
@@ -76,5 +97,7 @@ void check_quest(parameters_t *param)
     }
     clean_list(npc_s);
     clean_list(player);
+    if (param->actual_quest && param->actual_quest(param))
+        reset_quest(param, NULL, false);
     return;
 }

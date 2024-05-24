@@ -306,6 +306,9 @@ void set_text(parameters_t *param, entity_t *entity, char *value);
 
 // --> quests
 void check_quest(parameters_t *param);
+int reset_quest(parameters_t *param, entity_t *entity, bool state);
+bool fisherman(parameters_t *param);
+int launch_fisherman(parameters_t *param, entity_t *entity, bool state);
 
 // --> life
 void refresh_heart_position(system_t *sys);

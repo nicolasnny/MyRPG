@@ -66,6 +66,7 @@ SRC     =	src/main.c	\
 				src/user_interface/start_menu/tutorial.c	\
 				src/level/lvl.c	\
 				src/attack_n_health.c	\
+				src/quests/fisherman.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			    tests/test.c	\
