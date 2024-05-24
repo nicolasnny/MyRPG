@@ -45,6 +45,9 @@ static const conf_function_t func_list[] = {
     {"tutorial", &tutorial},
     {"next_image", &next_image},
     {"prev_image", &prev_image},
+    {"add_life", &add_life},
+    {"reset_quest", &reset_quest},
+    {"launch_fisherman", &launch_fisherman},
     {NULL, NULL},
 };
 
@@ -62,6 +65,8 @@ static const conf_compo_t compo_list[] = {
     {"BAR", BAR},
     {"ON_MAP", ON_MAP},
     {"LOADING", LOADING},
+    {"BOX", BOX},
+    {"QUEST_TRIGGER", QUEST_TRIGGER},
     {"HEART", HEART},
     {"FULL_LIFE", FULL_LIFE},
     {"LOW_LIFE", LOW_LIFE},
@@ -69,6 +74,8 @@ static const conf_compo_t compo_list[] = {
     {"IMAGE", IMAGE},
     {"XP", XP},
     {"ITEM", ITEM},
+    {"QUEST", QUEST},
+    {"IN_GAME", IN_GAME},
     {NULL, 0},
 };
 
@@ -82,6 +89,10 @@ static const conf_param_t param_list[] = {
     {"HOVER", &set_hover},
     {"NAME", &set_name},
     {"RUN_ON_START", &run_on_start},
+    {"ATTACK", &set_attack},
+    {"HEALTH", &set_health},
+    {"TEXT", &set_text},
+    {"TEXT_SCALE", &set_text_scale},
     {NULL, NULL},
 };
 

@@ -33,7 +33,7 @@ entity_t *entity_from_conf(char *compo, parameters_t *param)
     for (int i = 0; compo_array[i]; i++) {
         component |= get_compo(compo_array[i]);
     }
-    return create_entity(param->sys, component);
+    return create_entity(param, component);
 }
 
 static void read_param(char *arg, entity_t *entity, parameters_t *param)
@@ -68,4 +68,5 @@ void create_from_conf(parameters_t *param)
             create(conf, i, param);
         }
     }
+    free_str_array(conf);
 }

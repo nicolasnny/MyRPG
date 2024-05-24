@@ -50,5 +50,6 @@ void make_life(parameters_t *param)
         move_mobs(param, param->map_array);
     if (time_move_player(TIME_BEFORE_MOVE))
         move_player(param, &texture_pos, &idle_pos, &scale);
+    check_quest(param);
     check_player_collisions(param);
 }

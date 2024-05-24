@@ -85,7 +85,6 @@ void move_mobs(parameters_t *param, sokospot_t ***map)
     while (temp) {
         if (sprite_in_view(param->view, temp->entity->sprite)) {
             move_enemy(param, map, temp->entity, &pos);
-            anime_enemy_walk(param, list->entity);
         }
         temp = temp->next;
     }

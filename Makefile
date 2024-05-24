@@ -61,9 +61,12 @@ SRC     =	src/main.c	\
         src/volume/sound.c		\
 				src/volume/music.c		\
 				src/loading/loop.c	\
+				src/quests/quests.c			\
 				src/heart/heart.c	\
 				src/user_interface/start_menu/tutorial.c	\
 				src/level/lvl.c	\
+				src/attack_n_health.c	\
+				src/quests/fisherman.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			    tests/test.c	\

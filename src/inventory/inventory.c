@@ -58,3 +58,28 @@ bool add_element_to_inventory(system_t *sys, entity_t *e)
     set_entity(e, sys, INVENTORY);
     return remove_last_element(&sys->component[INVENTORY]);
 }
+
+static void use_item(parameters_t *param)
+{
+    e_list_t *select_item = get_entities(param->sys,
+        SELECTED | ITEM | VISIBLE);
+
+    if (select_item == NULL)
+        return;
+    if (!sfKeyboard_isKeyPressed(sfKeyF)) {
+        clean_list(select_item);
+        return;
+    }
+    if (select_item->entity->clicked != NULL) {
+        select_item->entity->clicked(param, select_item->entity, false);
+        unset_entity(param->sys, select_item->entity, VISIBLE | INVENTORY);
+    }
+    clean_list(select_item);
+}
+
+void item_management(parameters_t *param)
+{
+    change_selected_item(param->sys);
+    grab_drop_events(param);
+    use_item(param);
+}

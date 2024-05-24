@@ -14,7 +14,7 @@ static void loop_setup(parameters_t *param)
     set_view_on_player(param);
     refresh_inventory_pos(param->sys);
     refresh_heart_position(param->sys);
-    set_lvl_pos(param->sys);
+    refresh_lvl_pos(param->sys);
     sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
         DEFAULT_VIEW_SIZE_Y});
     sfRenderWindow_setView(param->window, param->view);
@@ -27,11 +27,11 @@ static int loop(parameters_t *param)
         sfView_setSize(param->view, (sfVector2f){DEFAULT_VIEW_SIZE_X,
             DEFAULT_VIEW_SIZE_Y});
         sfRenderWindow_setView(param->window, param->view);
-        window_events(param, MOB);
+        window_events(param, VISIBLE);
         make_life(param);
+        display_entities(param, VISIBLE);
         sfRenderWindow_display(param->window);
         sfRenderWindow_clear(param->window, sfWhite);
-        display_entities(param, VISIBLE);
     }
     return SUCCESS;
 }

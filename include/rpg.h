@@ -32,6 +32,8 @@
     #define LOAD_TIME_MOVE 30
     #define LOAD_RIGHT_MVT 10
     #define DEFAULT_SCALE 1.0
+    #define DEFAULT_ENTITY_ATTACK 1
+    #define DEFAULT_ENTITY_HEALTH 3
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -80,9 +82,21 @@
 
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
-    #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
-    #define DEFAULT_VOLUME 100.0
+    #define LOADING_SOUND "assets/sounds/loading.ogg"
+    #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
+    #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
+    #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define ENEMY_DAMAGE_SOUND "assets/sounds/enemy_damage.flac"
+    #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
+    #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
+    #define BUMP_SOUND "assets/sounds/bump.flac"
+    #define WALK_SOUND_RFRESH 200
+    #define BUMP_SOUND_RFRESH 500
+    #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define MID_VOLUME 50.0
+    #define EFFECTS_VOLUME 20.0
+    #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
 
 // Player
@@ -96,6 +110,7 @@
     #define PLAYER_HEIGHT 27
     #define REFRESH_SPEED_WALK 70
     #define REFRESH_SPEED_IDLE 900
+    #define REFRESH_SPEED_DAMAGE 900
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
@@ -112,6 +127,13 @@
     #define ENEMY_REFRESH_SPEED_WALK 150
     #define ENEMY_MAX_ATTACK_TEXTURE 700
 
+// Quest
+    #define DIST_TO_QUEST 40.0
+    #define DIST_WITH_TRIGGER 20.0
+    #define QUEST_HEIGHT_POURCENTAGE 0.8
+    #define QUEST_WIDTH_PERCENTAGE 1.0
+    #define RESET_BUTTON_X_OFFSET 80
+
 // LIFE
     #define HEART_WIDTH 900
     #define HEART_LEFT_POURCENTAGE 0.45
@@ -122,7 +144,8 @@
     #define XP_WIDTH 0.17
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
-    #define XP_MAP_RECT_HEIGHT 180
+    #define XP_MAX_RECT_HEIGHT 180
+    #define LVL_GAP_WITH_BAR 15
 
 //-->main
 int my_rpg(int, char **);
@@ -133,6 +156,7 @@ int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfMusic *init_sound(char *path);
 void launch_music(parameters_t *param);
 sokospot_t ***get_map(char const *filepath);
+sounds_effect_t *init_sounds_effect(void);
 
 //---> events
 int window_events(parameters_t *param, int component);
@@ -166,9 +190,11 @@ sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
 
 // Animation
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void animate_player_walk
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
-void animate_attack(sfIntRect *idle_pos, sfSprite *player);
+void animate_attack
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
 void anime_enemy_walk(parameters_t *param, entity_t *enemy);
 void anime_enemy_fight(parameters_t *param, entity_t *enemy);
 //void anime_enemy_die(parameters_t *param, entity_t *enemy);
@@ -182,11 +208,12 @@ int get_file_size(char const *filename);
 // unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 sfVector2f get_center(sfSprite *s);
+bool check_monsters(parameters_t *param, entity_t *player);
 
 // ECS
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
-entity_t *create_entity(system_t *sys, int component);
+entity_t *create_entity(parameters_t *param, int compo);
 e_list_t *get_entities(system_t *sys, int component);
 void set_scale(parameters_t *param, entity_t *entity, char *value);
 void set_pos(parameters_t *param, entity_t *entity, char *value);
@@ -197,6 +224,7 @@ bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
 bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
+void set_text_scale(parameters_t *param, entity_t *entity, char *value);
 
 // --> system
 system_t *create_system(void);
@@ -256,6 +284,7 @@ void change_selected_item(system_t *sys);
 void get_item(parameters_t *param);
 void drop_selected_item(system_t *sys);
 void grab_drop_events(parameters_t *param);
+void item_management(parameters_t *param);
 
 // --> fight
 bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range);
@@ -284,11 +313,22 @@ int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
 // --> loading screen
 int loading_screen_loop(parameters_t *param);
 
+// --> text
+void set_text(parameters_t *param, entity_t *entity, char *value);
+
+// --> quests
+void check_quest(parameters_t *param);
+int reset_quest(parameters_t *param, entity_t *entity, bool state);
+bool fisherman(parameters_t *param);
+int launch_fisherman(parameters_t *param, entity_t *entity, bool state);
+void set_quest_pos(parameters_t *param);
+
 // --> life
 void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
 void remove_life(system_t *sys);
 bool is_player_alive(system_t *sys);
+int add_life(parameters_t *param, entity_t *e, bool state);
 
 // --> tutorial
 int tutorial(parameters_t *param, entity_t *entity, bool state);
@@ -296,7 +336,11 @@ int prev_image(parameters_t *param, entity_t *entity, bool state);
 int next_image(parameters_t *param, entity_t *entity, bool state);
 
 // --> lvl
-void set_lvl_pos(system_t *sys);
+void refresh_lvl_pos(system_t *sys);
 void move_lvl_rect(system_t *sys);
+
+// --> health and attack
+void set_health(parameters_t *param, entity_t *entity, char *value);
+void set_attack(parameters_t *param, entity_t *entity, char *value);
 
 #endif
