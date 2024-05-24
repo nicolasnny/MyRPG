@@ -88,9 +88,12 @@
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
     #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
     #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
+    #define BUMP_SOUND "assets/sounds/bump.flac"
     #define WALK_SOUND_RFRESH 200
+    #define BUMP_SOUND_RFRESH 500
     #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define MID_VOLUME 50.0
     #define EFFECTS_VOLUME 20.0
     #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
@@ -134,6 +137,7 @@
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
     #define XP_MAX_RECT_HEIGHT 180
+    #define LVL_GAP_WITH_BAR 15
 
 //-->main
 int my_rpg(int, char **);
@@ -312,7 +316,7 @@ int prev_image(parameters_t *param, entity_t *entity, bool state);
 int next_image(parameters_t *param, entity_t *entity, bool state);
 
 // --> lvl
-void set_lvl_pos(system_t *sys);
+void refresh_lvl_pos(system_t *sys);
 void move_lvl_rect(system_t *sys);
 
 // --> health and attack
