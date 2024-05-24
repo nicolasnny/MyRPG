@@ -276,6 +276,7 @@ void change_selected_item(system_t *sys);
 void get_item(parameters_t *param);
 void drop_selected_item(system_t *sys);
 void grab_drop_events(parameters_t *param);
+void item_management(parameters_t *param);
 
 // --> fight
 bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range);

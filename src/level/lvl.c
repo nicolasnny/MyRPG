@@ -58,7 +58,7 @@ static void updtate_text(system_t *sys, int lvl)
     if (l == NULL)
         return;
     lvl_txt = my_nb_to_str(lvl);
-    if (lvl == NULL) {
+    if (lvl_txt == NULL) {
         clean_list(l);
         return;
     }

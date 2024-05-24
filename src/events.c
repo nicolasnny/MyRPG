@@ -122,8 +122,7 @@ int window_events(parameters_t *param, int component)
 
     while (sfRenderWindow_pollEvent(param->window, &param->event)) {
         mouse_events(param, component, temp);
-        change_selected_item(param->sys);
-        grab_drop_events(param);
+        item_management(param);
         if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
             in_game_menu(param);
         }
