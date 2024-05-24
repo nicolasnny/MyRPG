@@ -14,7 +14,7 @@
 
 static void set_to_next(e_list_t *list)
 {
-    if (list->next) {
+    if (list->next && list->next->entity) {
         if (list->next->entity->name)
             free(list->next->entity->name);
         list->next->entity->name = strdup("ACTUAL");
@@ -35,7 +35,7 @@ int next_image(parameters_t *param, entity_t *entity, bool state)
 
     if (!tuto_images)
         return ERROR;
-    while (temp) {
+    while (temp && temp->next) {
         if (temp->entity->name && strcmp("ACTUAL", temp->entity->name) == 0) {
             free(temp->entity->name);
             temp->entity->name = NULL;
@@ -45,6 +45,8 @@ int next_image(parameters_t *param, entity_t *entity, bool state)
         temp = temp->next;
     }
     clean_list(tuto_images);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
 
@@ -55,7 +57,7 @@ int prev_image(parameters_t *param, entity_t *entity, bool state)
 
     if (!tuto_images)
         return ERROR;
-    while (temp->next) {
+    while (temp && temp->next) {
         if (temp->next->entity->name &&
             strcmp("ACTUAL", temp->next->entity->name) == 0) {
             free(temp->next->entity->name);
@@ -66,6 +68,8 @@ int prev_image(parameters_t *param, entity_t *entity, bool state)
         temp = temp->next;
     }
     clean_list(tuto_images);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
 

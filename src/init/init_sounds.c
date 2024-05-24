@@ -41,6 +41,18 @@ static void load_sounds_buffers(sounds_effect_t *sounds)
         sfSoundBuffer_createFromFile(ENEMY_DAMAGE_SOUND));
 }
 
+static set_sounds_volumes(sounds_effect_t *sounds)
+{
+    sfSound_setVolume(sounds->enemy_attack, EFFECTS_VOLUME);
+    sfSound_setVolume(sounds->player_attack, EFFECTS_VOLUME);
+    sfSound_setVolume(sounds->bump, MAX_VOLUME);
+    sfSound_setVolume(sounds->player_damage, MAX_VOLUME);
+    sfSound_setVolume(sounds->loading, MAX_VOLUME);
+    sfSound_setVolume(sounds->walk_1, LOW_VOLUME);
+    sfSound_setVolume(sounds->walk_2, LOW_VOLUME);
+    sfSound_setVolume(sounds->enemy_damage, MAX_VOLUME);
+}
+
 sounds_effect_t *init_sounds_effect(void)
 {
     sounds_effect_t *sounds = malloc(sizeof(sounds_effect_t));
@@ -56,14 +68,7 @@ sounds_effect_t *init_sounds_effect(void)
     sounds->bump = sfSound_create();
     sounds->enemy_damage = sfSound_create();
     load_sounds_buffers(sounds);
-    sfSound_setVolume(sounds->enemy_attack, EFFECTS_VOLUME);
-    sfSound_setVolume(sounds->player_attack, EFFECTS_VOLUME);
-    sfSound_setVolume(sounds->bump, MAX_VOLUME);
-    sfSound_setVolume(sounds->player_damage, MAX_VOLUME);
-    sfSound_setVolume(sounds->loading, MAX_VOLUME);
-    sfSound_setVolume(sounds->walk_1, LOW_VOLUME);
-    sfSound_setVolume(sounds->walk_2, LOW_VOLUME);
-    sfSound_setVolume(sounds->enemy_damage, MAX_VOLUME);
+    set_sounds_volumes(sounds);
     return sounds;
 }
 

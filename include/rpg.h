@@ -127,6 +127,13 @@
     #define ENEMY_REFRESH_SPEED_WALK 150
     #define ENEMY_MAX_ATTACK_TEXTURE 700
 
+// Quest
+    #define DIST_TO_QUEST 40.0
+    #define DIST_WITH_TRIGGER 20.0
+    #define QUEST_HEIGHT_POURCENTAGE 0.8
+    #define QUEST_WIDTH_PERCENTAGE 1.0
+    #define RESET_BUTTON_X_OFFSET 80
+
 // LIFE
     #define HEART_WIDTH 900
     #define HEART_LEFT_POURCENTAGE 0.45
@@ -138,7 +145,9 @@
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
     #define XP_MAX_RECT_HEIGHT 180
-    #define LVL_GAP_WITH_BAR 15
+    #define TXT_HEIGHT_GAP 2.5
+    #define TXT_WIDTH_GAP 0.15
+    #define DEFAULT_LVL_FONT_SIZE 15
 
 //-->main
 int my_rpg(int, char **);
@@ -217,6 +226,7 @@ bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
 bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
+void set_text_scale(parameters_t *param, entity_t *entity, char *value);
 
 // --> system
 system_t *create_system(void);
@@ -305,6 +315,16 @@ int set_sound_volume_down(parameters_t *param, entity_t *entity, bool state);
 // --> loading screen
 int loading_screen_loop(parameters_t *param);
 
+// --> text
+void set_text(parameters_t *param, entity_t *entity, char *value);
+
+// --> quests
+void check_quest(parameters_t *param);
+int reset_quest(parameters_t *param, entity_t *entity, bool state);
+bool fisherman(parameters_t *param);
+int launch_fisherman(parameters_t *param, entity_t *entity, bool state);
+void set_quest_pos(parameters_t *param);
+
 // --> life
 void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
@@ -319,7 +339,7 @@ int next_image(parameters_t *param, entity_t *entity, bool state);
 
 // --> lvl
 void refresh_lvl_pos(system_t *sys);
-void move_lvl_rect(system_t *sys);
+void move_lvl_rect(parameters_t *param);
 
 // --> health and attack
 void set_health(parameters_t *param, entity_t *entity, char *value);

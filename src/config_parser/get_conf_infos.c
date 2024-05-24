@@ -68,4 +68,5 @@ void create_from_conf(parameters_t *param)
             create(conf, i, param);
         }
     }
+    free_str_array(conf);
 }

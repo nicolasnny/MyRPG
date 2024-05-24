@@ -40,9 +40,13 @@ typedef enum component_s {
     XP = 1 << 16,
     TEXT = 1 << 17,
     ITEM = 1 << 18,
-    TUTORIAL = 1 << 18,
-    IMAGE = 1 << 19,
-    __END__ = 1 << 20,
+    TUTORIAL = 1 << 19,
+    IMAGE = 1 << 20,
+    BOX = 1 << 21,
+    QUEST_TRIGGER = 1 << 22,
+    QUEST = 1 << 23,
+    IN_GAME = 1 << 24,
+    __END__ = 1 << 25,
 } component_t;
 
 typedef struct entity_s {
@@ -96,6 +100,7 @@ typedef struct parameters_s {
     int game_state;
     sfClock *clock;
     sounds_effect_t *sounds_effect;
+    bool (*actual_quest)(parameters_t *param);
 } parameters_t;
 
 #endif
