@@ -16,19 +16,12 @@ double get_sprites_dist(sfSprite *a, sfSprite *b)
     return get_distance_bewteen_pos(&pa, &pb);
 }
 
-static void drop_item(system_t *sys, entity_t *e)
-{
-    unset_entity(sys, e, SELECTED);
-    set_entity(e, sys, ON_MAP);
-}
-
 void drop_selected_item(system_t *sys)
 {
     e_list_t *list = get_entities(sys, SELECTED);
     sfVector2f dz = sfSprite_getPosition(get_player(sys));
 
     if (list == NULL) {
-        printf("/* error sound: no item selected */\n");
         return;
     }
     unset_entity(sys, list->entity, SELECTED);
@@ -40,14 +33,17 @@ void drop_selected_item(system_t *sys)
 
 static bool remove_inv_last_element(system_t *sys)
 {
-    e_list_t *inv = get_entities(sys, INVENTORY | ITEM);
+    e_list_t *inv = get_entities(sys, INVENTORY | ITEM | VISIBLE);
+    sfVector2f dz = sfSprite_getPosition(get_player(sys));
     e_list_t *temp = inv;
 
     if (inv == NULL)
         return false;
     while (temp && temp->next)
         temp = temp->next;
-    drop_item(sys, temp->entity);
+    unset_entity(sys, temp->entity, INVENTORY);
+    set_entity(temp->entity, sys, ON_MAP);
+    sfSprite_setPosition(temp->entity->sprite, dz);
     clean_list(inv);
     return true;
 }
@@ -58,7 +54,7 @@ static void grab_item(system_t *sys, entity_t *e)
 
     unset_entity(sys, e, ON_MAP);
     set_entity(e, sys, INVENTORY);
-    inventory = get_entities(sys, INVENTORY | ITEM);
+    inventory = get_entities(sys, INVENTORY | ITEM | VISIBLE);
     if (get_list_size(inventory) > INVENTORY_CAPACITY) {
         remove_inv_last_element(sys);
     }
