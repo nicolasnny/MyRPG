@@ -26,8 +26,11 @@ static bool disp_box(parameters_t *param)
 
 void display_entity(sfRenderWindow *win, entity_t *e)
 {
-    if (e->sprite)
+    if (e->sprite) {
+        if (e->name && strcmp("trigger_guard_1", e->name) == 0)
+            printf("displaying trigger\n");
         sfRenderWindow_drawSprite(win, e->sprite, NULL);
+    }
     if (e->rect)
         sfRenderWindow_drawRectangleShape(win, e->rect, NULL);
     if (e->sprite == NULL && e->text)
