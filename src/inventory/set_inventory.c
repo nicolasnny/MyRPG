@@ -82,7 +82,7 @@ void set_inventory_items_pos(system_t *sys)
     sfFloatRect rect = get_rect(sys);
     unsigned int index = 0;
 
-    if (!list || rect.height == NEG_ERROR)
+    if (rect.height == NEG_ERROR)
         return;
     if (select != NULL)
         set_selected_sprite(select->entity->sprite, &rect);
