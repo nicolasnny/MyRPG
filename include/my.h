@@ -73,5 +73,6 @@ void free_str_array(char **array);
 char **my_word_array_delete(char **word_array, char *word);
 char *my_str_append(char *dst, char *src);
 char *strdup_banned_chars(char *str, char *ban);
+char *my_nb_to_str(int nb);
 
 #endif /*MY_H*/

@@ -32,6 +32,8 @@
     #define LOAD_TIME_MOVE 30
     #define LOAD_RIGHT_MVT 10
     #define DEFAULT_SCALE 1.0
+    #define DEFAULT_ENTITY_ATTACK 1
+    #define DEFAULT_ENTITY_HEALTH 3
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
@@ -84,11 +86,15 @@
     #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
     #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define ENEMY_DAMAGE_SOUND "assets/sounds/enemy_damage.flac"
     #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
     #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
+    #define BUMP_SOUND "assets/sounds/bump.flac"
     #define WALK_SOUND_RFRESH 200
+    #define BUMP_SOUND_RFRESH 500
     #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define MID_VOLUME 50.0
     #define EFFECTS_VOLUME 20.0
     #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
@@ -138,7 +144,8 @@
     #define XP_WIDTH 0.17
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
-    #define XP_MAP_RECT_HEIGHT 180
+    #define XP_MAX_RECT_HEIGHT 180
+    #define LVL_GAP_WITH_BAR 15
 
 //-->main
 int my_rpg(int, char **);
@@ -277,6 +284,7 @@ void change_selected_item(system_t *sys);
 void get_item(parameters_t *param);
 void drop_selected_item(system_t *sys);
 void grab_drop_events(parameters_t *param);
+void item_management(parameters_t *param);
 
 // --> fight
 bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range);
@@ -320,6 +328,7 @@ void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
 void remove_life(system_t *sys);
 bool is_player_alive(system_t *sys);
+int add_life(parameters_t *param, entity_t *e, bool state);
 
 // --> tutorial
 int tutorial(parameters_t *param, entity_t *entity, bool state);
@@ -327,7 +336,7 @@ int prev_image(parameters_t *param, entity_t *entity, bool state);
 int next_image(parameters_t *param, entity_t *entity, bool state);
 
 // --> lvl
-void set_lvl_pos(system_t *sys);
+void refresh_lvl_pos(system_t *sys);
 void move_lvl_rect(system_t *sys);
 
 // --> health and attack

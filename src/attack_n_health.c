@@ -13,6 +13,7 @@
 
 void set_attack(parameters_t *param, entity_t *entity, char *value)
 {
+    (void)param;
     if (strcmp(value, "NULL") == 0)
         return;
     entity->attack = atoi(value);
@@ -21,6 +22,7 @@ void set_attack(parameters_t *param, entity_t *entity, char *value)
 
 void set_health(parameters_t *param, entity_t *entity, char *value)
 {
+    (void)param;
     if (strcmp(value, "NULL") == 0)
         return;
     entity->health = atoi(value);
