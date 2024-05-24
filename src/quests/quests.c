@@ -63,6 +63,42 @@ static bool check_npc_quest(entity_t *npc, entity_t *player,
     return false;
 }
 
+static void set_reset_pos(sfVector2f *p_center, parameters_t *param)
+{
+    sfVector2f pos = {0};
+    entity_t *reset_button = get_entity_by_name(param->sys, "reset_quest");
+
+    if (!reset_button)
+        return;
+    pos.x = p_center->x - DEFAULT_VIEW_SIZE_X *
+        QUEST_WIDTH_PERCENTAGE / 2 + RESET_BUTTON_X_OFFSET;
+    pos.y = p_center->y - DEFAULT_VIEW_SIZE_Y *
+        QUEST_HEIGHT_POURCENTAGE
+        / 2 - sfSprite_getGlobalBounds(reset_button->sprite).height / 2;
+    sfSprite_setPosition(reset_button->sprite, pos);
+}
+
+void set_quest_pos(parameters_t *param)
+{
+    sfVector2f pos = {0};
+    e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
+    e_list_t *quest = get_entities(param->sys, QUEST | VISIBLE);
+    sfVector2f player_center_pos = {0};
+
+    if (!player || !QUEST)
+        return;
+    player_center_pos = get_center(player->entity->sprite);
+    pos.x = player_center_pos.x - DEFAULT_VIEW_SIZE_X *
+        QUEST_WIDTH_PERCENTAGE / 2;
+    pos.y = player_center_pos.y - DEFAULT_VIEW_SIZE_Y *
+        QUEST_HEIGHT_POURCENTAGE
+        / 2 - sfSprite_getGlobalBounds(quest->entity->sprite).height / 2;
+    sfSprite_setPosition(quest->entity->sprite, pos);
+    set_reset_pos(&player_center_pos, param);
+    clean_list(player);
+    clean_list(quest);
+}
+
 int reset_quest(parameters_t *param, entity_t *entity, bool state)
 {
     e_list_t *quests = get_entities(param->sys, QUEST);

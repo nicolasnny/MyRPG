@@ -36,6 +36,7 @@ bool fisherman(parameters_t *param)
     }
     set_entity(quest, param->sys, VISIBLE);
     set_entity(reset_btn, param->sys, VISIBLE);
+    set_quest_pos(param);
     return false;
 }
 

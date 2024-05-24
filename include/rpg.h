@@ -124,6 +124,9 @@
 // Quest
     #define DIST_TO_QUEST 40.0
     #define DIST_WITH_TRIGGER 20.0
+    #define QUEST_HEIGHT_POURCENTAGE 0.8
+    #define QUEST_WIDTH_PERCENTAGE 1.0
+    #define RESET_BUTTON_X_OFFSET 80
 
 // LIFE
     #define HEART_WIDTH 900
@@ -309,6 +312,7 @@ void check_quest(parameters_t *param);
 int reset_quest(parameters_t *param, entity_t *entity, bool state);
 bool fisherman(parameters_t *param);
 int launch_fisherman(parameters_t *param, entity_t *entity, bool state);
+void set_quest_pos(parameters_t *param);
 
 // --> life
 void refresh_heart_position(system_t *sys);
