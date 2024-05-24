@@ -30,6 +30,9 @@ int kill_entity(parameters_t *param, entity_t *entity, bool state)
         return ERROR;
     if (entity_in_list(tmp_mob, entity) &&
         enemy_in_range(player->entity, entity, PLAYER_ATTACK_RANGE)) {
+        sound_design
+        sfSound_play(param->sounds_effect->enemy_damage);
+        unset_entity(param->sys, entity, VISIBLE);
         take_damage(param->sys, tmp_mob->entity, player->entity);
         clean_list(player);
         clean_list(tmp_mob);
