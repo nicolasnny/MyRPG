@@ -167,7 +167,6 @@ void check_quest(parameters_t *param)
         printf("no quest to attribute\n");
         return;
     }
-    printf("x = %f; y = %f\n", sfSprite_getPosition(player->entity->sprite).x, sfSprite_getPosition(player->entity->sprite).y);
     while (temp_npc_s) {
         check_npc_quest(temp_npc_s->entity, player->entity, param);
         temp_npc_s = temp_npc_s->next;
