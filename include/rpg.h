@@ -86,9 +86,12 @@
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
     #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
     #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
+    #define BUMP_SOUND "assets/sounds/bump.flac"
     #define WALK_SOUND_RFRESH 200
+    #define BUMP_SOUND_RFRESH 500
     #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define MID_VOLUME 50.0
     #define EFFECTS_VOLUME 20.0
     #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
