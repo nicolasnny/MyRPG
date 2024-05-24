@@ -22,6 +22,16 @@ sfView *create_view(void)
     return view;
 }
 
+static void init_param(parameters_t *param)
+{
+    param->game_state = PAUSE;
+    param->view = create_view();
+    param->sound_volume = 100.0;
+    param->music = NULL;
+    param->sounds_effect = init_sounds_effect();
+    param->actual_quest = NULL;
+}
+
 int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};
@@ -38,10 +48,6 @@ int init_args(parameters_t *param)
     param->map_array = get_map(MAP_ARRAY_PATH);
     if (param->map_array == NULL)
         return ERROR;
-    param->game_state = PAUSE;
-    param->view = create_view();
-    param->sound_volume = 100.0;
-    param->music = NULL;
-    param->sounds_effect = init_sounds_effect();
+    init_param(param);
     return SUCCESS;
 }

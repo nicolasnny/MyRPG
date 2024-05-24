@@ -1,136 +1,130 @@
 /*
-** EPITECH PROJECT, 2023
-** SETTING_UP
+** EPITECH PROJECT, 2024
+** LIB
 ** File description:
-** Return an array of lines extracted for the array given as an argument
+** strtok with cutom delimiters and exceptions
 */
 
 #include <stdlib.h>
-#include <unistd.h>
+#include <stddef.h>
 #include <string.h>
-#include <stdio.h>
-#include <stdbool.h>
 #include "my.h"
 
-static bool in_delim(char c, char *delim)
+static int is_delim(char c, char *delim)
 {
-    for (int i = 0; delim[i] != '\0'; i++) {
+    for (int i = 0; delim[i]; i++) {
         if (c == delim[i])
-            return true;
+            return 1;
     }
-    return false;
+    return 0;
 }
 
-static int get_nb_lines(char *buf, char *delim)
+static int is_exception(char c)
 {
-    int cpt = 0;
-
-    if (buf != NULL && buf[0] != '\0')
-        cpt = 1;
-    for (int i = 0; buf[i] != '\0'; i++) {
-        if (in_delim(buf[i], delim)) {
-            cpt++;
-        }
-    }
-    return cpt;
+    return (c == '\"' || c == '`' || c == '(' || c == ')');
 }
 
-static int get_nb_col(char *buf, char *delim)
+static int get_word_nb(char const *str, char *delim)
+{
+    int word_nb = 0;
+    int in_exception = OUT;
+
+    for (int i = 0; str[i]; i++) {
+        if ((is_delim(str[i], delim) && i > 0 && !is_delim
+            (str[i - 1], delim) && in_exception == OUT) ||
+            (str[i + 1] == '\0' && !is_delim(str[i], delim))) {
+            word_nb++;
+        }
+        if (is_exception(str[i]))
+            in_exception *= -1;
+    }
+    return word_nb;
+}
+
+static int my_new_word_size(char const *str, char *delim)
 {
     int i = 0;
-    int cpt = 0;
-    int final_size = 0;
+    int in_exception = OUT;
 
-    while (buf[i] != '\0') {
-        while (!in_delim(buf[i], delim) && buf[i] != '\0') {
-            cpt++;
-            i++;
+    while (str[i] && (!is_delim(str[i], delim) || in_exception == IN)) {
+        if (is_exception(str[i]))
+            in_exception *= -1;
+        i++;
+    }
+    return i;
+}
+
+static void remove_exception(char **str)
+{
+    char *new_str = NULL;
+    int len = strlen(*str);
+    unsigned int new_index = 0;
+
+    if (is_exception((*str)[len - 1])) {
+        new_str = malloc(sizeof(char) * len - 1);
+        for (int i = 1; i < len - 1; i++) {
+            new_str[new_index] = (*str)[i];
+            new_index++;
         }
-        if (cpt > final_size)
-            final_size = cpt;
-        cpt = 0;
-        if (buf[i] != '\0')
-            i++;
-    }
-    return final_size;
-}
-
-void check_comment(char *buf, int *i)
-{
-    if ((buf[*i] == '#' && buf[*i + 1] == '#') || (buf[*i] == '#' &&
-        *i >= 0 && buf[*i - 1] == '#'))
-        return;
-    if (buf[*i] == '#') {
-        while (buf[*i] != '\0' && buf[*i] != '\n')
-            (*i)++;
-    }
-}
-
-static bool skip_delim(char *buf, int *i, char *delim)
-{
-    if (buf[(*i) + 1] != '\0')
-        (*i)++;
-    check_comment(buf, i);
-    if (!in_delim(buf[*i], delim))
-        return true;
-    return false;
-}
-
-static void new_line(char **args, int *index, int nb_col)
-{
-    args[index[0]][index[1]] = '\0';
-    index[1] = 0;
-    index[0]++;
-    args[index[0]] = malloc(sizeof(char) * nb_col + 10);
-}
-
-static int *init_index(void)
-{
-    int *index = malloc(sizeof(int) * 2);
-
-    index[0] = 0;
-    index[1] = 0;
-    return index;
-}
-
-static char **finish_str_array(int *index, char **args)
-{
-    char **final_array = NULL;
-
-    if (index[1] > 0) {
-        args[index[0]][index[1]] = '\0';
-        index[0]++;
-    }
-    args[index[0]] = NULL;
-    final_array = my_str_array_dup_ban_str(args, "\n");
-    free(index);
-    return final_array;
-}
-
-static void add_char(char **args, int *index, char new_char)
-{
-    args[index[0]][index[1]] = new_char;
-    index[1]++;
-}
-
-char **my_str_to_word_array(char *buf, char *delim)
-{
-    char **args = malloc(sizeof(char *) * (get_nb_lines(buf, delim) + 1));
-    int *index = init_index();
-    int nb_col = get_nb_col(buf, delim);
-    bool add_line = false;
-
-    args[index[0]] = malloc(sizeof(char) * nb_col + 1);
-    for (int i = 0; buf[i] != '\0'; i++){
-        check_comment(buf, &i);
-        if (!in_delim(buf[i], delim))
-            add_line = true;
-        if (buf[i] != '\0' && in_delim(buf[i], delim) && add_line) {
-            new_line(args, index, nb_col);
-            add_line = skip_delim(buf, &i, delim);
+    } else {
+        new_str = malloc(sizeof(char) * len);
+        for (int i = 1; i < len; i++) {
+            new_str[new_index] = (*str)[i];
+            new_index++;
         }
-        if (buf[i] != '\0' && !in_delim(buf[i], delim))
-            add_char(args, index, buf[i]);
     }
-    return finish_str_array(index, args);
+    new_str[new_index] = '\0';
+    free(*str);
+    *str = new_str;
+}
+
+static char *new_word(char const *str, int start, char *delim)
+{
+    char *new_word = malloc(sizeof(char) *
+        (my_new_word_size(str + start, delim) + 1));
+    int i = start;
+    int inew = 0;
+    int in_exception = OUT;
+
+    while (str[i] && (!is_delim(str[i], delim) || in_exception == IN)) {
+        new_word[inew] = str[i];
+        if (is_exception(str[i]))
+            in_exception *= -1;
+        i++;
+        inew++;
+    }
+    new_word[inew] = '\0';
+    if (is_exception(new_word[0]) && new_word[0] == '\"')
+        remove_exception(&new_word);
+    return new_word;
+}
+
+static void assist_func(char const *str, int i, int *in_exception)
+{
+    if (is_exception(str[i]))
+            *in_exception *= -1;
+}
+
+char **my_str_to_word_array(char *str, char *delim)
+{
+    char **array = malloc(sizeof(char *) * (get_word_nb(str, delim) + 1));
+    int wc = 0;
+    int word_start = 0;
+    int in_exception = OUT;
+
+    for (int i = 0; str[i]; i++) {
+        if (!is_delim(str[i], delim) && i > 0 &&
+            is_delim(str[i - 1], delim) && in_exception == OUT) {
+            word_start = i;
+        }
+        if ((is_delim(str[i], delim) && i > 0 && !is_delim(str[i - 1], delim)
+            && in_exception == OUT) || (str[i + 1] == '\0' &&
+            !is_delim(str[i], delim))) {
+            array[wc] = new_word(str, word_start, delim);
+            wc++;
+        }
+        assist_func(str, i, &in_exception);
+    }
+    array[wc] = NULL;
+    return array;
 }

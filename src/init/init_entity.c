@@ -46,6 +46,9 @@ void set_pos(parameters_t *param, entity_t *entity, char *value)
     if (entity->rect)
         sfRectangleShape_setPosition(entity->rect,
             (sfVector2f){pos_value[0], pos_value[1]});
+    if (entity->text)
+        sfText_setPosition(entity->text,
+            (sfVector2f){pos_value[0], pos_value[1]});
     free(pos_value);
     (void)param;
 }
@@ -72,6 +75,18 @@ void set_hover(parameters_t *param, entity_t *entity, char *value)
     }
 }
 
+static void init_entity_param(entity_t *e)
+{
+    e->rect = NULL;
+    e->clicked = NULL;
+    e->hovered = NULL;
+    e->name = NULL;
+    e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
+    e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
+    e->text = NULL;
+    e->sprite = NULL;
+}
+
 entity_t *create_entity(parameters_t *param, int compo)
 {
     entity_t *e = malloc(sizeof(entity_t));
@@ -86,12 +101,7 @@ entity_t *create_entity(parameters_t *param, int compo)
     }
     id++;
     set_entity(e, param->sys, compo);
-    e->rect = NULL;
-    e->clicked = NULL;
-    e->hovered = NULL;
-    e->name = NULL;
-    e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
-    e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
+    init_entity_param(e);
     e->text = NULL;
     e->entity_time = sfClock_getElapsedTime(param->clock);
     e->attack = DEFAULT_ENTITY_ATTACK;

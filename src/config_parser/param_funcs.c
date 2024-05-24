@@ -120,3 +120,18 @@ void run_on_start(parameters_t *param, entity_t *entity, char *value)
         run_func(func_list[i], param, entity);
     }
 }
+
+void set_text(parameters_t *param, entity_t *entity, char *value)
+{
+    sfFont *font = sfFont_createFromFile("assets/fonts/aberus.ttf");
+
+    if (strcmp(value, "NULL") == 0) {
+        sfFont_destroy(font);
+        return;
+    }
+    entity->text = sfText_create();
+    sfText_setString(entity->text, value);
+    sfText_setColor(entity->text, sfWhite);
+    sfText_setFont(entity->text, font);
+    (void)param;
+}

@@ -61,7 +61,8 @@ bool add_element_to_inventory(system_t *sys, entity_t *e)
 
 static void use_item(parameters_t *param)
 {
-    e_list_t *select_item = get_entities(param->sys, SELECTED | ITEM | VISIBLE);
+    e_list_t *select_item = get_entities(param->sys,
+        SELECTED | ITEM | VISIBLE);
 
     if (select_item == NULL)
         return;
