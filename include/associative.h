@@ -82,6 +82,8 @@ static const conf_param_t param_list[] = {
     {"HOVER", &set_hover},
     {"NAME", &set_name},
     {"RUN_ON_START", &run_on_start},
+    {"ATTACK", &set_attack},
+    {"HEALTH", &set_health},
     {NULL, NULL},
 };
 

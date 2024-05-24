@@ -25,7 +25,6 @@ void set_scale(parameters_t *param, entity_t *entity, char *value)
     if (entity->sprite) {
         sfSprite_setScale(entity->sprite,
             (sfVector2f){scale_value[0], scale_value[1]});
-        entity->entity_time = sfClock_getElapsedTime(param->clock);
     }
     if (entity->rect)
         sfRectangleShape_setScale(entity->rect,
@@ -73,7 +72,7 @@ void set_hover(parameters_t *param, entity_t *entity, char *value)
     }
 }
 
-entity_t *create_entity(system_t *sys, int compo)
+entity_t *create_entity(parameters_t *param, int compo)
 {
     entity_t *e = malloc(sizeof(entity_t));
     static unsigned int id = 0;
@@ -81,12 +80,12 @@ entity_t *create_entity(system_t *sys, int compo)
     if (e == NULL)
         return NULL;
     e->id = id;
-    if (!push_to_list(&sys->e_list, e)) {
+    if (!push_to_list(&param->sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }
     id++;
-    set_entity(e, sys, compo);
+    set_entity(e, param->sys, compo);
     e->rect = NULL;
     e->clicked = NULL;
     e->hovered = NULL;
@@ -94,5 +93,6 @@ entity_t *create_entity(system_t *sys, int compo)
     e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
     e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
     e->text = NULL;
-    return e;
+    e->entity_time = sfClock_getElapsedTime(param->clock);
+   return e;
 }
