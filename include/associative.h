@@ -45,6 +45,7 @@ static const conf_function_t func_list[] = {
     {"tutorial", &tutorial},
     {"next_image", &next_image},
     {"prev_image", &prev_image},
+    {"add_life", &add_life},
     {NULL, NULL},
 };
 
