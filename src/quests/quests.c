@@ -42,6 +42,24 @@ static entity_t *disp_trigger(sfVector2f *npc_pos, parameters_t *param)
     return final_trigger;
 }
 
+static void set_text_pos(entity_t *npc, parameters_t *param)
+{
+    sfVector2f pos = {0};
+    sfVector2f p_center = {0};
+    e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
+
+    if (!npc || !npc->text)
+        return;
+    p_center = get_center(player->entity->sprite);
+    pos.x = p_center.x - sfText_getGlobalBounds
+        (npc->text).width / 2;
+    pos.y = p_center.y + DEFAULT_VIEW_SIZE_Y *
+        INVENTORY_HEIGHT_POURCENTAGE
+        / 2 - sfText_getGlobalBounds(npc->text).height / 2 - 30;
+    sfText_setPosition(npc->text, pos);
+    clean_list(player);
+}
+
 static bool check_npc_quest(entity_t *npc, entity_t *player,
     parameters_t *param)
 {
@@ -52,6 +70,7 @@ static bool check_npc_quest(entity_t *npc, entity_t *player,
 
     if (dist < DIST_TO_QUEST) {
         trigger = disp_trigger(&npc_pos, param);
+        set_text_pos(npc, param);
         if (sfKeyboard_isKeyPressed(sfKeyEnter)) {
             set_entity(npc, param->sys, BOX);
             trigger->clicked(param, NULL, false);
@@ -76,6 +95,15 @@ static void set_reset_pos(sfVector2f *p_center, parameters_t *param)
         QUEST_HEIGHT_POURCENTAGE
         / 2 - sfSprite_getGlobalBounds(reset_button->sprite).height / 2;
     sfSprite_setPosition(reset_button->sprite, pos);
+}
+
+void set_text_scale(parameters_t *param, entity_t *entity, char *value)
+{
+    double *scale_value = get_double_array(value);
+
+    if (entity->text)
+        sfText_setScale(entity->text,
+            (sfVector2f){scale_value[0], scale_value[1]});
 }
 
 void set_quest_pos(parameters_t *param)

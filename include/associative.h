@@ -91,6 +91,7 @@ static const conf_param_t param_list[] = {
     {"ATTACK", &set_attack},
     {"HEALTH", &set_health},
     {"TEXT", &set_text},
+    {"TEXT_SCALE", &set_text_scale},
     {NULL, NULL},
 };
 

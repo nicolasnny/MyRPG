@@ -217,6 +217,7 @@ bool unset_entity(system_t *sys, entity_t *e, int component);
 void set_name(parameters_t *param, entity_t *entity, char *value);
 bool remove_entity(system_t *sys, entity_t *e);
 entity_t *get_entity_by_name(system_t *sys, char const *name);
+void set_text_scale(parameters_t *param, entity_t *entity, char *value);
 
 // --> system
 system_t *create_system(void);
