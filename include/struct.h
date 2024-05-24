@@ -57,6 +57,7 @@ typedef struct entity_s {
     int attack;
     int health;
     sfTime entity_time;
+    sfText *text;
 } entity_t;
 
 typedef struct sokospot_s {

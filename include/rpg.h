@@ -131,7 +131,8 @@
     #define XP_WIDTH 0.17
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
-    #define XP_MAP_RECT_HEIGHT 180
+    #define XP_MAX_RECT_HEIGHT 180
+    #define LVL_GAP_WITH_BAR 15
 
 //-->main
 int my_rpg(int, char **);
@@ -309,7 +310,7 @@ int prev_image(parameters_t *param, entity_t *entity, bool state);
 int next_image(parameters_t *param, entity_t *entity, bool state);
 
 // --> lvl
-void set_lvl_pos(system_t *sys);
+void refresh_lvl_pos(system_t *sys);
 void move_lvl_rect(system_t *sys);
 
 // --> health and attack
