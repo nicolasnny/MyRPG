@@ -70,10 +70,10 @@ static void updtate_text(system_t *sys, int lvl)
     clean_list(l);
 }
 
-void move_lvl_rect(system_t *sys)
+void move_lvl_rect(parameters_t *param)
 {
-    e_list_t *xp = get_entities(sys, XP);
-    e_list_t *player = get_entities(sys, PLAYER | VISIBLE);
+    e_list_t *xp = get_entities(param->sys, XP);
+    e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
     sfIntRect rect = {0};
     static int lvl = 1;
 
@@ -85,7 +85,8 @@ void move_lvl_rect(system_t *sys)
         rect.top = XP_MAX_RECT_HEIGHT - rect.height;
         player->entity->attack += 1;
         lvl++;
-        updtate_text(sys, lvl);
+        add_life(param, NULL, false);
+        updtate_text(param->sys, lvl);
     }
     sfSprite_setTextureRect(xp->entity->sprite, rect);
     clean_list(xp);
