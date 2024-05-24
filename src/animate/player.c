@@ -26,20 +26,37 @@ static bool is_spaced(float time_sleep)
     return false;
 }
 
+static bool walk_time(void)
+{
+    static sfClock *clock = NULL;
+
+    if (clock == NULL) {
+        clock = sfClock_create();
+        return true;
+    }
+    if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock))
+            > WALK_SOUND_RFRESH) {
+        sfClock_restart(clock);
+        return true;
+    }
+    return false;
+}
+
 void animate_player_walk
 (parameters_t *param, sfIntRect *texture_pos, sfSprite *player)
 {
     static unsigned int flag = 1;
 
     texture_pos->top = PLAYER_WALK_START;
-    if (is_spaced(REFRESH_SPEED_WALK)) {
-        texture_pos->left += PLAYER_WIDTH + 8;
+    if (walk_time()) {
         if (flag % 2 == 0)
         sfSound_play(param->sounds_effect->walk_1);
         else
             sfSound_play(param->sounds_effect->walk_2);
         flag += 1;
     }
+    if (is_spaced(REFRESH_SPEED_WALK))
+        texture_pos->left += PLAYER_WIDTH + 8;
     if (texture_pos->left >= MAX_WALK_TEXTURE)
         texture_pos->left = 0;
     sfSprite_setTextureRect(player, *texture_pos);
