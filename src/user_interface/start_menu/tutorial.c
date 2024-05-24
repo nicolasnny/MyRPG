@@ -45,6 +45,8 @@ int next_image(parameters_t *param, entity_t *entity, bool state)
         temp = temp->next;
     }
     clean_list(tuto_images);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
 
@@ -66,6 +68,8 @@ int prev_image(parameters_t *param, entity_t *entity, bool state)
         temp = temp->next;
     }
     clean_list(tuto_images);
+    (void)entity;
+    (void)state;
     return SUCCESS;
 }
 

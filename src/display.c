@@ -39,6 +39,6 @@ void display_entities(parameters_t *param, int component)
             list->entity->rect, NULL);
         list = list->next;
     }
-    // disp_box(param);
+    disp_box(param);
     clean_list(head);
 }

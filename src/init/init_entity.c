@@ -87,19 +87,7 @@ static void init_entity_param(entity_t *e)
     e->sprite = NULL;
 }
 
-static void init_entity_param(entity_t *e)
-{
-    e->rect = NULL;
-    e->clicked = NULL;
-    e->hovered = NULL;
-    e->name = NULL;
-    e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
-    e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
-    e->text = NULL;
-    e->sprite = NULL;
-}
-
-entity_t *create_entity(system_t *sys, int compo)
+entity_t *create_entity(parameters_t *param, int compo)
 {
     entity_t *e = malloc(sizeof(entity_t));
     static unsigned int id = 0;
@@ -107,7 +95,7 @@ entity_t *create_entity(system_t *sys, int compo)
     if (e == NULL)
         return NULL;
     e->id = id;
-    if (!push_to_list(&sys->e_list, e)) {
+    if (!push_to_list(&param->sys->e_list, e)) {
         free_entity(e);
         return NULL;
     }

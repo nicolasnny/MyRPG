@@ -38,7 +38,7 @@ static void disp_trigger(sfVector2f *npc_pos, parameters_t *param)
         }
         triggers = triggers->next;
     }
-    set_entity(final_trigger, param->sys, QUEST_TRIGGER | VISIBLE);
+    set_entity(final_trigger, param->sys, VISIBLE);
 }
 
 static bool check_npc_quest(entity_t *npc, entity_t *player,

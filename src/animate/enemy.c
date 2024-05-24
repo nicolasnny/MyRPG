@@ -10,22 +10,6 @@
 #include "rpg.h"
 #include "struct.h"
 
-static bool frame_is_spaced(float time_sleep)
-{
-    static sfClock *clock = NULL;
-
-    if (clock == NULL) {
-        clock = sfClock_create();
-        return true;
-    }
-    if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock))
-            > time_sleep) {
-        sfClock_restart(clock);
-        return true;
-    }
-    return false;
-}
-
 void anime_enemy_walk(parameters_t *param, entity_t *enemy)
 {
     sfIntRect current = sfSprite_getTextureRect(enemy->sprite);
