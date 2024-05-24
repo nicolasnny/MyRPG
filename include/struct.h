@@ -81,6 +81,7 @@ typedef struct sounds_effect_s {
     sfSound *walk_1;
     sfSound *walk_2;
     sfSound *loading;
+    sfSound *bump;
 } sounds_effect_t;
 
 typedef struct parameters_s {

@@ -11,9 +11,26 @@
 #include "rpg.h"
 #include "struct.h"
 
-static void move_not_possible(void)
+static bool bump_time(void)
 {
-    printf("** bump sound **\n");
+    static sfClock *clock = NULL;
+
+    if (clock == NULL) {
+        clock = sfClock_create();
+        return true;
+    }
+    if (sfTime_asMilliseconds(sfClock_getElapsedTime(clock))
+            > BUMP_SOUND_RFRESH) {
+        sfClock_restart(clock);
+        return true;
+    }
+    return false;
+}
+
+static void move_not_possible(parameters_t *param)
+{
+    if (bump_time())
+        sfSound_play(param->sounds_effect->bump);
 }
 
 static bool spot_available(sokospot_t *spot)
@@ -72,7 +89,7 @@ static void move_in_array(parameters_t *param, sokospot_t ***map,
         return;
     }
     if (map[y][x]->type == OBSTACLE)
-        move_not_possible();
+        move_not_possible(param);
     set_prev_pos(param, player);
 }
 
