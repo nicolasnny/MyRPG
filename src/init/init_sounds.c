@@ -41,7 +41,7 @@ static void load_sounds_buffers(sounds_effect_t *sounds)
         sfSoundBuffer_createFromFile(ENEMY_DAMAGE_SOUND));
 }
 
-static set_sounds_volumes(sounds_effect_t *sounds)
+static void set_sounds_volumes(sounds_effect_t *sounds)
 {
     sfSound_setVolume(sounds->enemy_attack, EFFECTS_VOLUME);
     sfSound_setVolume(sounds->player_attack, EFFECTS_VOLUME);
