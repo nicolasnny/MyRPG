@@ -145,7 +145,9 @@
     #define XP_HEIGHT 0.93
     #define XP_RECT_HEIGHT 30
     #define XP_MAX_RECT_HEIGHT 180
-    #define LVL_GAP_WITH_BAR 15
+    #define TXT_HEIGHT_GAP 2.5
+    #define TXT_WIDTH_GAP 0.15
+    #define DEFAULT_LVL_FONT_SIZE 15
 
 //-->main
 int my_rpg(int, char **);

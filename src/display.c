@@ -37,6 +37,8 @@ void display_entities(parameters_t *param, int component)
         if (list->entity->rect)
             sfRenderWindow_drawRectangleShape(param->window,
             list->entity->rect, NULL);
+        if (list->entity->text)
+            sfRenderWindow_drawText(param->window, list->entity->text, NULL);
         list = list->next;
     }
     disp_box(param);
