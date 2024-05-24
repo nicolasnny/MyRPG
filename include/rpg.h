@@ -80,6 +80,7 @@
 
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
+    #define LOADING_SOUND "assets/sounds/loading.ogg"
     #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
     #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"

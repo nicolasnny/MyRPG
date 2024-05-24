@@ -62,6 +62,7 @@ int loading_screen_loop(parameters_t *param)
     e_list_t *temp = compo_list;
     bool load_over = false;
 
+    sfSound_play(param->sounds_effect->loading);
     while (!load_over && sfRenderWindow_isOpen(param->window)) {
         load_over = move_screen(param);
         display_entities(param, LOADING);
@@ -70,6 +71,7 @@ int loading_screen_loop(parameters_t *param)
         load_over = load_events(param, load_over);
         sfRenderWindow_clear(param->window, sfBlack);
     }
+    sfSound_stop(param->sounds_effect->loading);
     clean_list(compo_list);
     return SUCCESS;
 }
