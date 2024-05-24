@@ -54,10 +54,10 @@ bool check_monsters(parameters_t *param, entity_t *player)
     e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
 
     while (mobs != NULL) {
-           // printf("First name: %s\n", mobs->entity->name);
+        //printf("First name: %s\n", mobs->entity->name);
         if (enemy_in_range(player, mobs->entity, ENEMY_ATTACK_RANGE)) {
             remove_life(param->sys);
-            //  printf("name: %s\n", mobs->entity->name);
+            //printf("name: %s\n", mobs->entity->name);
             anime_enemy_fight(param, mobs->entity);
             return true;
         } else
@@ -79,10 +79,10 @@ int check_player_collisions(parameters_t *param)
     while (player != NULL) {
         time = (sfTime_asMilliseconds(sfClock_getElapsedTime(param->clock)) -
         sfTime_asMilliseconds(player->entity->entity_time));
-        if (check_monsters(param, player->entity)) {
+        if (check_monsters(param, player->entity))
             sfSprite_setTextureRect(player->entity->sprite, texture_pos);
-        }
-        if (check_monsters(param, player->entity) && time >= REFRESH_SPEED_DAMAGE) {
+        if (check_monsters(param, player->entity) &&
+            time >= REFRESH_SPEED_DAMAGE) {
             sfSound_play(param->sounds_effect->player_damage);
             player->entity->entity_time = sfClock_getElapsedTime(param->clock);
         }
