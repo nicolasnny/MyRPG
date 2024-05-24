@@ -76,6 +76,7 @@ static const conf_compo_t compo_list[] = {
     {"ITEM", ITEM},
     {"QUEST", QUEST},
     {"IN_GAME", IN_GAME},
+    {"TEXT", TEXT},
     {NULL, 0},
 };
 
