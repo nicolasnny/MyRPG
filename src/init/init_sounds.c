@@ -21,27 +21,43 @@ void launch_music(parameters_t *param)
     }
 }
 
-static void load_sounds_buffers(sounds_effect_t *sounds)
+
+static void load_sounds_buffers2(sounds_effect_t *sounds)
 {
-    sfSound_setBuffer(sounds->enemy_attack,
-        sfSoundBuffer_createFromFile(ENEMY_ATTACK_SOUND));
-    sfSound_setBuffer(sounds->player_attack,
-        sfSoundBuffer_createFromFile(PLAYER_ATTACK_SOUND));
-    sfSound_setBuffer(sounds->player_damage,
-        sfSoundBuffer_createFromFile(PLAYER_DAMMAGE_SOUND));
-    sfSound_setBuffer(sounds->walk_1,
-        sfSoundBuffer_createFromFile(PLAYER_WALK_1));
-    sfSound_setBuffer(sounds->walk_2,
-        sfSoundBuffer_createFromFile(PLAYER_WALK_2));
-    sfSound_setBuffer(sounds->loading,
-        sfSoundBuffer_createFromFile(LOADING_SOUND));
-    sfSound_setBuffer(sounds->bump,
-        sfSoundBuffer_createFromFile(BUMP_SOUND));
-    sfSound_setBuffer(sounds->enemy_damage,
-        sfSoundBuffer_createFromFile(ENEMY_DAMAGE_SOUND));
+    sfSoundBuffer *buffer = sfSoundBuffer_createFromFile(LOADING_SOUND);
+
+    sfSound_setBuffer(sounds->loading, buffer);
+    sfSoundBuffer_destroy(buffer);
+    buffer = sfSoundBuffer_createFromFile(BUMP_SOUND);
+    sfSound_setBuffer(sounds->bump, buffer);
+    sfSoundBuffer_destroy(buffer);
+    buffer = sfSoundBuffer_createFromFile(ENEMY_DAMAGE_SOUND);
+    sfSound_setBuffer(sounds->enemy_damage, buffer);
+    sfSoundBuffer_destroy(buffer);
 }
 
-static set_sounds_volumes(sounds_effect_t *sounds)
+static void load_sounds_buffers(sounds_effect_t *sounds)
+{
+    sfSoundBuffer *buffer = sfSoundBuffer_createFromFile(ENEMY_ATTACK_SOUND);
+
+    sfSound_setBuffer(sounds->enemy_attack, buffer);
+    sfSoundBuffer_destroy(buffer);
+    buffer = sfSoundBuffer_createFromFile(PLAYER_ATTACK_SOUND);
+    sfSound_setBuffer(sounds->player_attack, buffer);
+    sfSoundBuffer_destroy(buffer);
+    buffer = sfSoundBuffer_createFromFile(PLAYER_DAMMAGE_SOUND);
+    sfSound_setBuffer(sounds->player_damage, buffer);
+    sfSoundBuffer_destroy(buffer);
+    buffer = sfSoundBuffer_createFromFile(PLAYER_WALK_1);
+    sfSound_setBuffer(sounds->walk_1, buffer);
+    sfSoundBuffer_destroy(buffer);
+    buffer = sfSoundBuffer_createFromFile(PLAYER_WALK_2);
+    sfSound_setBuffer(sounds->walk_2, buffer);
+    sfSoundBuffer_destroy(buffer);
+    load_sounds_buffers2(sounds);
+}
+
+static void set_sounds_volumes(sounds_effect_t *sounds)
 {
     sfSound_setVolume(sounds->enemy_attack, EFFECTS_VOLUME);
     sfSound_setVolume(sounds->player_attack, EFFECTS_VOLUME);

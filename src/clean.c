@@ -66,6 +66,18 @@ static void free_sokomap(sokospot_t ***map)
     }
 }
 
+static void clean_sound_effect(parameters_t *param)
+{
+    sfSound_destroy(param->sounds_effect->bump);
+    sfSound_destroy(param->sounds_effect->enemy_attack);
+    sfSound_destroy(param->sounds_effect->enemy_damage);
+    sfSound_destroy(param->sounds_effect->loading);
+    sfSound_destroy(param->sounds_effect->player_attack);
+    sfSound_destroy(param->sounds_effect->player_damage);
+    sfSound_destroy(param->sounds_effect->walk_1);
+    sfSound_destroy(param->sounds_effect->walk_2);
+}
+
 void clean(parameters_t *param)
 {
     free_system(param->sys);
@@ -74,6 +86,10 @@ void clean(parameters_t *param)
     if (param->music) {
         sfMusic_stop(param->music);
         sfMusic_destroy(param->music);
+    }
+    if (param->sounds_effect) {
+        clean_sound_effect(param);
+        free(param->sounds_effect);
     }
     return;
 }
