@@ -48,6 +48,7 @@ static const conf_function_t func_list[] = {
     {"add_life", &add_life},
     {"reset_quest", &reset_quest},
     {"launch_fisherman", &launch_fisherman},
+    {"add_one_lvl", &add_one_lvl},
     {NULL, NULL},
 };
 
