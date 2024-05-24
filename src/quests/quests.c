@@ -104,6 +104,7 @@ void set_text_scale(parameters_t *param, entity_t *entity, char *value)
     if (entity->text)
         sfText_setScale(entity->text,
             (sfVector2f){scale_value[0], scale_value[1]});
+    (void)param;
 }
 
 void set_quest_pos(parameters_t *param)
