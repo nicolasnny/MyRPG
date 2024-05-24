@@ -24,6 +24,16 @@ static bool disp_box(parameters_t *param)
     return true;
 }
 
+void display_entity(sfRenderWindow *win, entity_t *e)
+{
+    if (e->sprite)
+        sfRenderWindow_drawSprite(win, e->sprite, NULL);
+    if (e->rect)
+        sfRenderWindow_drawRectangleShape(win, e->rect, NULL);
+    if (e->sprite == NULL && e->text)
+        sfRenderWindow_drawText(win, e->text, NULL);
+}
+
 void display_entities(parameters_t *param, int component)
 {
     e_list_t *list = get_entities(param->sys, component);
@@ -31,14 +41,7 @@ void display_entities(parameters_t *param, int component)
 
     head = list;
     while (list != NULL) {
-        if (list->entity->sprite)
-            sfRenderWindow_drawSprite(param->window,
-            list->entity->sprite, NULL);
-        if (list->entity->rect)
-            sfRenderWindow_drawRectangleShape(param->window,
-            list->entity->rect, NULL);
-        if (list->entity->text)
-            sfRenderWindow_drawText(param->window, list->entity->text, NULL);
+        display_entity(param->window, list->entity);
         list = list->next;
     }
     disp_box(param);
