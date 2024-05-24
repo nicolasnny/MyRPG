@@ -46,7 +46,7 @@ static void set_lvl_pos(system_t *sys)
 void refresh_lvl_pos(system_t *sys)
 {
     set_lvl_pos(sys);
-    set_text_lvl_pos(sys);
+    //set_text_lvl_pos(sys);
 }
 
 static void updtate_text(system_t *sys, int lvl)

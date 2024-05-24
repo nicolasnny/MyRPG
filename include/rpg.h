@@ -84,6 +84,7 @@
     #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
     #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
     #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define ENEMY_DAMAGE_SOUND "assets/sounds/enemy_damage.flac"
     #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
     #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
     #define BUMP_SOUND "assets/sounds/bump.flac"
