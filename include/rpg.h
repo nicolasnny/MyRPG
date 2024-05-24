@@ -80,9 +80,17 @@
 
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
-    #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
-    #define DEFAULT_VOLUME 100.0
+    #define LOADING_SOUND "assets/sounds/loading.ogg"
+    #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
+    #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
+    #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
+    #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
+    #define WALK_SOUND_RFRESH 200
+    #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define EFFECTS_VOLUME 20.0
+    #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
 
 // Player
@@ -96,6 +104,7 @@
     #define PLAYER_HEIGHT 27
     #define REFRESH_SPEED_WALK 70
     #define REFRESH_SPEED_IDLE 900
+    #define REFRESH_SPEED_DAMAGE 900
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
 
@@ -133,6 +142,7 @@ int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfMusic *init_sound(char *path);
 void launch_music(parameters_t *param);
 sokospot_t ***get_map(char const *filepath);
+sounds_effect_t *init_sounds_effect(void);
 
 //---> events
 int window_events(parameters_t *param, int component);
@@ -166,9 +176,11 @@ sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
 void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
 
 // Animation
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
+void animate_player_walk
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
 void animate_idle(sfIntRect *idle_pos, sfSprite *player);
-void animate_attack(sfIntRect *idle_pos, sfSprite *player);
+void animate_attack
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
 void anime_enemy_walk(parameters_t *param, entity_t *enemy);
 void anime_enemy_fight(parameters_t *param, entity_t *enemy);
 //void anime_enemy_die(parameters_t *param, entity_t *enemy);
@@ -182,6 +194,7 @@ int get_file_size(char const *filename);
 // unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 sfVector2f get_center(sfSprite *s);
+bool check_monsters(parameters_t *param, entity_t *player);
 
 // ECS
 // --> entity

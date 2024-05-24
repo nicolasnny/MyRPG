@@ -38,7 +38,7 @@ static bool move_screen(parameters_t *param)
         (sfIntRect){0, PLAYER_WALK_START, PLAYER_WIDTH, PLAYER_HEIGHT};
 
     if (e != NULL && wait_time(LOAD_TIME_MOVE)) {
-        animate_player_walk(&texture_pos, e->sprite);
+        animate_player_walk(param, &texture_pos, e->sprite);
         if (!move_sprite(e->sprite, &win_size))
             return true;
         return false;
@@ -62,6 +62,7 @@ int loading_screen_loop(parameters_t *param)
     e_list_t *temp = compo_list;
     bool load_over = false;
 
+    sfSound_play(param->sounds_effect->loading);
     while (!load_over && sfRenderWindow_isOpen(param->window)) {
         load_over = move_screen(param);
         display_entities(param, LOADING);
@@ -70,6 +71,7 @@ int loading_screen_loop(parameters_t *param)
         load_over = load_events(param, load_over);
         sfRenderWindow_clear(param->window, sfBlack);
     }
+    sfSound_stop(param->sounds_effect->loading);
     clean_list(compo_list);
     return SUCCESS;
 }

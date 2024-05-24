@@ -124,11 +124,11 @@ void move_player(parameters_t *param, sfIntRect *texture_pos,
     if (move.x != 0.0 || move.y != 0.0) {
         idle_pos->top = PLAYER_IDLE_START;
         flip_sprite(move, player->sprite, scale);
-        animate_player_walk(texture_pos, player->sprite);
+        animate_player_walk(param, texture_pos, player->sprite);
         update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
     } else
         animate_idle(idle_pos, player->sprite);
     if (sfMouse_isButtonPressed(sfMouseLeft))
-        animate_attack(texture_pos, player->sprite);
+        animate_attack(param, texture_pos, player->sprite);
 }
