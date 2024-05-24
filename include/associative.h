@@ -42,6 +42,9 @@ static const conf_function_t func_list[] = {
     {"set_sound_volume_up", &set_sound_volume_up},
     {"set_sound_volume_down", &set_sound_volume_down},
     {"reset_sound_volume", &reset_sound_volume},
+    {"tutorial", &tutorial},
+    {"next_image", &next_image},
+    {"prev_image", &prev_image},
     {NULL, NULL},
 };
 
@@ -64,6 +67,10 @@ static const conf_compo_t compo_list[] = {
     {"HEART", HEART},
     {"FULL_LIFE", FULL_LIFE},
     {"LOW_LIFE", LOW_LIFE},
+    {"TUTORIAL", TUTORIAL},
+    {"IMAGE", IMAGE},
+    {"XP", XP},
+    {"ITEM", ITEM},
     {NULL, 0},
 };
 
@@ -77,6 +84,8 @@ static const conf_param_t param_list[] = {
     {"HOVER", &set_hover},
     {"NAME", &set_name},
     {"RUN_ON_START", &run_on_start},
+    {"ATTACK", &set_attack},
+    {"HEALTH", &set_health},
     {"TEXT", &set_text},
     {NULL, NULL},
 };

@@ -20,7 +20,7 @@ static sokospot_t *create_defaut_sokospot(char type)
         return NULL;
     }
     spot->type = EMPTY;
-    if (type == OBSTACLE || type == NPC_LIMIT)
+    if (type == OBSTACLE)
         spot->type = type;
     return spot;
 }

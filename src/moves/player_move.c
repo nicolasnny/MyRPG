@@ -24,7 +24,7 @@ static bool spot_available(sokospot_t *spot)
         return false;
     }
     type = spot->type;
-    if (type == EMPTY || type == NPC_LIMIT) {
+    if (type == EMPTY) {
         return true;
     }
     return false;
@@ -107,10 +107,11 @@ static void update_player_in_map
     set_player_new_pos(param, move);
     move_in_array(param, param->map_array, player);
     refresh_inventory_pos(param->sys);
+    refresh_heart_position(param->sys);
+    set_lvl_pos(param->sys);
 }
 
-void move_player
-(parameters_t *param, sfIntRect *texture_pos,
+void move_player(parameters_t *param, sfIntRect *texture_pos,
     sfIntRect *idle_pos, sfVector2f *scale)
 {
     entity_t *player = get_player_entity(param->sys);
@@ -123,11 +124,11 @@ void move_player
     if (move.x != 0.0 || move.y != 0.0) {
         idle_pos->top = PLAYER_IDLE_START;
         flip_sprite(move, player->sprite, scale);
-        animate_player_walk(texture_pos, player->sprite);
+        animate_player_walk(param, texture_pos, player->sprite);
         update_player_in_map(param, player, move);
         sfRenderWindow_setView(param->window, param->view);
     } else
         animate_idle(idle_pos, player->sprite);
     if (sfMouse_isButtonPressed(sfMouseLeft))
-        animate_attack(texture_pos, player->sprite);
+        animate_attack(param, texture_pos, player->sprite);
 }

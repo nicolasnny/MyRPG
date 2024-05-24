@@ -87,6 +87,18 @@ static void init_entity_param(entity_t *e)
     e->sprite = NULL;
 }
 
+static void init_entity_param(entity_t *e)
+{
+    e->rect = NULL;
+    e->clicked = NULL;
+    e->hovered = NULL;
+    e->name = NULL;
+    e->pos = (sfVector2f){NEG_ERROR, NEG_ERROR};
+    e->scale = (sfVector2f){DEFAULT_SCALE, DEFAULT_SCALE};
+    e->text = NULL;
+    e->sprite = NULL;
+}
+
 entity_t *create_entity(system_t *sys, int compo)
 {
     entity_t *e = malloc(sizeof(entity_t));
@@ -100,7 +112,8 @@ entity_t *create_entity(system_t *sys, int compo)
         return NULL;
     }
     id++;
-    set_entity(e, sys, compo);
+    set_entity(e, param->sys, compo);
     init_entity_param(e);
+    e->entity_time = sfClock_getElapsedTime(param->clock);
     return e;
 }

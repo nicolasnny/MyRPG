@@ -31,16 +31,20 @@ typedef enum component_s {
     MENU = 1 << 7,
     CLICKABLE = 1 << 8,
     SETTINGS = 1 << 9,
-    BABLA = 1 << 10,
-    IN_GAME_MENU = 1 << 11,
-    ON_MAP = 1 << 12,
-    LOADING = 1 << 13,
-    HEART = 1 << 14,
-    FULL_LIFE = 1 << 15,
-    LOW_LIFE = 1 << 16,
-    BOX = 1 << 17,
-    QUEST_TRIGGER = 1 << 18,
-    __END__ = 1 << 19,
+    IN_GAME_MENU = 1 << 10,
+    ON_MAP = 1 << 11,
+    LOADING = 1 << 12,
+    HEART = 1 << 13,
+    FULL_LIFE = 1 << 14,
+    LOW_LIFE = 1 << 15,
+    XP = 1 << 16,
+    TEXT = 1 << 17,
+    ITEM = 1 << 18,
+    TUTORIAL = 1 << 18,
+    IMAGE = 1 << 19,
+    BOX = 1 << 20,
+    QUEST_TRIGGER = 1 << 21,
+    __END__ = 1 << 22,
 } component_t;
 
 typedef struct entity_s {
@@ -52,6 +56,9 @@ typedef struct entity_s {
     int (*hovered)(parameters_t *param, entity_t *entity, bool hovered);
     sfVector2f scale;
     sfVector2f pos;
+    int attack;
+    int health;
+    sfTime entity_time;
     sfText *text;
 } entity_t;
 
@@ -69,6 +76,15 @@ typedef struct system_s {
     e_list_t *component[__END__];
 } system_t;
 
+typedef struct sounds_effect_s {
+    sfSound *player_attack;
+    sfSound *player_damage;
+    sfSound *enemy_attack;
+    sfSound *walk_1;
+    sfSound *walk_2;
+    sfSound *loading;
+} sounds_effect_t;
+
 typedef struct parameters_s {
     sfRenderWindow* window;
     sfView *view;
@@ -78,6 +94,8 @@ typedef struct parameters_s {
     sokospot_t ***map_array;
     system_t *sys;
     int game_state;
+    sfClock *clock;
+    sounds_effect_t *sounds_effect;
     bool (*actual_quest)(parameters_t *param);
 } parameters_t;
 

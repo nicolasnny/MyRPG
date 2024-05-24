@@ -26,11 +26,12 @@ int init_args(parameters_t *param)
 {
     sfVideoMode video_mode = {WIN_WIDTH, WIN_HEIGHT, WIN_PIX_NB};
 
+    param->clock = sfClock_create();
     param->window = sfRenderWindow_create(video_mode, "My RPG",
         sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(param->window, FPS);
     param->sys = create_system();
-    if (param->sys == NULL || param->window == NULL) {
+    if (param->sys == NULL || param->window == NULL || param->clock == NULL) {
         return ERROR;
     }
     create_from_conf(param);
@@ -41,6 +42,7 @@ int init_args(parameters_t *param)
     param->view = create_view();
     param->sound_volume = 100.0;
     param->music = NULL;
+    param->sounds_effect = init_sounds_effect();
     param->actual_quest = NULL;
     return SUCCESS;
 }

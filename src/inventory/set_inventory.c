@@ -30,7 +30,7 @@ static void set_inv_format(sfSprite *s)
 
 static void set_inventory_sprite_size(system_t *sys)
 {
-    e_list_t *list = get_entities(sys, INVENTORY);
+    e_list_t *list = get_entities(sys, INVENTORY | ITEM);
     e_list_t *head = list;
 
     while (list) {
@@ -63,7 +63,7 @@ static void set_selected_sprite(sfSprite *s, sfFloatRect *bar_rect)
 
 sfFloatRect get_rect(system_t *sys)
 {
-    e_list_t *bar_list = get_entities(sys, BAR);
+    e_list_t *bar_list = get_entities(sys, BAR | INVENTORY);
     sfFloatRect rect = {0};
 
     rect.height = NEG_ERROR;
@@ -76,9 +76,9 @@ sfFloatRect get_rect(system_t *sys)
 
 void set_inventory_items_pos(system_t *sys)
 {
-    e_list_t *list = get_entities(sys, INVENTORY | VISIBLE);
+    e_list_t *list = get_entities(sys, INVENTORY | ITEM | VISIBLE);
     e_list_t *head = list;
-    e_list_t *select = get_entities(sys, SELECTED);
+    e_list_t *select = get_entities(sys, SELECTED | ITEM | VISIBLE);
     sfFloatRect rect = get_rect(sys);
     unsigned int index = 0;
 

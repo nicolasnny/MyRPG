@@ -21,13 +21,11 @@
     #define IN 1
     #define OUT -1
     #define NOT_FOUND -1
-    #define TIME_BEFORE_MOVE 20
-    #define FONT_PATH "src/sprites/game_font.ttf"
-    #define PLAYER_ATTACK_RANGE 250
-    #define ENNEMY_ATTACK_RANGE 30
+    #define TIME_BEFORE_MOVE 30
+    #define PLAYER_ATTACK_RANGE 60
+    #define ENEMY_ATTACK_RANGE 30
     #define PLAYER_SPEED 4
     #define MOBS_SPEED 1
-    #define DEFAULT_NAME "Mob"
     #define GRAB_RANGE 30
     #define AGRO_DIST 150
     #define LOAD_MC_NAME "mc"
@@ -37,18 +35,12 @@
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"
-    #define MAP_SPRITE_PATH "assets/maps/map2.png"
     #define MAP_ARRAY_PATH "tests/maps/map1.txt"
-    #define PLAYER_CHAR 'P'
     #define OBSTACLE '#'
     #define EMPTY ' '
     #define ENEMY 'E'
-    #define NPC_LIMIT 'L'
-    #define NPC_CHAR 'N'
     #define MAP_WIDTH 360
     #define MAP_HEIGHT 200
-    #define TMP_HEIGHT 60
-    #define TMP_WIDTH 33
 
 // view
     #define DEFAULT_VIEW_SIZE_X 500
@@ -59,9 +51,6 @@
     #define SLOT_TOP 5
     #define SLOT1_WIDTH 33
     #define SLOT_WIDTH 17
-    #define DESCRIPTION_BOX_START 32
-    #define DESCRIPTION_BOX_END 99
-    #define DESCRIPTION_FONT_SIZE 14
     #define INVENTORY_SCALE 1.5
     #define INVENTORY_HEIGHT_POURCENTAGE 0.8
     #define INVENTORY_CAPACITY 4
@@ -91,9 +80,17 @@
 
 // Sounds
     #define MUSIC_PATH "assets/sounds/music.wav"
-    #define AMBIANT_SOUND_PATH "assets/sounds/nature.mp3"
-    #define DEFAULT_VOLUME 100.0
+    #define LOADING_SOUND "assets/sounds/loading.ogg"
+    #define ENEMY_ATTACK_SOUND "assets/sounds/enemy_attack.flac"
+    #define PLAYER_ATTACK_SOUND "assets/sounds/player_attack.flac"
+    #define PLAYER_DAMMAGE_SOUND "assets/sounds/damage.flac"
+    #define PLAYER_WALK_1 "assets/sounds/walk_1.flac"
+    #define PLAYER_WALK_2 "assets/sounds/walk_2.flac"
+    #define WALK_SOUND_RFRESH 200
+    #define DEFAULT_VOLUME 1.0
     #define MAX_VOLUME 100.0
+    #define EFFECTS_VOLUME 20.0
+    #define LOW_VOLUME 5.0
     #define MIN_VOLUME 0.0
 
 // Player
@@ -107,8 +104,22 @@
     #define PLAYER_HEIGHT 27
     #define REFRESH_SPEED_WALK 70
     #define REFRESH_SPEED_IDLE 900
+    #define REFRESH_SPEED_DAMAGE 900
     #define MAX_WALK_TEXTURE 140
     #define MAX_IDLE_TEXTURE 70
+
+// Enemy
+    #define ENEMY_WALK_START 60
+    #define ENEMY_ATTACK_START 105
+    #define ENEMY_DAMMAGE_START 150
+    #define ENEMY_WIDTH 40
+    #define ENEMY_WIDTH_ATTACK 45
+    #define ENEMY_HEIGHT 35
+    #define ENEMY_MAX_WALK_TEXTURE 300
+    #define ENEMY_MAX_DAMMAGE_TEXTURE 370
+    #define ENEMY_MAX_IDLE_TEXTURE 70
+    #define ENEMY_REFRESH_SPEED_WALK 150
+    #define ENEMY_MAX_ATTACK_TEXTURE 700
 
 // Quest
     #define DIST_TO_QUEST 40.0
@@ -116,8 +127,15 @@
 
 // LIFE
     #define HEART_WIDTH 900
-    #define HEART_LEFT_POURCENTAGE 0.4
-    #define LOSE_LIFE_COOLDOWN 3000
+    #define HEART_LEFT_POURCENTAGE 0.45
+    #define LOSE_LIFE_COOLDOWN 1000
+    #define HEART_HEIGHT_POURCENTAGE 0.65
+
+// xp
+    #define XP_WIDTH 0.17
+    #define XP_HEIGHT 0.93
+    #define XP_RECT_HEIGHT 30
+    #define XP_MAP_RECT_HEIGHT 180
 
 //-->main
 int my_rpg(int, char **);
@@ -128,14 +146,12 @@ int init_inventory(parameters_t *param, entity_t *entity, bool state);
 sfMusic *init_sound(char *path);
 void launch_music(parameters_t *param);
 sokospot_t ***get_map(char const *filepath);
+sounds_effect_t *init_sounds_effect(void);
 
 //---> events
 int window_events(parameters_t *param, int component);
 void make_life(parameters_t *param);
-int mouse_events(parameters_t *param, int component);
-
-//-->time
-//int wait_time(sfClock *clock, float time_sleep);
+int mouse_events(parameters_t *param, int component, e_list_t *compo_list);
 
 //----> clean
 void clean(parameters_t *param);
@@ -160,28 +176,34 @@ bool get_sprite_coords_on_sokomap(sfVector2f *map_size, sfSprite *s,
     int *line, int *col);
 sfVector2f get_map_size(system_t *sys);
 sfSprite *get_player(system_t *sys);
-void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
-void animate_player_walk(sfIntRect *texture_pos, sfSprite *player);
-void animate_idle(sfIntRect *idle_pos, sfSprite *player);
-void animate_attack(sfIntRect *idle_pos, sfSprite *player);
 sokospot_t *get_entity_spot(sokospot_t ***map, entity_t *e);
+void flip_sprite(sfVector2f move, sfSprite *player, sfVector2f *scale);
+
+// Animation
+void animate_player_walk
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
+void animate_idle(sfIntRect *idle_pos, sfSprite *player);
+void animate_attack
+(parameters_t *param, sfIntRect *texture_pos, sfSprite *player);
+void anime_enemy_walk(parameters_t *param, entity_t *enemy);
+void anime_enemy_fight(parameters_t *param, entity_t *enemy);
+//void anime_enemy_die(parameters_t *param, entity_t *enemy);
 
 //----> utilities
-// char **my_pimp_str_to_wa(char *str, char *delim);
 // char **my_pimp_str_to_wa(char *str, char *delim);
 char *get_file_content(char const *filename);
 int read_open(char const *filename);
 int open_append(char const *filename);
 int get_file_size(char const *filename);
 // unsigned int my_strstrlen(char **array);
-// unsigned int my_strstrlen(char **array);
 void free_str_array(char **map);
 sfVector2f get_center(sfSprite *s);
+bool check_monsters(parameters_t *param, entity_t *player);
 
 // ECS
 // --> entity
 bool set_entity(entity_t *entity, system_t *system, int component);
-entity_t *create_entity(system_t *sys, int component);
+entity_t *create_entity(parameters_t *param, int compo);
 e_list_t *get_entities(system_t *sys, int component);
 void set_scale(parameters_t *param, entity_t *entity, char *value);
 void set_pos(parameters_t *param, entity_t *entity, char *value);
@@ -207,7 +229,7 @@ bool remove_entity_from_list(e_list_t **list, entity_t *e);
 unsigned int get_list_size(e_list_t *list);
 
 // --> collisions
-int check_player_collisions(system_t *sys);
+int check_player_collisions(parameters_t *param);
 
 // --> random
 int random_nb(int a, int b);
@@ -253,7 +275,7 @@ void drop_selected_item(system_t *sys);
 void grab_drop_events(parameters_t *param);
 
 // --> fight
-bool ennemy_in_range(entity_t *player, entity_t *ennemy);
+bool enemy_in_range(entity_t *player, entity_t *enemy, unsigned int range);
 int kill_entity(parameters_t *param, entity_t *entity, bool state);
 double get_distance_bewteen_pos(sfVector2f *pa, sfVector2f *pb);
 
@@ -290,5 +312,18 @@ void refresh_heart_position(system_t *sys);
 void move_heart_rect(sfSprite *s);
 void remove_life(system_t *sys);
 bool is_player_alive(system_t *sys);
+
+// --> tutorial
+int tutorial(parameters_t *param, entity_t *entity, bool state);
+int prev_image(parameters_t *param, entity_t *entity, bool state);
+int next_image(parameters_t *param, entity_t *entity, bool state);
+
+// --> lvl
+void set_lvl_pos(system_t *sys);
+void move_lvl_rect(system_t *sys);
+
+// --> health and attack
+void set_health(parameters_t *param, entity_t *entity, char *value);
+void set_attack(parameters_t *param, entity_t *entity, char *value);
 
 #endif

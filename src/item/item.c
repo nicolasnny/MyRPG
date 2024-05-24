@@ -40,13 +40,15 @@ void drop_selected_item(system_t *sys)
 
 static bool remove_inv_last_element(system_t *sys)
 {
-    e_list_t *inv = get_entities(sys, INVENTORY);
+    e_list_t *inv = get_entities(sys, INVENTORY | ITEM);
+    e_list_t *temp = inv;
 
     if (inv == NULL)
         return false;
-    while (inv && inv->next)
-        inv = inv->next;
-    drop_item(sys, inv->entity);
+    while (temp && temp->next)
+        temp = temp->next;
+    drop_item(sys, temp->entity);
+    clean_list(inv);
     return true;
 }
 
@@ -56,7 +58,7 @@ static void grab_item(system_t *sys, entity_t *e)
 
     unset_entity(sys, e, ON_MAP);
     set_entity(e, sys, INVENTORY);
-    inventory = get_entities(sys, INVENTORY);
+    inventory = get_entities(sys, INVENTORY | ITEM);
     if (get_list_size(inventory) > INVENTORY_CAPACITY) {
         remove_inv_last_element(sys);
     }

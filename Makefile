@@ -56,12 +56,16 @@ SRC     =	src/main.c	\
 				src/item/item.c	\
 				src/init/init_sounds.c	\
 				src/animate/player.c	\
+				src/animate/enemy.c	\
 				src/animate/heart.c	\
         src/volume/sound.c		\
 				src/volume/music.c		\
 				src/loading/loop.c	\
 				src/quests/quests.c			\
 				src/heart/heart.c	\
+				src/user_interface/start_menu/tutorial.c	\
+				src/level/lvl.c	\
+				src/attack_n_health.c	\
 
 UT_SRC	=	tests/unit_tests.c	\
 			    tests/test.c	\
@@ -117,6 +121,7 @@ UT_SRC	=	tests/unit_tests.c	\
 				src/volume/music.c		\
 				src/loading/loop.c	\
 				src/heart/heart.c	\
+				src/level/lvl.c	\
 
 CRFLAGS	=	--coverage -lcriterion
 
@@ -134,7 +139,7 @@ LIBNAME	=	libmy.a
 
 CPPFLAGS	=	-I./include/
 
-CFLAGS	=	-Wall -Wextra
+CFLAGS	=	-Wall -Wextra #-fsanitize=address
 
 LIBNAME	=	libmy.a
 
