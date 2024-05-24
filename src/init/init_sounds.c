@@ -22,7 +22,7 @@ void launch_music(parameters_t *param)
 }
 
 
-static void load_sounds_buffers2(sounds_effect_t *sounds)
+static void load_sounds_buffers_assist(sounds_effect_t *sounds)
 {
     sfSoundBuffer *buffer = sfSoundBuffer_createFromFile(LOADING_SOUND);
 
@@ -54,7 +54,7 @@ static void load_sounds_buffers(sounds_effect_t *sounds)
     buffer = sfSoundBuffer_createFromFile(PLAYER_WALK_2);
     sfSound_setBuffer(sounds->walk_2, buffer);
     sfSoundBuffer_destroy(buffer);
-    load_sounds_buffers2(sounds);
+    load_sounds_buffers_assist(sounds);
 }
 
 static void set_sounds_volumes(sounds_effect_t *sounds)

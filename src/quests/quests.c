@@ -14,11 +14,13 @@
 static void reset_trigger(parameters_t *param)
 {
     e_list_t *triggers = get_entities(param->sys, QUEST_TRIGGER);
+    e_list_t *head = triggers;
 
     while (triggers) {
         unset_entity(param->sys, triggers->entity, VISIBLE);
         triggers = triggers->next;
     }
+    clean_list(head);
 }
 
 static entity_t *disp_trigger(sfVector2f *npc_pos, parameters_t *param)
@@ -48,8 +50,12 @@ static void set_text_pos(entity_t *npc, parameters_t *param)
     sfVector2f p_center = {0};
     e_list_t *player = get_entities(param->sys, PLAYER | VISIBLE);
 
-    if (!npc || !npc->text)
+    if (player == NULL)
         return;
+    if (!npc || !npc->text) {
+        clean_list(player);
+        return;
+    }
     p_center = get_center(player->entity->sprite);
     pos.x = p_center.x - sfText_getGlobalBounds
         (npc->text).width / 2;

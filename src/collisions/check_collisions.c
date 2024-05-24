@@ -14,6 +14,7 @@
 bool check_monsters(parameters_t *param, entity_t *player)
 {
     e_list_t *mobs = get_entities(param->sys, MOB | VISIBLE);
+    e_list_t *head = mobs;
     bool flag = false;
 
     while (mobs != NULL) {
@@ -25,7 +26,7 @@ bool check_monsters(parameters_t *param, entity_t *player)
             anime_enemy_walk(param, mobs->entity);
         mobs = mobs->next;
     }
-    clean_list(mobs);
+    clean_list(head);
     return flag;
 }
 

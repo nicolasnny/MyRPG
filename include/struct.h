@@ -52,6 +52,7 @@ typedef enum component_s {
 typedef struct entity_s {
     int id;
     sfSprite *sprite;
+    sfTexture *texture;
     sfRectangleShape *rect;
     char *name;
     int (*clicked)(parameters_t *param, entity_t *entity, bool clicked);

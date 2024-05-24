@@ -87,6 +87,7 @@ static void init_entity_param(entity_t *e)
     e->attack = DEFAULT_ENTITY_ATTACK;
     e->health = DEFAULT_ENTITY_HEALTH;
     e->sprite = NULL;
+    e->texture = NULL;
 }
 
 entity_t *create_entity(parameters_t *param, int compo)

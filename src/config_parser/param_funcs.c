@@ -80,25 +80,24 @@ static void fill_texture_rect
     }
 }
 
-void set_texture(parameters_t *param, entity_t *entity, char *value)
+void set_texture(parameters_t *param, entity_t *e, char *value)
 {
     char **args = my_str_to_word_array(value, ";");
     int *rect = NULL;
-    sfIntRect texture_rect = (sfIntRect){0, 0, 0, 0};
+    sfIntRect tr = (sfIntRect){0, 0, 0, 0};
     bool rect_input = false;
 
     if (args[1])
         rect = get_int_array(args[1]);
-    fill_texture_rect(rect, &texture_rect, &rect_input, args);
-    sfSprite_setOrigin(entity->sprite,
-        (sfVector2f){texture_rect.width / 2, texture_rect.height / 2});
+    fill_texture_rect(rect, &tr, &rect_input, args);
+    sfSprite_setOrigin(e->sprite, (sfVector2f){tr.width / 2, tr.height / 2});
     if (strcmp("NULL", value) != 0) {
-        if (entity->sprite && rect_input)
-            set_sprite_texture(entity, args[0], &texture_rect);
-        if (entity->sprite && !rect_input)
-            set_sprite_texture(entity, args[0], (sfIntRect *)rect);
-        if (entity->rect)
-            set_rectangle_texture(entity, args[0], NULL);
+        if (e->sprite && rect_input)
+            set_sprite_texture(e, args[0], &tr);
+        if (e->sprite && !rect_input)
+            set_sprite_texture(e, args[0], (sfIntRect *)rect);
+        if (e->rect)
+            set_rectangle_texture(e, args[0], NULL);
     }
     free_str_array(args);
     (void)param;
@@ -123,7 +122,7 @@ void run_on_start(parameters_t *param, entity_t *entity, char *value)
 
 void set_text(parameters_t *param, entity_t *entity, char *value)
 {
-    sfFont *font = sfFont_createFromFile("assets/fonts/aberus.ttf");
+    sfFont *font = sfFont_createFromFile(DEFAULT_FONT);
 
     if (strcmp(value, "NULL") == 0) {
         sfFont_destroy(font);

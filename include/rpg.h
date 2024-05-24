@@ -34,6 +34,7 @@
     #define DEFAULT_SCALE 1.0
     #define DEFAULT_ENTITY_ATTACK 1
     #define DEFAULT_ENTITY_HEALTH 3
+    #define DEFAULT_FONT "assets/fonts/aberus.ttf"
 
 // map
     #define MAP_NAME "Royaume_de_Selestat"

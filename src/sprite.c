@@ -32,4 +32,5 @@ void set_sprite_texture(entity_t *e, char const *texture_path,
     sfSprite_setTexture(e->sprite, texture, sfFalse);
     if (rect != NULL)
         sfSprite_setTextureRect(e->sprite, *rect);
+    e->texture = texture;
 }

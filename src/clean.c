@@ -26,10 +26,14 @@ void free_entity(entity_t *e)
     if (e->sprite != NULL) {
         sfSprite_destroy(e->sprite);
     }
+    if (e->texture)
+        sfTexture_destroy(e->texture);
     if (e->name != NULL)
         free(e->name);
     if (e->rect != NULL)
         sfRectangleShape_destroy(e->rect);
+    if (e->text)
+        sfText_destroy(e->text);
     free(e);
 }
 
